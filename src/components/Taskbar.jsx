@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../store';
-import { FolderIcon, ExecutableIcon, StartLogo, FileExplorerIcon, SettingsIcon, UserFolderIcon, ProjectsFolderIcon, RetroGlobeIcon, ChevronUpIcon, SkillsIcon } from './Icons';
+import { FolderIcon, ExecutableIcon, StartLogo, FileExplorerIcon, SettingsIcon, UserFolderIcon, ProjectsFolderIcon, RetroGlobeIcon, ChevronUpIcon, SkillsIcon, ShutdownIcon } from './Icons';
 
 export const Taskbar = () => {
   const { 
@@ -11,7 +11,8 @@ export const Taskbar = () => {
     openWindow,
     startMenuOpen, 
     toggleStartMenu,
-    closeStartMenu
+    closeStartMenu,
+    openShutdownDialog
   } = useStore();
 
   const [time, setTime] = useState(new Date());
@@ -160,6 +161,11 @@ export const Taskbar = () => {
             <div className="start-menu-item" onClick={() => handleStartMenuItemClick('aboutMe')}>
               <span className="start-menu-item-icon"><UserFolderIcon size={16} /></span>
               <span>About Me</span>
+            </div>
+            <div className="start-menu-divider" />
+            <div className="start-menu-item" onClick={() => openShutdownDialog()}>
+              <span className="start-menu-item-icon"><ShutdownIcon size={16} /></span>
+              <span>Shut Down...</span>
             </div>
           </div>
         </div>

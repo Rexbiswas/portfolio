@@ -296,3 +296,19 @@ export const SkillsIcon = ({ size = 32 }) => (
   </svg>
 );
 
+export const ShutdownIcon = ({ size = 32 }) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Computer screen with power symbol inside */}
+    <rect x="4" y="6" width="24" height="16" fill="#c0c0c0" stroke="#000000" strokeWidth="1.5" />
+    <rect x="6" y="8" width="20" height="12" fill="#000000" />
+    {/* Red Power Symbol */}
+    <circle cx="16" cy="14" r="4" stroke="#ff3333" strokeWidth="1.5" fill="none" />
+    <line x1="16" y1="10" x2="16" y2="14" stroke="#ff3333" strokeWidth="1.5" strokeLinecap="round" />
+    {/* Stand */}
+    <path d="M11 22L10 26H22L21 22H11Z" fill="#c0c0c0" stroke="#000000" strokeWidth="1.5" />
+    {/* Bevel details */}
+    <line x1="5" y1="7" x2="27" y2="7" stroke="#ffffff" strokeWidth="1" />
+    <line x1="5" y1="7" x2="5" y2="21" stroke="#ffffff" strokeWidth="1" />
+  </svg>
+);
+

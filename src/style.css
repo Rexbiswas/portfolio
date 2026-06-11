@@ -1160,7 +1160,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 2px 6px;
+  padding: 1px 8px;
   height: 28px;
   background-color: var(--win-bg);
   font-family: "MS Sans Serif", Tahoma, sans-serif;
@@ -1172,19 +1172,23 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 16px;
+  height: 100%;
 }
 
 .tray-clock {
-  margin-left: 4px;
-  font-size: 11px;
+  margin-left: 6px;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  line-height: 1.15;
+  line-height: 1.0;
   text-align: center;
-  padding: 0 2px;
+  padding: 0 8px;
+  min-width: 80px;
+  height: 100%;
+  position: relative;
+  top: 2px;
 }
 
 .tray-time {
@@ -1192,9 +1196,9 @@ body {
 }
 
 .tray-date {
-  font-size: 9px;
+  font-size: 10px;
   opacity: 0.9;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 /* Desktop Context Menu */

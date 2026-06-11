@@ -70,6 +70,13 @@ export const useStore = create((set) => ({
   startMenuOpen: false,
   wallpaperTheme: 'classic',
   setWallpaperTheme: (theme) => set({ wallpaperTheme: theme }),
+  systemMode: 'normal',
+  isShutdownDialogOpen: false,
+  isBooting: true,
+  setBooting: (bool) => set({ isBooting: bool }),
+  openShutdownDialog: () => set({ isShutdownDialogOpen: true, startMenuOpen: false }),
+  closeShutdownDialog: () => set({ isShutdownDialogOpen: false }),
+  setSystemMode: (mode) => set({ systemMode: mode, isShutdownDialogOpen: false }),
 
   openWindow: (id) =>
     set((state) => {

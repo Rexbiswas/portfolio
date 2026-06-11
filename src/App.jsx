@@ -2,12 +2,18 @@ import React, { useEffect } from 'react';
 import { useStore } from './store';
 import { Desktop } from './components/Desktop';
 import { Taskbar } from './components/Taskbar';
+import { ShutdownDialog } from './components/ShutdownDialog';
+import { ShutdownScreen } from './components/ShutdownScreen';
+import { MSDOSPrompt } from './components/MSDOSPrompt';
+import { BootScreen } from './components/BootScreen';
 import { gsap } from 'gsap';
 
 function App() {
-  const { openWindow } = useStore();
+  const { systemMode, isShutdownDialogOpen, isBooting } = useStore();
 
   useEffect(() => {
+    if (systemMode !== 'normal' || isBooting) return;
+
     // GSAP Startup Animation Sequence with StrictMode context cleanup
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
@@ -34,12 +40,25 @@ function App() {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [systemMode, isBooting]);
+
+  if (isBooting) {
+    return <BootScreen />;
+  }
+
+  if (systemMode === 'shutdown') {
+    return <ShutdownScreen />;
+  }
+
+  if (systemMode === 'msdos') {
+    return <MSDOSPrompt />;
+  }
 
   return (
     <div className="os-viewport">
       <Desktop />
       <Taskbar />
+      {isShutdownDialogOpen && <ShutdownDialog />}
     </div>
   );
 }
