@@ -305,7 +305,7 @@ body {
   width: 76px;
   padding: 6px 4px;
   border: 1px solid transparent;
-  cursor: pointer;
+  cursor: default;
   text-align: center;
   border-radius: 2px;
   transition: background-color 0.1s;
@@ -808,7 +808,7 @@ body {
   align-items: center;
   gap: 6px;
   padding: 4px 14px;
-  cursor: default;
+  cursor: pointer;
   font-size: 11px;
   white-space: nowrap;
 }
@@ -1083,7 +1083,7 @@ body {
   gap: 6px;
   font-weight: bold;
   font-size: 12px;
-  cursor: pointer;
+  cursor: default;
 }
 
 .start-btn-logo {
@@ -1118,7 +1118,7 @@ body {
   gap: 6px;
   padding: 2px 8px;
   font-size: 11px;
-  cursor: pointer;
+  cursor: default;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1309,7 +1309,7 @@ body {
   align-items: center;
   gap: 8px;
   padding: 6px 8px;
-  cursor: pointer;
+  cursor: default;
   color: #000;
 }
 
