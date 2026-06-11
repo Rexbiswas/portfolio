@@ -250,7 +250,7 @@ export const ProjectsFolderIcon = ({ size = 32 }) => (
   </svg>
 );
 
-export const RetroGlobeIcon = ({ size = 16, color = '#111111' }) => (
+export const RetroGlobeIcon = ({ size = 16, color = '#111111', online = true }) => (
   <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     {/* Globe grid */}
     <circle cx="7.5" cy="7.5" r="6.5" stroke={color} strokeWidth="1.2" />
@@ -260,8 +260,12 @@ export const RetroGlobeIcon = ({ size = 16, color = '#111111' }) => (
     <line x1="2" y1="11" x2="13" y2="11" stroke={color} strokeWidth="0.8" />
     {/* Small plug/connector overlay at bottom right */}
     <rect x="9.5" y="9.5" width="5.5" height="5.5" fill="#d4d0c8" stroke="#000000" strokeWidth="1" />
-    <rect x="11.5" y="11.5" width="1.5" height="1.5" fill="#00ff00" />
+    <rect x="11.5" y="11.5" width="1.5" height="1.5" fill={online ? '#00ff00' : '#ff0000'} />
     <line x1="9.5" y1="12" x2="8" y2="12" stroke="#000000" strokeWidth="1" />
+    {/* Red X over globe when offline */}
+    {!online && (
+      <path d="M2 2L13 13M13 2L2 13" stroke="#ff0000" strokeWidth="2.0" strokeLinecap="round" />
+    )}
   </svg>
 );
 

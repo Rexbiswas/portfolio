@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStore } from '../store';
 import { FolderIcon, ExecutableIcon, StartLogo, FileExplorerIcon, SettingsIcon, UserFolderIcon, ProjectsFolderIcon, RetroGlobeIcon, ChevronUpIcon, SkillsIcon } from './Icons';
 
@@ -13,6 +13,92 @@ export const Taskbar = () => {
     toggleStartMenu,
     closeStartMenu
   } = useStore();
+
+  const [time, setTime] = useState(new Date());
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [battery, setBattery] = useState({ level: 1.0, charging: true, supported: false });
+
+  // Clock update
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Network connection status
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  // Battery status API
+  useEffect(() => {
+    if (typeof navigator === 'undefined' || !navigator.getBattery) return;
+
+    let batteryRef = null;
+    const handleLevelChange = () => {
+      if (batteryRef) {
+        setBattery({
+          level: batteryRef.level,
+          charging: batteryRef.charging,
+          supported: true
+        });
+      }
+    };
+    const handleChargingChange = () => {
+      if (batteryRef) {
+        setBattery({
+          level: batteryRef.level,
+          charging: batteryRef.charging,
+          supported: true
+        });
+      }
+    };
+
+    navigator.getBattery().then((batt) => {
+      batteryRef = batt;
+      setBattery({
+        level: batt.level,
+        charging: batt.charging,
+        supported: true
+      });
+      batt.addEventListener('levelchange', handleLevelChange);
+      batt.addEventListener('chargingchange', handleChargingChange);
+    }).catch((err) => {
+      console.warn('Failed to get battery status:', err);
+    });
+
+    return () => {
+      if (batteryRef) {
+        batteryRef.removeEventListener('levelchange', handleLevelChange);
+        batteryRef.removeEventListener('chargingchange', handleChargingChange);
+      }
+    };
+  }, []);
+
+  const renderBatteryIcon = () => {
+    const fillWidth = Math.max(1, Math.round(battery.level * 10));
+    let fillColor = '#00ff00';
+    if (!battery.charging) {
+      if (battery.level <= 0.15) fillColor = '#ff3333';
+      else if (battery.level <= 0.3) fillColor = '#ffcc00';
+    }
+    return (
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="2" width="14" height="8" stroke="#000000" strokeWidth="1" />
+        <rect x="15" y="4" width="2" height="4" fill="#000000" />
+        <rect x="3" y="4" width={fillWidth} height="4" fill={fillColor} />
+        {battery.charging && (
+          <path d="M9 3L5 7H8L7 10L11 6H8L9 3Z" fill="#ffcc00" stroke="#000000" strokeWidth="0.5" />
+        )}
+      </svg>
+    );
+  };
 
   const handleTabClick = (id) => {
     if (focusedWindow === id && !windows[id].isMinimized) {
@@ -67,7 +153,7 @@ export const Taskbar = () => {
               <span>Projects</span>
             </div>
             <div className="start-menu-divider" />
-            <div className="start-menu-item" onClick={() => { alert('Skills module loaded.'); closeStartMenu(); }}>
+            <div className="start-menu-item" onClick={() => handleStartMenuItemClick('skills')}>
               <span className="start-menu-item-icon"><SkillsIcon size={16} /></span>
               <span>Skills</span>
             </div>
@@ -130,6 +216,18 @@ export const Taskbar = () => {
             <span>Display Properties</span>
           </button>
         )}
+
+        {windows.skills.isOpen && (
+          <button
+            onClick={() => handleTabClick('skills')}
+            className={`taskbar-tab ${focusedWindow === 'skills' && !windows.skills.isMinimized ? 'active' : 'inactive'}`}
+          >
+            <span className="taskbar-tab-icon">
+              <SkillsIcon size={14} />
+            </span>
+            <span>Skills Properties</span>
+          </button>
+        )}
       </div>
 
       {/* System Tray */}
@@ -139,21 +237,33 @@ export const Taskbar = () => {
           <ChevronUpIcon size={12} />
         </div>
 
-        {/* Internet Connection Globe Icon (Static Decoration) */}
-        <div className="tray-icon" title="Internet: Connected">
-          <RetroGlobeIcon size={16} />
+        {/* Internet Connection Globe Icon (Dynamic) */}
+        <div className="tray-icon" title={isOnline ? 'Internet: Connected' : 'Internet: Disconnected / Offline'}>
+          <RetroGlobeIcon size={16} online={isOnline} />
         </div>
         
-        {/* Battery Icon */}
-        <div className="tray-icon" title="Battery: 100% (Charging)">
-          <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="1" y="2" width="14" height="8" stroke="#000000" strokeWidth="1" />
-            <rect x="15" y="4" width="2" height="4" fill="#000000" />
-            <rect x="3" y="4" width="10" height="4" fill="#00ff00" />
-          </svg>
+        {/* Battery Icon (Dynamic) */}
+        <div 
+          className="tray-icon" 
+          title={battery.supported 
+            ? `Battery: ${Math.round(battery.level * 100)}% (${battery.charging ? 'Charging' : 'Discharging'})` 
+            : 'AC Power connected (100%)'}
+        >
+          {renderBatteryIcon()}
         </div>
-        {/* Clock */}
-        <span className="tray-clock">14:57 PM</span>
+        
+        {/* Clock (Dynamic) */}
+        <div 
+          className="tray-clock" 
+          title={time.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+        >
+          <span className="tray-time">
+            {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })}
+          </span>
+          <span className="tray-date">
+            {time.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric' })}
+          </span>
+        </div>
       </div>
     </div>
   );

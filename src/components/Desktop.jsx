@@ -7,6 +7,7 @@ import { ProjectShowcase } from './ProjectShowcase';
 import { FolderIcon, ExecutableIcon, SettingsIcon, ContactBotIcon, HelpIconSvg, UserFolderIcon, FileExplorerIcon, FileTextIcon, ProjectsFolderIcon, RetroGlobeIcon, SkillsIcon } from './Icons';
 import { AboutMe } from './AboutMe';
 import { DisplayProperties } from './DisplayProperties';
+import { Skills } from './Skills';
 
 export const Desktop = () => {
   const { windows, openWindow, focusWindow, closeStartMenu, wallpaperTheme } = useStore();
@@ -62,7 +63,7 @@ export const Desktop = () => {
       id: 'skills',
       label: 'Skills',
       icon: <SkillsIcon size={32} />,
-      action: () => alert('skills module clicked!\nLoaded Skills:\n- JavaScript / TypeScript\n- React / Next.js\n- Node.js / Python\n- AWS / Cloud Systems'),
+      action: () => openWindow('skills'),
     },
     {
       id: 'aboutMe',
@@ -396,6 +397,22 @@ export const Desktop = () => {
         icon={<SettingsIcon size={14} />}
       >
         <DisplayProperties />
+      </RetroWindow>
+
+      {/* Skills Properties Window */}
+      <RetroWindow
+        id="skills"
+        title={windows.skills.title}
+        isOpen={windows.skills.isOpen}
+        isMinimized={windows.skills.isMinimized}
+        isMaximized={windows.skills.isMaximized}
+        defaultX={windows.skills.x}
+        defaultY={windows.skills.y}
+        width={windows.skills.width}
+        height={windows.skills.height}
+        icon={<SkillsIcon size={14} />}
+      >
+        <Skills />
       </RetroWindow>
 
       {/* Right-click Context Menu */}
