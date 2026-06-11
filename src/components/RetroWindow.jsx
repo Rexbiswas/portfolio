@@ -62,7 +62,7 @@ export const RetroWindow = ({
       dragMomentum={false}
       dragElastic={0.05}
       dragTransition={{ power: 0.2, timeConstant: 150 }}
-      onMouseDown={handleMouseDown}
+      onMouseDownCapture={handleMouseDown}
       style={{
         width: isMaximized ? '100%' : width,
         height: isMaximized ? '100%' : height,

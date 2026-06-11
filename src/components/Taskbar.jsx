@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../store';
-import { FolderIcon, ExecutableIcon, StartLogo, FileExplorerIcon, SettingsIcon, UserFolderIcon, ProjectsFolderIcon, RetroGlobeIcon, ChevronUpIcon, SkillsIcon, ShutdownIcon } from './Icons';
+import { FolderIcon, ExecutableIcon, StartLogo, FileExplorerIcon, SettingsIcon, UserFolderIcon, ProjectsFolderIcon, RetroGlobeIcon, ChevronUpIcon, SkillsIcon, ShutdownIcon, HelpIconSvg, UnpinIcon } from './Icons';
 
 export const Taskbar = () => {
   const { 
@@ -12,12 +12,56 @@ export const Taskbar = () => {
     startMenuOpen, 
     toggleStartMenu,
     closeStartMenu,
-    openShutdownDialog
+    openShutdownDialog,
+    pinnedApps,
+    unpinApp
   } = useStore();
 
   const [time, setTime] = useState(new Date());
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [battery, setBattery] = useState({ level: 1.0, charging: true, supported: false });
+  const [pinnedContextMenu, setPinnedContextMenu] = useState({ visible: false, x: 0, y: 0, appId: null });
+
+  const getAppIcon = (id) => {
+    switch (id) {
+      case 'fileExplorer': return <FileExplorerIcon size={16} />;
+      case 'projectShowcase': return <ProjectsFolderIcon size={16} />;
+      case 'skills': return <SkillsIcon size={16} />;
+      case 'aboutMe': return <UserFolderIcon size={16} />;
+      case 'help': return <HelpIconSvg size={16} />;
+      default: return <FolderIcon size={16} />;
+    }
+  };
+
+  const getAppTitle = (id) => {
+    switch (id) {
+      case 'fileExplorer': return 'File Explorer';
+      case 'projectShowcase': return 'Projects';
+      case 'skills': return 'Skills';
+      case 'aboutMe': return 'About Me';
+      case 'help': return 'Help';
+      default: return 'App';
+    }
+  };
+
+  const handlePinnedAppContextMenu = (appId, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setPinnedContextMenu({
+      visible: true,
+      x: e.clientX,
+      y: e.clientY,
+      appId
+    });
+  };
+
+  useEffect(() => {
+    const handleCloseMenu = () => {
+      setPinnedContextMenu({ visible: false, x: 0, y: 0, appId: null });
+    };
+    window.addEventListener('click', handleCloseMenu);
+    return () => window.removeEventListener('click', handleCloseMenu);
+  }, []);
 
   // Clock update
   useEffect(() => {
@@ -171,6 +215,26 @@ export const Taskbar = () => {
         </div>
       )}
 
+      {/* Quick Launch (Pinned Apps) */}
+      {pinnedApps && pinnedApps.length > 0 && (
+        <>
+          <div className="quick-launch-divider" />
+          <div className="quick-launch">
+            {pinnedApps.map((appId) => (
+              <button
+                key={appId}
+                onClick={() => openWindow(appId)}
+                onContextMenu={(e) => handlePinnedAppContextMenu(appId, e)}
+                className="quick-launch-btn win-border-outset"
+                title={getAppTitle(appId)}
+              >
+                {getAppIcon(appId)}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+
       <div className="taskbar-divider" />
 
       {/* Windows Tabs */}
@@ -234,6 +298,18 @@ export const Taskbar = () => {
             <span>Skills Properties</span>
           </button>
         )}
+
+        {windows.help.isOpen && (
+          <button
+            onClick={() => handleTabClick('help')}
+            className={`taskbar-tab ${focusedWindow === 'help' && !windows.help.isMinimized ? 'active' : 'inactive'}`}
+          >
+            <span className="taskbar-tab-icon">
+              <HelpIconSvg size={14} />
+            </span>
+            <span>Windows Help</span>
+          </button>
+        )}
       </div>
 
       {/* System Tray */}
@@ -271,6 +347,53 @@ export const Taskbar = () => {
           </span>
         </div>
       </div>
+
+      {/* Pinned App Context Menu */}
+      {pinnedContextMenu.visible && (
+        <div 
+          className="win-border-outset desktop-context-menu"
+          style={{
+            position: 'fixed',
+            top: pinnedContextMenu.y - 50,
+            left: pinnedContextMenu.x,
+            zIndex: 10000,
+            backgroundColor: '#d4d0c8',
+            padding: '2px',
+            minWidth: '180px',
+            width: 'max-content',
+            boxShadow: '2px 2px 5px rgba(0,0,0,0.3)',
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header option showing app icon and title */}
+          <div 
+            className="context-menu-item"
+            onClick={() => {
+              openWindow(pinnedContextMenu.appId);
+              setPinnedContextMenu({ visible: false, x: 0, y: 0, appId: null });
+            }}
+            style={{ fontWeight: 'bold' }}
+          >
+            <span style={{ position: 'absolute', left: '2px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center' }}>
+              {getAppIcon(pinnedContextMenu.appId)}
+            </span>
+            <span>{getAppTitle(pinnedContextMenu.appId)}</span>
+          </div>
+          <div className="context-menu-divider" />
+          <div 
+            className="context-menu-item"
+            onClick={() => {
+              unpinApp(pinnedContextMenu.appId);
+              setPinnedContextMenu({ visible: false, x: 0, y: 0, appId: null });
+            }}
+          >
+            <span style={{ position: 'absolute', left: '2px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center' }}>
+              <UnpinIcon size={16} />
+            </span>
+            <span>Unpin from taskbar</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

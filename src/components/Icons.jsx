@@ -312,3 +312,20 @@ export const ShutdownIcon = ({ size = 32 }) => (
   </svg>
 );
 
+export const PinIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 2H10V3H9V7L11 9V10H7V14H6V10H2V9L4 7V3H3V2H6Z" stroke="#000000" strokeWidth="1.2" fill="#c0c0c0" />
+    <path d="M5 3H8V7L9.5 8.5H3.5L5 7V3Z" fill="#ffffff" />
+  </svg>
+);
+
+export const UnpinIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Pin in background */}
+    <path d="M6 2H10V3H9V7L11 9V10H7V14H6V10H2V9L4 7V3H3V2H6Z" stroke="#808080" strokeWidth="1.2" fill="#c0c0c0" opacity="0.6" />
+    {/* Red forbidden slash/circle */}
+    <circle cx="11" cy="11" r="4.5" stroke="#ff3333" strokeWidth="1.5" fill="none" />
+    <line x1="8" y1="8" x2="14" y2="14" stroke="#ff3333" strokeWidth="1.5" />
+  </svg>
+);
+
