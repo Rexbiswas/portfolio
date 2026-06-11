@@ -29,7 +29,7 @@ export const Taskbar = () => {
   };
 
   return (
-    <div className="retro-taskbar">
+    <div className="retro-taskbar" style={{ cursor: 'default' }}>
       {/* Start Button */}
       <button 
         onClick={(e) => {

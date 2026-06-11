@@ -227,6 +227,7 @@ export const Desktop = () => {
   return (
     <div 
       className="desktop-content" 
+      style={{ cursor: 'default' }}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onClick={() => {
