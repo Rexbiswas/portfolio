@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { GitHubIcon } from './Icons';
+
 
 const PROJECTS = [
   {
@@ -174,7 +176,7 @@ export const ProjectShowcase = () => {
               gap: '6px'
             }}
           >
-            <span>🐙</span>
+            <GitHubIcon size={16} color="#000000" />
             <span>GitHub Repo</span>
           </a>
         </div>
