@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from './store';
 import { Desktop } from './components/Desktop';
 import { Taskbar } from './components/Taskbar';
@@ -6,13 +6,24 @@ import { ShutdownDialog } from './components/ShutdownDialog';
 import { ShutdownScreen } from './components/ShutdownScreen';
 import { MSDOSPrompt } from './components/MSDOSPrompt';
 import { BootScreen } from './components/BootScreen';
+import { LumiaUI } from './components/LumiaUI';
 import { gsap } from 'gsap';
 
 function App() {
   const { systemMode, isShutdownDialogOpen, isBooting } = useStore();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (systemMode !== 'normal' || isBooting) return;
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (systemMode !== 'normal' || isBooting || isMobile) return;
 
     // GSAP Startup Animation Sequence with StrictMode context cleanup
     const ctx = gsap.context(() => {
@@ -40,7 +51,7 @@ function App() {
     });
 
     return () => ctx.revert();
-  }, [systemMode, isBooting]);
+  }, [systemMode, isBooting, isMobile]);
 
   if (isBooting) {
     return <BootScreen />;
@@ -56,9 +67,15 @@ function App() {
 
   return (
     <div className="os-viewport">
-      <Desktop />
-      <Taskbar />
-      {isShutdownDialogOpen && <ShutdownDialog />}
+      {isMobile ? (
+        <LumiaUI />
+      ) : (
+        <>
+          <Desktop />
+          <Taskbar />
+          {isShutdownDialogOpen && <ShutdownDialog />}
+        </>
+      )}
     </div>
   );
 }

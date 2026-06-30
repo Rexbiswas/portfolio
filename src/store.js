@@ -81,10 +81,33 @@ export const useStore = create((set) => ({
     projectShowcase: 15,
   },
   startMenuOpen: false,
-  wallpaperTheme: localStorage.getItem('portfolio_wallpaper_theme') || 'win98',
-  setWallpaperTheme: (theme) => set(() => {
-    localStorage.setItem('portfolio_wallpaper_theme', theme);
-    return { wallpaperTheme: theme };
+  wallpaperType: localStorage.getItem('portfolio_wallpaper_type') || 'color',
+  wallpaperColor: localStorage.getItem('portfolio_wallpaper_color') || '#008080',
+  wallpaperImage: localStorage.getItem('portfolio_wallpaper_image') || '',
+  wallpaperImageMode: localStorage.getItem('portfolio_wallpaper_image_mode') || 'stretch',
+  setWallpaperSettings: (settings) => set((state) => {
+    const newState = {};
+    if (settings.wallpaperType !== undefined) {
+      localStorage.setItem('portfolio_wallpaper_type', settings.wallpaperType);
+      newState.wallpaperType = settings.wallpaperType;
+    }
+    if (settings.wallpaperColor !== undefined) {
+      localStorage.setItem('portfolio_wallpaper_color', settings.wallpaperColor);
+      newState.wallpaperColor = settings.wallpaperColor;
+    }
+    if (settings.wallpaperImage !== undefined) {
+      try {
+        localStorage.setItem('portfolio_wallpaper_image', settings.wallpaperImage);
+      } catch (e) {
+        console.error('Failed to save custom wallpaper image to localStorage:', e);
+      }
+      newState.wallpaperImage = settings.wallpaperImage;
+    }
+    if (settings.wallpaperImageMode !== undefined) {
+      localStorage.setItem('portfolio_wallpaper_image_mode', settings.wallpaperImageMode);
+      newState.wallpaperImageMode = settings.wallpaperImageMode;
+    }
+    return newState;
   }),
   systemMode: 'normal',
   isShutdownDialogOpen: false,

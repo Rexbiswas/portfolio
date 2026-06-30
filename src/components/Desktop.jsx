@@ -20,9 +20,16 @@ const DesktopIcon = ({
   handleIconClick,
   handleIconDoubleClick,
   handleIconContextMenu,
+  initialPosition,
+  onDragEndSave,
 }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const x = useMotionValue(initialPosition?.x || 0);
+  const y = useMotionValue(initialPosition?.y || 0);
+
+  useEffect(() => {
+    x.set(initialPosition?.x || 0);
+    y.set(initialPosition?.y || 0);
+  }, [initialPosition, x, y]);
 
   return (
     <motion.div
@@ -44,6 +51,9 @@ const DesktopIcon = ({
           pinApp(icon.id);
           animate(x, 0, { type: 'spring', stiffness: 300, damping: 30 });
           animate(y, 0, { type: 'spring', stiffness: 300, damping: 30 });
+          onDragEndSave(icon.id, 0, 0);
+        } else {
+          onDragEndSave(icon.id, x.get(), y.get());
         }
       }}
       onClick={(e) => handleIconClick(icon.id, e)}
@@ -81,11 +91,28 @@ const DesktopIcon = ({
 };
 
 export const Desktop = () => {
-  const { windows, openWindow, focusWindow, closeStartMenu, wallpaperTheme, pinApp, unpinApp, pinnedApps } = useStore();
+  const { windows, openWindow, focusWindow, closeStartMenu, wallpaperType, wallpaperColor, wallpaperImage, wallpaperImageMode, pinApp, unpinApp, pinnedApps } = useStore();
   const [selectedIcons, setSelectedIcons] = useState([]);
   const [iconSize, setIconSize] = useState(48);
   const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, type: 'desktop', targetId: null });
   const [draggedIcon, setDraggedIcon] = useState(null);
+
+  const [iconPositions, setIconPositions] = useState(() => {
+    try {
+      const saved = localStorage.getItem('portfolio_desktop_icon_positions');
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      return {};
+    }
+  });
+
+  const handleIconDragEnd = (id, xVal, yVal) => {
+    setIconPositions(prev => {
+      const updated = { ...prev, [id]: { x: xVal, y: yVal } };
+      localStorage.setItem('portfolio_desktop_icon_positions', JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   const dragStartRef = useRef(null); // Wait, do we want to keep useState for dragStart and dragCurrent?
   // Let's see: yes, useState for dragStart and dragCurrent is needed to trigger re-renders so the selection marquee box updates visually as the user drags.
@@ -150,6 +177,8 @@ export const Desktop = () => {
       action: () => openWindow('help'),
     },
   ]);
+
+
 
   const desktopIcons = icons.map(icon => ({
     ...icon,
@@ -278,45 +307,19 @@ export const Desktop = () => {
   const handleSortByName = () => {
     setContextMenu({ visible: false, x: 0, y: 0 });
     setIcons(prev => [...prev].sort((a, b) => a.label.localeCompare(b.label)));
+    setIconPositions({});
+    localStorage.removeItem('portfolio_desktop_icon_positions');
   };
 
   const handleSortByType = () => {
     setContextMenu({ visible: false, x: 0, y: 0 });
     const priority = { fileExplorer: 1, aboutMe: 2, projectShowcase: 3, skills: 4, help: 5 };
     setIcons(prev => [...prev].sort((a, b) => (priority[a.id] || 99) - (priority[b.id] || 99)));
+    setIconPositions({});
+    localStorage.removeItem('portfolio_desktop_icon_positions');
   };
 
 
-
-  const THEMES = {
-    win98: {
-      name: 'Windows 98 (Classic Teal)',
-      base: '#008080',
-      polygons: []
-    },
-    classic: {
-      base: '#2d5573',
-      polygons: ['#223f58', '#365e82', '#4d7c9f', '#182e42', '#284863', '#3b668a']
-    },
-    clover: {
-      base: '#18522b',
-      polygons: ['#10381d', '#206937', '#2e8247', '#0c2615', '#164523', '#255e34']
-    },
-    orchid: {
-      base: '#4f1a52',
-      polygons: ['#361138', '#632167', '#7b2b80', '#260c27', '#421644', '#552258']
-    },
-    charcoal: {
-      base: '#333333',
-      polygons: ['#222222', '#444444', '#555555', '#151515', '#2a2a2a', '#3e3e3e']
-    },
-    hotdog: {
-      base: '#d41a1a',
-      polygons: ['#000000', '#ffcc00', '#ff0000', '#ffffff', '#ffaa00', '#770000']
-    }
-  };
-
-  const activeTheme = THEMES[wallpaperTheme] || THEMES.classic;
 
   return (
     <div 
@@ -334,72 +337,22 @@ export const Desktop = () => {
       onContextMenu={handleContextMenu}
     >
       {/* Wallpaper Background */}
-      <div className="os-wallpaper">
-        {wallpaperTheme === 'win98' ? (
-          <div style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: '#008080',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'relative'
-          }}>
-            <svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g transform="translate(200, 120) scale(1.8)">
-                <g transform="translate(3, 3)" opacity="0.15">
-                  <path d="M -35,-32 C -18,-34 -7,-24 0,-21 L 0,-2 C -8,-4 -18,-12 -35,-10 Z" fill="#000" />
-                  <path d="M 4,-20 C 12,-18 24,-24 35,-26 L 35,-6 C 24,-4 12,2 4,-1 Z" fill="#000" />
-                  <path d="M -35,-6 C -18,-8 -8,0 0,-1 L 0,18 C -7,16 -18,10 -35,12 Z" fill="#000" />
-                  <path d="M 4,2 C 12,3 24,-3 35,-5 L 35,15 C 24,17 12,23 4,20 Z" fill="#000" />
-                </g>
-                <g stroke="#000000" strokeWidth="2.5" strokeLinecap="round" opacity="0.7">
-                  <path d="M -42,-25 L -85,-18" />
-                  <path d="M -45,-12 L -70,-8" />
-                  <path d="M -40,-2 L -95,3" />
-                  <path d="M -42,8 L -65,12" />
-                  <path d="M -40,16 L -80,24" />
-                </g>
-                <rect x="-80" y="-30" width="4" height="4" fill="#ff3333" opacity="0.8" />
-                <rect x="-90" y="-10" width="3" height="3" fill="#33cc33" opacity="0.8" />
-                <rect x="-70" y="5" width="4" height="4" fill="#0066ff" opacity="0.8" />
-                <rect x="-85" y="18" width="3" height="3" fill="#ffcc00" opacity="0.8" />
-                <rect x="-55" y="-32" width="2" height="2" fill="#000" opacity="0.5" />
-                <rect x="-105" y="0" width="3" height="3" fill="#ff3333" opacity="0.6" />
-                <path d="M -35,-32 C -18,-34 -7,-24 0,-21 L 0,-2 C -8,-4 -18,-12 -35,-10 Z" fill="#ff3333" stroke="#000000" strokeWidth="2" strokeLinejoin="round" />
-                <path d="M 4,-20 C 12,-18 24,-24 35,-26 L 35,-6 C 24,-4 12,2 4,-1 Z" fill="#33cc33" stroke="#000000" strokeWidth="2" strokeLinejoin="round" />
-                <path d="M -35,-6 C -18,-8 -8,0 0,-1 L 0,18 C -7,16 -18,10 -35,12 Z" fill="#0066ff" stroke="#000000" strokeWidth="2" strokeLinejoin="round" />
-                <path d="M 4,2 C 12,3 24,-3 35,-5 L 35,15 C 24,17 12,23 4,20 Z" fill="#ffcc00" stroke="#000000" strokeWidth="2" strokeLinejoin="round" />
-              </g>
-              <text x="200" y="240" textAnchor="middle" fill="#ffffff" fontFamily='"MS Sans Serif", Tahoma, sans-serif' fontSize="28" fontWeight="bold" letterSpacing="1.5" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.6)' }}>
-                Windows 98
-              </text>
-            </svg>
-          </div>
-        ) : (
-          <svg width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="1000" height="600" fill={activeTheme.base} />
-            {activeTheme.polygons && activeTheme.polygons.length > 0 && (
-              <>
-                <polygon points="0,0 420,0 280,240 0,180" fill={activeTheme.polygons[0]} opacity="0.85" />
-                <polygon points="420,0 1000,0 720,200 280,240" fill={activeTheme.polygons[1]} opacity="0.9" />
-                <polygon points="1000,0 1000,320 720,200" fill={activeTheme.polygons[2]} opacity="0.85" />
-                <polygon points="0,180 280,240 180,600 0,600" fill={activeTheme.polygons[3]} opacity="0.9" />
-                <polygon points="280,240 720,200 640,600 180,600" fill={activeTheme.polygons[4]} opacity="0.95" />
-                <polygon points="720,200 1000,320 1000,600 640,600" fill={activeTheme.polygons[5]} opacity="0.9" />
-              </>
-            )}
-            <defs>
-              <radialGradient id="overlay-grad" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
-                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.1" />
-                <stop offset="100%" stopColor="#000000" stopOpacity="0.35" />
-              </radialGradient>
-            </defs>
-            <rect width="1000" height="600" fill="url(#overlay-grad)" style={{ mixBlendMode: 'multiply' }} />
-          </svg>
-        )}
-      </div>
+      <div 
+        className="os-wallpaper"
+        style={{
+          backgroundColor: wallpaperType === 'color' ? wallpaperColor : undefined,
+          backgroundImage: wallpaperType === 'image' && wallpaperImage ? `url(${wallpaperImage})` : undefined,
+          backgroundSize: wallpaperType === 'image' ? (
+            wallpaperImageMode === 'stretch' ? 'cover' : 
+            wallpaperImageMode === 'center' ? 'auto' : 
+            undefined
+          ) : undefined,
+          backgroundRepeat: wallpaperType === 'image' ? (
+            wallpaperImageMode === 'tile' ? 'repeat' : 'no-repeat'
+          ) : undefined,
+          backgroundPosition: wallpaperType === 'image' ? 'center' : undefined,
+        }}
+      />
 
       {/* Selection Marquee Box */}
       {dragStart && dragCurrent && (
@@ -428,6 +381,8 @@ export const Desktop = () => {
             handleIconClick={handleIconClick}
             handleIconDoubleClick={handleIconDoubleClick}
             handleIconContextMenu={handleIconContextMenu}
+            initialPosition={iconPositions[icon.id]}
+            onDragEndSave={handleIconDragEnd}
           />
         ))}
       </div>

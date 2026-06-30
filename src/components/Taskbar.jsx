@@ -206,6 +206,10 @@ export const Taskbar = () => {
               <span className="start-menu-item-icon"><UserFolderIcon size={16} /></span>
               <span>About Me</span>
             </div>
+            <div className="start-menu-item" onClick={() => handleStartMenuItemClick('help')}>
+              <span className="start-menu-item-icon"><HelpIconSvg size={16} /></span>
+              <span>Help</span>
+            </div>
             <div className="start-menu-divider" />
             <div className="start-menu-item" onClick={() => openShutdownDialog()}>
               <span className="start-menu-item-icon"><ShutdownIcon size={16} /></span>

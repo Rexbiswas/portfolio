@@ -3,19 +3,21 @@ import React from 'react';
 // Custom detailed retro SVGs matching Windows 95 16-color style
 export const FolderIcon = ({ size = 32 }) => (
   <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Shadow / Base */}
-    <rect x="4" y="8" width="8" height="4" fill="#808000" />
-    <rect x="4" y="10" width="24" height="16" fill="#808000" />
-    {/* Folder Back */}
-    <rect x="3" y="9" width="8" height="4" fill="#ffff00" />
-    <rect x="3" y="11" width="25" height="14" fill="#ffff00" />
-    {/* Bevel highlights */}
-    <rect x="3" y="11" width="25" height="1" fill="#ffffff" />
-    <rect x="3" y="11" width="1" height="14" fill="#ffffff" />
-    <rect x="27" y="11" width="1" height="14" fill="#808000" />
-    <rect x="3" y="24" width="25" height="1" fill="#808000" />
-    {/* Tab line */}
-    <path d="M3 11L11 11L13 13L27 13" stroke="#808080" strokeWidth="1" fill="none" />
+    <g transform="translate(-3.375, -4.625) scale(1.25)">
+      {/* Shadow / Base */}
+      <rect x="4" y="8" width="8" height="4" fill="#808000" />
+      <rect x="4" y="10" width="24" height="16" fill="#808000" />
+      {/* Folder Back */}
+      <rect x="3" y="9" width="8" height="4" fill="#ffff00" />
+      <rect x="3" y="11" width="25" height="14" fill="#ffff00" />
+      {/* Bevel highlights */}
+      <rect x="3" y="11" width="25" height="1" fill="#ffffff" />
+      <rect x="3" y="11" width="1" height="14" fill="#ffffff" />
+      <rect x="27" y="11" width="1" height="14" fill="#808000" />
+      <rect x="3" y="24" width="25" height="1" fill="#808000" />
+      {/* Tab line */}
+      <path d="M3 11L11 11L13 13L27 13" stroke="#808080" strokeWidth="1" fill="none" />
+    </g>
   </svg>
 );
 
@@ -159,47 +161,51 @@ export const StartLogo = () => (
 
 export const UserFolderIcon = ({ size = 32 }) => (
   <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Folder Shadow / Base */}
-    <rect x="4" y="8" width="8" height="4" fill="#808000" />
-    <rect x="4" y="10" width="24" height="16" fill="#808000" />
-    {/* Folder Back */}
-    <rect x="3" y="9" width="8" height="4" fill="#ffff00" />
-    <rect x="3" y="11" width="25" height="14" fill="#ffff00" />
-    {/* Bevel highlights */}
-    <rect x="3" y="11" width="25" height="1" fill="#ffffff" />
-    <rect x="3" y="11" width="1" height="14" fill="#ffffff" />
-    <rect x="27" y="11" width="1" height="14" fill="#808000" />
-    <rect x="3" y="24" width="25" height="1" fill="#808000" />
-    {/* Tab line */}
-    <path d="M3 11L11 11L13 13L27 13" stroke="#808080" strokeWidth="1" fill="none" />
+    <g transform="translate(-3.375, -4.625) scale(1.25)">
+      {/* Folder Shadow / Base */}
+      <rect x="4" y="8" width="8" height="4" fill="#808000" />
+      <rect x="4" y="10" width="24" height="16" fill="#808000" />
+      {/* Folder Back */}
+      <rect x="3" y="9" width="8" height="4" fill="#ffff00" />
+      <rect x="3" y="11" width="25" height="14" fill="#ffff00" />
+      {/* Bevel highlights */}
+      <rect x="3" y="11" width="25" height="1" fill="#ffffff" />
+      <rect x="3" y="11" width="1" height="14" fill="#ffffff" />
+      <rect x="27" y="11" width="1" height="14" fill="#808000" />
+      <rect x="3" y="24" width="25" height="1" fill="#808000" />
+      {/* Tab line */}
+      <path d="M3 11L11 11L13 13L27 13" stroke="#808080" strokeWidth="1" fill="none" />
 
-    {/* Person Silhouette */}
-    <path d="M13 25C13 20.5 15.5 18 19.5 18C23.5 18 26 20.5 26 25H13Z" fill="#2d8a6b" stroke="#1d5a45" strokeWidth="1" />
-    <path d="M18.5 18.5L19.5 20.5L20.5 18.5" stroke="#ffffff" strokeWidth="1" fill="none" />
-    <circle cx="19.5" cy="14" r="3.5" fill="#e0a96d" stroke="#b87d3b" strokeWidth="1" />
-    <path d="M16 13C16 11 17.5 10 19.5 10C21.5 10 23 11 23 13" stroke="#333333" strokeWidth="2.5" strokeLinecap="round" />
+      {/* Person Silhouette */}
+      <path d="M13 25C13 20.5 15.5 18 19.5 18C23.5 18 26 20.5 26 25H13Z" fill="#2d8a6b" stroke="#1d5a45" strokeWidth="1" />
+      <path d="M18.5 18.5L19.5 20.5L20.5 18.5" stroke="#ffffff" strokeWidth="1" fill="none" />
+      <circle cx="19.5" cy="14" r="3.5" fill="#e0a96d" stroke="#b87d3b" strokeWidth="1" />
+      <path d="M16 13C16 11 17.5 10 19.5 10C21.5 10 23 11 23 13" stroke="#333333" strokeWidth="2.5" strokeLinecap="round" />
+    </g>
   </svg>
 );
 
 export const FileExplorerIcon = ({ size = 32 }) => (
   <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Folder Shadow / Base */}
-    <rect x="4" y="8" width="8" height="4" fill="#808000" />
-    <rect x="4" y="10" width="24" height="16" fill="#808000" />
-    {/* Folder Back */}
-    <rect x="3" y="9" width="8" height="4" fill="#ffff00" />
-    <rect x="3" y="11" width="25" height="14" fill="#ffff00" />
-    {/* Bevel highlights */}
-    <rect x="3" y="11" width="25" height="1" fill="#ffffff" />
-    <rect x="3" y="11" width="1" height="14" fill="#ffffff" />
-    <rect x="27" y="11" width="1" height="14" fill="#808000" />
-    <rect x="3" y="24" width="25" height="1" fill="#808000" />
-    {/* Tab line */}
-    <path d="M3 11L11 11L13 13L27 13" stroke="#808080" strokeWidth="1" fill="none" />
+    <g transform="translate(-3.375, -4.625) scale(1.25)">
+      {/* Folder Shadow / Base */}
+      <rect x="4" y="8" width="8" height="4" fill="#808000" />
+      <rect x="4" y="10" width="24" height="16" fill="#808000" />
+      {/* Folder Back */}
+      <rect x="3" y="9" width="8" height="4" fill="#ffff00" />
+      <rect x="3" y="11" width="25" height="14" fill="#ffff00" />
+      {/* Bevel highlights */}
+      <rect x="3" y="11" width="25" height="1" fill="#ffffff" />
+      <rect x="3" y="11" width="1" height="14" fill="#ffffff" />
+      <rect x="27" y="11" width="1" height="14" fill="#808000" />
+      <rect x="3" y="24" width="25" height="1" fill="#808000" />
+      {/* Tab line */}
+      <path d="M3 11L11 11L13 13L27 13" stroke="#808080" strokeWidth="1" fill="none" />
 
-    {/* Blue Arch/U-shape overlay */}
-    <rect x="9" y="16" width="14" height="9" fill="#3b9df8" stroke="#1c5ca3" strokeWidth="1" />
-    <rect x="13" y="20" width="6" height="5" fill="#ffff00" />
+      {/* Blue Arch/U-shape overlay */}
+      <rect x="9" y="16" width="14" height="9" fill="#3b9df8" stroke="#1c5ca3" strokeWidth="1" />
+      <rect x="13" y="20" width="6" height="5" fill="#ffff00" />
+    </g>
   </svg>
 );
 

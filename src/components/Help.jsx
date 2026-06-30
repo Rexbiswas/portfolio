@@ -38,7 +38,7 @@ const HELP_TOPICS = [
         <ol style={{ paddingLeft: '20px', margin: '6px 0', fontSize: '11px' }}>
           <li style={{ margin: '4px 0' }}>Right-click on any empty area of the desktop background to open the context menu.</li>
           <li style={{ margin: '4px 0' }}>Click <strong>Personalize</strong> to open the <strong>Display Properties</strong> application.</li>
-          <li style={{ margin: '4px 0' }}>Select your preferred wallpaper theme from the list (Classic Blue, Clover Green, Orchid Purple, Charcoal Grey, or Hotdog Stand).</li>
+          <li style={{ margin: '4px 0' }}>Choose between a <strong>Solid Color</strong> (using the color picker or classic presets) or a <strong>Custom Image</strong> (by pasting an image URL or uploading a local image file).</li>
           <li style={{ margin: '4px 0' }}>Click <strong>Apply</strong> or <strong>OK</strong> to save changes!</li>
         </ol>
       </div>

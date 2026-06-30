@@ -5,11 +5,11 @@ import { GitHubIcon } from './Icons';
 const PROJECTS = [
   {
     id: 'ecommerce',
-    title: 'E-Commerce Suite',
-    tech: 'React, Node.js, Stripe, MongoDB',
-    github: 'https://github.com/rishi-biswas/ecommerce-suite',
-    live: 'https://ecommerce-suite-demo.netlify.app',
-    desc: 'A complete full-stack online storefront featuring user authentication, shopping cart state management, secure payment gateway integration with Stripe, and an advanced administrative dashboard for order tracking and inventory management.'
+    title: 'Rockerz Headphones',
+    tech: 'React, Node.js, MongoDB, framer motion, tailwindcss, Gsap',
+    github: 'https://github.com/Rexbiswas/rockerz',
+    live: 'https://rockerz-kappa.vercel.app/',
+    desc: 'A full-stack e-commerce platform for headphones. Features user authentication, a shopping cart, order management, and an admin dashboard. Built with React, Node.js, MongoDB, framer motion, tailwindcss, and Gsap.'
   },
   {
     id: 'chat',

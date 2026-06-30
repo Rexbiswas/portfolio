@@ -26,42 +26,6 @@ const INITIAL_FS = {
               'Desktop': { type: 'dir', label: 'Desktop', children: {} },
               'Downloads': { type: 'dir', label: 'Downloads', children: {} },
               'Pictures': { type: 'dir', label: 'Pictures', children: {} },
-              'OneDrive': {
-                type: 'dir',
-                label: 'OneDrive - Personal',
-                children: {
-                  'Apps': { type: 'dir', label: 'Apps', children: {} },
-                  'Attachments': {
-                    type: 'dir',
-                    label: 'Attachments',
-                    children: {
-                      'Screenshot_2026-06-06_222243.png': { type: 'file', content: '[Image Data: Screen capture of portfolio UI layout with the context menu active]' },
-                      'doc_icccvs.txt': { type: 'file', content: 'Document: doc_icccvs\nStatus: Approved\nAuthor: Rishi Biswas\nDescription: Core system specification details for Retro OS platform.' },
-                      'surprise.txt': { type: 'file', content: 'Surprise! You successfully navigated to the OneDrive Attachments directory. You have discovered a secret file!' },
-                      'api.txt': { type: 'file', content: 'Portfolio API Endpoints:\n- GET /api/projects - Returns list of showcase projects\n- GET /api/skills - Returns developer tech stack\n- POST /api/contact - Sends contact message' },
-                      'src': {
-                        type: 'dir',
-                        label: 'src',
-                        children: {
-                          'main.js': { type: 'file', content: 'console.log("Welcome to Rishi Biswas Portfolio OS");' }
-                        }
-                      },
-                      'gemini_generated_video_3b359045.txt': { type: 'file', content: '[Video Log: Video generated during UI design iteration showing CRT monitor previews]' }
-                    }
-                  },
-                  'Desktop': { type: 'dir', label: 'Desktop', children: {} },
-                  'Documents': {
-                    type: 'dir',
-                    label: 'Documents',
-                    children: {
-                      'Anish_cv.txt': { type: 'file', content: 'Anish Biswas - CV Summary:\n- Full Stack Software Developer\n- 3+ years experience with React, Node.js, and SQL databases\n- Specializes in building secure SaaS platforms.' }
-                    }
-                  },
-                  'Pictures': { type: 'dir', label: 'Pictures', children: {} },
-                  'Scans': { type: 'dir', label: 'Scans', children: {} },
-                  'Videos': { type: 'dir', label: 'Videos', children: {} }
-                }
-              },
               'Skills': {
                 type: 'dir',
                 label: 'Skills',
@@ -115,10 +79,7 @@ const INITIAL_FS = {
       'Backup': {
         type: 'dir',
         label: 'Backup',
-        children: {
-          'Anish_CV.txt': { type: 'file', content: 'Anish Biswas - CV Summary:\n- Full Stack Software Developer\n- 3+ years experience with React, Node.js, and SQL databases\n- Specializes in building secure SaaS platforms.' },
-          'Rishi_CV.txt': { type: 'file', content: 'Rishi Biswas - CV Summary:\n- Full Stack Web Developer\n- Highly skilled in building production-ready scalable user interfaces\n- Expert in React, Zustand, and AWS Cloud Deployments.' }
-        }
+        children: {}
       }
     }
   }
@@ -173,21 +134,6 @@ const getRelativeLoc = (pathArray) => {
   
   const folderSegments = pathArray.slice(0, -1);
   
-  // Check OneDrive prefix
-  const oneDrivePrefix = ['This PC', 'C:', 'Users', 'Rishi', 'OneDrive'];
-  let isOneDrive = true;
-  for (let i = 0; i < oneDrivePrefix.length; i++) {
-    if (folderSegments[i] !== oneDrivePrefix[i]) {
-      isOneDrive = false;
-      break;
-    }
-  }
-  
-  if (isOneDrive) {
-    const remaining = folderSegments.slice(oneDrivePrefix.length);
-    return ['OneDrive - Personal', ...remaining].join('\\');
-  }
-  
   // Otherwise, remove drive prefix ['This PC', '<Drive>:']
   if (folderSegments[0] === 'This PC' && folderSegments.length > 1) {
     const remaining = folderSegments.slice(2);
@@ -199,17 +145,15 @@ const getRelativeLoc = (pathArray) => {
 
 // Recent files definition
 const INITIAL_RECENT_FILES = [
-  { name: 'doc_icccvs.txt', path: ['This PC', 'C:', 'Users', 'Rishi', 'OneDrive', 'Attachments', 'doc_icccvs.txt'], relativeLoc: 'OneDrive - Personal\\Attachments' },
-  { name: 'Rishi_CV.txt', path: ['This PC', 'F:', 'Backup', 'Rishi_CV.txt'], relativeLoc: 'Backup' },
-  { name: 'Screenshot_2026-06-06_222243.png', path: ['This PC', 'C:', 'Users', 'Rishi', 'OneDrive', 'Attachments', 'Screenshot_2026-06-06_222243.png'], relativeLoc: 'OneDrive - Personal\\Attachments' },
   { name: 'Frontend_Skills.txt', path: ['This PC', 'C:', 'Users', 'Rishi', 'Skills', 'Frontend_Skills.txt'], relativeLoc: 'Users\\Rishi\\Skills' },
-  { name: 'README.md', path: ['This PC', 'C:', 'Users', 'Rishi', 'Projects', 'Portfolio_OS', 'README.md'], relativeLoc: 'Users\\Rishi\\Projects\\Portfolio_OS' },
-  { name: 'Anish_CV.txt', path: ['This PC', 'F:', 'Backup', 'Anish_CV.txt'], relativeLoc: 'Backup' },
-  { name: 'surprise.txt', path: ['This PC', 'C:', 'Users', 'Rishi', 'OneDrive', 'Attachments', 'surprise.txt'], relativeLoc: 'OneDrive - Personal\\Attachments' }
+  { name: 'README.md', path: ['This PC', 'C:', 'Users', 'Rishi', 'Projects', 'Portfolio_OS', 'README.md'], relativeLoc: 'Users\\Rishi\\Projects\\Portfolio_OS' }
 ];
 
 export const FileExplorer = () => {
-  const [fs, setFs] = useState(INITIAL_FS);
+  const [fs, setFs] = useState(() => {
+    const saved = localStorage.getItem('portfolio_fs');
+    return saved ? JSON.parse(saved) : INITIAL_FS;
+  });
   const [currentPath, setCurrentPath] = useState(['Quick access']);
   const [history, setHistory] = useState([['Quick access']]);
   const [historyIndex, setHistoryIndex] = useState(0);
@@ -217,7 +161,26 @@ export const FileExplorer = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [activeTab, setActiveTab] = useState('Home');
   const openTextFile = useStore((state) => state.openTextFile);
-  const [recentFilesList, setRecentFilesList] = useState(INITIAL_RECENT_FILES);
+  const [recentFilesList, setRecentFilesList] = useState(() => {
+    const saved = localStorage.getItem('portfolio_recent_files');
+    return saved ? JSON.parse(saved) : INITIAL_RECENT_FILES;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('portfolio_fs', JSON.stringify(fs));
+  }, [fs]);
+
+  useEffect(() => {
+    localStorage.setItem('portfolio_recent_files', JSON.stringify(recentFilesList));
+  }, [recentFilesList]);
+
+  const isPathPrefix = (prefix, fullPath) => {
+    if (prefix.length > fullPath.length) return false;
+    for (let i = 0; i < prefix.length; i++) {
+      if (prefix[i] !== fullPath[i]) return false;
+    }
+    return true;
+  };
 
   const addToRecentFiles = (name, path) => {
     setRecentFilesList(prev => {
@@ -245,8 +208,6 @@ export const FileExplorer = () => {
     { name: 'Pictures', path: ['This PC', 'C:', 'Users', 'Rishi', 'Pictures'] },
     { name: 'Skills', path: ['This PC', 'C:', 'Users', 'Rishi', 'Skills'], isSkills: true },
     { name: 'Projects', path: ['This PC', 'C:', 'Users', 'Rishi', 'Projects'], isProjects: true },
-    { name: 'OneDrive - Personal', path: ['This PC', 'C:', 'Users', 'Rishi', 'OneDrive'] },
-    { name: 'Attachments', path: ['This PC', 'C:', 'Users', 'Rishi', 'OneDrive', 'Attachments'] },
   ];
 
 
@@ -421,6 +382,12 @@ export const FileExplorer = () => {
         }
         return newFs;
       });
+      setRecentFilesList(prev => prev.filter(r => {
+        return !itemsToDelete.some(({ parentPath, name }) => {
+          const deletedPath = [...parentPath, name];
+          return isPathPrefix(deletedPath, r.path);
+        });
+      }));
       setSelectedItems([]);
       return;
     }
@@ -458,6 +425,12 @@ export const FileExplorer = () => {
       }
       return newFs;
     });
+    setRecentFilesList(prev => prev.filter(r => {
+      return !selectedItems.some(name => {
+        const deletedPath = [...currentPath, name];
+        return isPathPrefix(deletedPath, r.path);
+      });
+    }));
     setSelectedItems([]);
   };
 
@@ -476,6 +449,9 @@ export const FileExplorer = () => {
       }
       const newName = prompt('Rename item to:', oldName);
       if (!newName || newName === oldName) return;
+
+      const oldPath = [...parentPath, oldName];
+      const newPath = [...parentPath, newName];
 
       setFs(prevFs => {
         const newFs = JSON.parse(JSON.stringify(prevFs));
@@ -501,6 +477,20 @@ export const FileExplorer = () => {
         }
         return newFs;
       });
+      setRecentFilesList(prev => prev.map(r => {
+        if (isPathPrefix(oldPath, r.path)) {
+          const remaining = r.path.slice(oldPath.length);
+          const updatedPath = [...newPath, ...remaining];
+          const updatedName = remaining.length === 0 ? newName : r.name;
+          return {
+            ...r,
+            name: updatedName,
+            path: updatedPath,
+            relativeLoc: getRelativeLoc(updatedPath)
+          };
+        }
+        return r;
+      }));
       setSelectedItems([newName]);
       return;
     }
@@ -512,6 +502,9 @@ export const FileExplorer = () => {
     }
     const newName = prompt('Rename item to:', oldName);
     if (!newName || newName === oldName) return;
+
+    const oldPath = [...currentPath, oldName];
+    const newPath = [...currentPath, newName];
 
     setFs(prevFs => {
       const newFs = JSON.parse(JSON.stringify(prevFs));
@@ -528,6 +521,20 @@ export const FileExplorer = () => {
       delete current.children[oldName];
       return newFs;
     });
+    setRecentFilesList(prev => prev.map(r => {
+      if (isPathPrefix(oldPath, r.path)) {
+        const remaining = r.path.slice(oldPath.length);
+        const updatedPath = [...newPath, ...remaining];
+        const updatedName = remaining.length === 0 ? newName : r.name;
+        return {
+          ...r,
+          name: updatedName,
+          path: updatedPath,
+          relativeLoc: getRelativeLoc(updatedPath)
+        };
+      }
+      return r;
+    }));
     setSelectedItems([newName]);
   };
 
@@ -926,32 +933,7 @@ export const FileExplorer = () => {
             ))}
           </div>
 
-          {/* OneDrive - Personal Section */}
-          <div className="fe-sidebar-section">
-            <div 
-              className={`fe-sidebar-item ${currentPath.join('\\') === 'This PC\\C:\\Users\\Rishi\\OneDrive' ? 'active' : ''}`}
-              onClick={() => navigateTo(['This PC', 'C:', 'Users', 'Rishi', 'OneDrive'])}
-            >
-              <span className="fe-sidebar-icon">☁️</span>
-              <span style={{ fontWeight: 'bold' }}>OneDrive - Personal</span>
-            </div>
 
-            {/* OneDrive Subfolders (Apps, Attachments, Desktop, Documents, Pictures, Scans, Videos) */}
-            {['Apps', 'Attachments', 'Desktop', 'Documents', 'Pictures', 'Scans', 'Videos'].map(sub => {
-              const path = ['This PC', 'C:', 'Users', 'Rishi', 'OneDrive', sub];
-              return (
-                <div 
-                  key={sub}
-                  className={`fe-sidebar-item ${currentPath.join('\\') === path.join('\\') ? 'active' : ''}`}
-                  onClick={() => navigateTo(path)}
-                  style={{ paddingLeft: '28px' }}
-                >
-                  <span className="fe-sidebar-icon">📁</span>
-                  <span>{sub}</span>
-                </div>
-              );
-            })}
-          </div>
 
           {/* This PC Section */}
           <div className="fe-sidebar-section">
@@ -1067,7 +1049,7 @@ export const FileExplorer = () => {
             <>
               {/* Frequent folders group */}
               <div className="fe-grid-group">
-                <div className="fe-grid-title">Frequent folders (8)</div>
+                <div className="fe-grid-title">Frequent folders ({frequentFolders.length})</div>
                 <div className="fe-grid-items">
                   {frequentFolders.map(folder => (
                     <div 
@@ -1077,7 +1059,7 @@ export const FileExplorer = () => {
                       onDoubleClick={() => navigateTo(folder.path)}
                     >
                       <div className="fe-item-icon">
-                        {folder.name === 'Skills' ? <SkillsIcon size={32} /> : folder.name === 'Projects' ? <ProjectsFolderIcon size={32} /> : folder.name.includes('OneDrive') ? <span style={{ fontSize: '26px' }}>☁️</span> : folder.name.includes('Disk') || folder.name.includes('Volume') ? <ComputerIcon size={32} /> : <FolderIcon size={32} />}
+                        {folder.name === 'Skills' ? <SkillsIcon size={32} /> : folder.name === 'Projects' ? <ProjectsFolderIcon size={32} /> : folder.name.includes('Disk') || folder.name.includes('Volume') ? <ComputerIcon size={32} /> : <FolderIcon size={32} />}
                       </div>
                       <div className="fe-item-name">{folder.name}</div>
                     </div>
@@ -1186,9 +1168,6 @@ export const FileExplorer = () => {
             </span>
           )}
         </div>
-        <div>
-          <span>☁️ OneDrive Synced</span>
-        </div>
       </div>
       {/* File Explorer Custom Context Menu */}
       {contextMenu.visible && (
@@ -1231,6 +1210,24 @@ export const FileExplorer = () => {
             </>
           ) : (
             <>
+              <div 
+                className="context-menu-item"
+                onClick={() => {
+                  const target = contextMenu.targetItem;
+                  setContextMenu({ visible: false, x: 0, y: 0, targetItem: null, type: null });
+                  if (target) {
+                    if (target.item.type === 'dir') {
+                      navigateTo(target.path || [...currentPath, target.name]);
+                    } else {
+                      openTextFile(target.name, target.item.content);
+                      addToRecentFiles(target.name, target.path || [...currentPath, target.name]);
+                    }
+                  }
+                }}
+              >
+                <strong>Open</strong>
+              </div>
+              <div className="context-menu-divider" style={{ height: '1px', backgroundColor: '#808080', margin: '4px 2px' }} />
               <div 
                 className="context-menu-item"
                 onClick={() => {
