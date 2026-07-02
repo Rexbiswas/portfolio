@@ -665,7 +665,7 @@ export const LumiaUI = ({ isMobile }) => {
                   transition={{ duration: 0.2 }}
                   className="lumia-app-page"
                 >
-                  {renderLumiaPivotApp(activeApp, pivotIndex, setPivotIndex, PROJECTS, activeProjectIdx, setActiveProjectIdx, FRONTEND_SKILLS, BACKEND_SKILLS, DEVOPS_SKILLS, ratingScore, getRatingLabel(ratingScore), ratingChecklist, handleRatingCheckbox, tileAccent)}
+                  {renderLumiaPivotApp(activeApp, pivotIndex, setPivotIndex, PROJECTS, activeProjectIdx, setActiveProjectIdx, FRONTEND_SKILLS, BACKEND_SKILLS, DEVOPS_SKILLS, ratingScore, getRatingLabel(ratingScore), ratingChecklist, handleRatingCheckbox, tileAccent, isMobile, handleBackPress)}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -736,6 +736,39 @@ export const LumiaUI = ({ isMobile }) => {
 // ----------------------------------------------------
 // Rendering Lumia Pivot-style apps
 // ----------------------------------------------------
+const renderSuperTitle = (title, isMobile, handleBackPress) => {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+      {isMobile && (
+        <button
+          onClick={handleBackPress}
+          className="lumia-app-back-btn"
+          style={{
+            background: 'rgba(255,255,255,0.15)',
+            border: 'none',
+            color: '#ffffff',
+            fontSize: '16px',
+            cursor: 'pointer',
+            padding: 0,
+            marginRight: '8px',
+            borderRadius: '50%',
+            width: '28px',
+            height: '28px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            outline: 'none'
+          }}
+          title="Back"
+        >
+          ←
+        </button>
+      )}
+      <span className="lumia-pivot-supertitle" style={{ margin: 0 }}>{title}</span>
+    </div>
+  );
+};
+
 const renderLumiaPivotApp = (
   appId,
   pivotIndex,
@@ -750,14 +783,16 @@ const renderLumiaPivotApp = (
   ratingLabel,
   ratingChecklist,
   handleRatingCheckbox,
-  tileAccent
+  tileAccent,
+  isMobile,
+  handleBackPress
 ) => {
   switch (appId) {
     case 'aboutMe':
       return (
         <div className="lumia-pivot-container">
           <div className="lumia-pivot-header">
-            <span className="lumia-pivot-supertitle">NOTEPAD</span>
+            {renderSuperTitle('NOTEPAD', isMobile, handleBackPress)}
             <div className="lumia-pivot-tabs">
               <span className={`lumia-pivot-tab ${pivotIndex === 0 ? 'active' : ''}`} onClick={() => setPivotIndex(0)}>profile</span>
               <span className={`lumia-pivot-tab ${pivotIndex === 1 ? 'active' : ''}`} onClick={() => setPivotIndex(1)}>details</span>
@@ -818,7 +853,7 @@ const renderLumiaPivotApp = (
       return (
         <div className="lumia-pivot-container">
           <div className="lumia-pivot-header">
-            <span className="lumia-pivot-supertitle">PORTFOLIO</span>
+            {renderSuperTitle('PORTFOLIO', isMobile, handleBackPress)}
             <div className="lumia-pivot-tabs">
               <span className={`lumia-pivot-tab ${pivotIndex === 0 ? 'active' : ''}`} onClick={() => setPivotIndex(0)}>projects</span>
               <span className={`lumia-pivot-tab ${pivotIndex === 1 ? 'active' : ''}`} onClick={() => setPivotIndex(1)}>details</span>
@@ -889,7 +924,7 @@ const renderLumiaPivotApp = (
       return (
         <div className="lumia-pivot-container">
           <div className="lumia-pivot-header">
-            <span className="lumia-pivot-supertitle">PROPERTIES</span>
+            {renderSuperTitle('PROPERTIES', isMobile, handleBackPress)}
             <div className="lumia-pivot-tabs">
               <span className={`lumia-pivot-tab ${pivotIndex === 0 ? 'active' : ''}`} onClick={() => setPivotIndex(0)}>frontend</span>
               <span className={`lumia-pivot-tab ${pivotIndex === 1 ? 'active' : ''}`} onClick={() => setPivotIndex(1)}>backend</span>
@@ -1035,7 +1070,7 @@ const renderLumiaPivotApp = (
       return (
         <div className="lumia-pivot-container">
           <div className="lumia-pivot-header">
-            <span className="lumia-pivot-supertitle">FILES</span>
+            {renderSuperTitle('FILES', isMobile, handleBackPress)}
             <div className="lumia-pivot-tabs">
               <span className={`lumia-pivot-tab ${pivotIndex === 0 ? 'active' : ''}`} onClick={() => setPivotIndex(0)}>documents</span>
               <span className={`lumia-pivot-tab ${pivotIndex === 1 ? 'active' : ''}`} onClick={() => setPivotIndex(1)}>system info</span>
@@ -1099,7 +1134,7 @@ const renderLumiaPivotApp = (
       return (
         <div className="lumia-pivot-container">
           <div className="lumia-pivot-header">
-            <span className="lumia-pivot-supertitle">HELP + HOW TO</span>
+            {renderSuperTitle('HELP + HOW TO', isMobile, handleBackPress)}
             <div className="lumia-pivot-tabs">
               <span className={`lumia-pivot-tab ${pivotIndex === 0 ? 'active' : ''}`} onClick={() => setPivotIndex(0)}>guide</span>
               <span className={`lumia-pivot-tab ${pivotIndex === 1 ? 'active' : ''}`} onClick={() => setPivotIndex(1)}>shortcuts</span>
