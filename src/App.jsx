@@ -7,10 +7,11 @@ import { ShutdownScreen } from './components/ShutdownScreen';
 import { MSDOSPrompt } from './components/MSDOSPrompt';
 import { BootScreen } from './components/BootScreen';
 import { LumiaUI } from './components/LumiaUI';
+import { LumiaDeviceWrapper } from './components/LumiaDeviceWrapper';
 import { gsap } from 'gsap';
 
 function App() {
-  const { systemMode, isShutdownDialogOpen, isBooting } = useStore();
+  const { systemMode, isShutdownDialogOpen, isBooting, activeOS } = useStore();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -30,8 +31,8 @@ function App() {
       const tl = gsap.timeline();
 
       // 1. Slide taskbar up
-      tl.fromTo('.retro-taskbar', 
-        { y: 50, opacity: 0 }, 
+      tl.fromTo('.retro-taskbar',
+        { y: 50, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
       );
 
@@ -67,8 +68,10 @@ function App() {
 
   return (
     <div className="os-viewport">
-      {isMobile ? (
-        <LumiaUI />
+      {activeOS === 'lumia' || isMobile ? (
+        <LumiaDeviceWrapper>
+          <LumiaUI />
+        </LumiaDeviceWrapper>
       ) : (
         <>
           <Desktop />

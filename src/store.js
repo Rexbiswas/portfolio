@@ -303,4 +303,29 @@ export const useStore = create((set) => ({
     
   closeStartMenu: () =>
     set({ startMenuOpen: false }),
+
+  // Nokia Lumia & OS Switcher State
+  activeOS: localStorage.getItem('portfolio_active_os') || 'lumia',
+  setActiveOS: (os) => set(() => {
+    localStorage.setItem('portfolio_active_os', os);
+    return { activeOS: os };
+  }),
+
+  lumiaTheme: localStorage.getItem('portfolio_lumia_theme') || 'dark',
+  setLumiaTheme: (theme) => set(() => {
+    localStorage.setItem('portfolio_lumia_theme', theme);
+    return { lumiaTheme: theme };
+  }),
+
+  phoneColor: localStorage.getItem('portfolio_phone_color') || 'yellow',
+  setPhoneColor: (color) => set(() => {
+    localStorage.setItem('portfolio_phone_color', color);
+    return { phoneColor: color };
+  }),
+
+  lumiaAccent: localStorage.getItem('portfolio_lumia_accent') || '#0050ef',
+  setLumiaAccent: (accent) => set(() => {
+    localStorage.setItem('portfolio_lumia_accent', accent);
+    return { lumiaAccent: accent };
+  }),
 }));

@@ -3,8 +3,8 @@ import { useStore } from '../store';
 import { ShutdownIcon } from './Icons';
 
 export const ShutdownDialog = () => {
-  const { isShutdownDialogOpen, closeShutdownDialog, setSystemMode } = useStore();
-  const [selectedOption, setSelectedOption] = useState('shutdown'); // 'shutdown', 'restart', 'msdos'
+  const { isShutdownDialogOpen, closeShutdownDialog, setSystemMode, setActiveOS, setBooting } = useStore();
+  const [selectedOption, setSelectedOption] = useState('shutdown'); // 'shutdown', 'restart', 'msdos', 'lumia'
 
   if (!isShutdownDialogOpen) return null;
 
@@ -24,6 +24,10 @@ export const ShutdownDialog = () => {
       window.location.reload();
     } else if (selectedOption === 'msdos') {
       setSystemMode('msdos');
+    } else if (selectedOption === 'lumia') {
+      setBooting(true);
+      setActiveOS('lumia');
+      closeShutdownDialog();
     }
   };
 
@@ -141,6 +145,17 @@ export const ShutdownDialog = () => {
                   style={{ margin: 0 }}
                 />
                 <span>Restart the computer in <u>M</u>S-DOS mode?</span>
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'default' }}>
+                <input 
+                  type="radio" 
+                  name="shutdown-opt" 
+                  value="lumia"
+                  checked={selectedOption === 'lumia'}
+                  onChange={() => setSelectedOption('lumia')}
+                  style={{ margin: 0 }}
+                />
+                <span>Restart the computer in Nokia <u>L</u>umia mode?</span>
               </label>
             </div>
           </div>

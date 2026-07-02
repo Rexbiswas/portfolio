@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useStore } from '../store';
 
 export const BootScreen = () => {
-  const { setBooting } = useStore();
+  const { setBooting, activeOS, lumiaAccent } = useStore();
   const [phase, setPhase] = useState('bios'); // 'bios' | 'splash'
   const [progress, setProgress] = useState(0);
+
+  // Lumia boot phases
+  const [lumiaPhase, setLumiaPhase] = useState('nokia'); // 'nokia' | 'splash'
 
   // BIOS screen line reveal
   const [biosLines, setBiosLines] = useState([]);
@@ -22,8 +25,28 @@ export const BootScreen = () => {
     'Press any key or click to boot Portfolio OS...'
   ];
 
+  // Lumia Boot sequence
   useEffect(() => {
-    if (phase !== 'bios') return;
+    if (activeOS !== 'lumia') return;
+
+    // Phase 1: Nokia screen for 1.8 seconds
+    const timer1 = setTimeout(() => {
+      setLumiaPhase('splash');
+    }, 1800);
+
+    // Phase 2: WP Splash for 2.2 seconds (total 4 seconds)
+    const timer2 = setTimeout(() => {
+      setBooting(false);
+    }, 4000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [activeOS, setBooting]);
+
+  useEffect(() => {
+    if (activeOS === 'lumia' || phase !== 'bios') return;
     
     let currentLine = 0;
     const interval = setInterval(() => {
@@ -36,11 +59,11 @@ export const BootScreen = () => {
     }, 150);
 
     return () => clearInterval(interval);
-  }, [phase]);
+  }, [phase, activeOS]);
 
-  // Click / Key listener to boot
+  // Click / Key listener to boot (win98 only)
   useEffect(() => {
-    if (phase !== 'bios') return;
+    if (activeOS === 'lumia' || phase !== 'bios') return;
 
     const triggerBoot = () => {
       setPhase('splash');
@@ -53,11 +76,11 @@ export const BootScreen = () => {
       window.removeEventListener('keydown', triggerBoot);
       window.removeEventListener('click', triggerBoot);
     };
-  }, [phase]);
+  }, [phase, activeOS]);
 
-  // Splash Screen progress bar
+  // Splash Screen progress bar (win98 only)
   useEffect(() => {
-    if (phase !== 'splash') return;
+    if (activeOS === 'lumia' || phase !== 'splash') return;
 
     const interval = setInterval(() => {
       setProgress(prev => {
@@ -75,8 +98,100 @@ export const BootScreen = () => {
     }, 200);
 
     return () => clearInterval(interval);
-  }, [phase]);
+  }, [phase, activeOS, setBooting]);
 
+  // Lumia Rendering path
+  if (activeOS === 'lumia') {
+    if (lumiaPhase === 'nokia') {
+      return (
+        <div
+          style={{
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: '#000000',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            zIndex: 30000,
+          }}
+        >
+          <span
+            style={{
+              color: '#ffffff',
+              fontFamily: '"Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif',
+              fontSize: '36px',
+              fontWeight: 'bold',
+              letterSpacing: '6px',
+              textTransform: 'uppercase',
+            }}
+          >
+            NOKIA
+          </span>
+        </div>
+      );
+    }
+
+    return (
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: lumiaAccent || '#0050ef',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '40px',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          zIndex: 30000,
+          fontFamily: '"Segoe UI Light", "Segoe UI", sans-serif',
+          color: '#ffffff',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          {/* Windows Phone Logo */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', width: '48px', height: '48px', transform: 'skewY(-6deg)' }}>
+            <div style={{ backgroundColor: '#ffffff' }} />
+            <div style={{ backgroundColor: '#ffffff' }} />
+            <div style={{ backgroundColor: '#ffffff' }} />
+            <div style={{ backgroundColor: '#ffffff' }} />
+          </div>
+          <span style={{ fontSize: '32px', fontWeight: '300' }}>windows phone</span>
+        </div>
+
+        {/* Windows Phone rolling dots loader */}
+        <div className="wp-dots-loader" style={{ display: 'flex', gap: '8px', marginTop: '20px' }}>
+          <div className="wp-dot" style={{ width: '6px', height: '6px', backgroundColor: '#ffffff', borderRadius: '50%' }} />
+          <div className="wp-dot" style={{ width: '6px', height: '6px', backgroundColor: '#ffffff', borderRadius: '50%' }} />
+          <div className="wp-dot" style={{ width: '6px', height: '6px', backgroundColor: '#ffffff', borderRadius: '50%' }} />
+          <div className="wp-dot" style={{ width: '6px', height: '6px', backgroundColor: '#ffffff', borderRadius: '50%' }} />
+          <div className="wp-dot" style={{ width: '6px', height: '6px', backgroundColor: '#ffffff', borderRadius: '50%' }} />
+        </div>
+
+        <style dangerouslySetInnerHTML={{ __html: `
+          .wp-dots-loader .wp-dot {
+            animation: wp-dot-bounce 1.4s infinite ease-in-out both;
+          }
+          .wp-dots-loader .wp-dot:nth-child(1) { animation-delay: -0.32s; }
+          .wp-dots-loader .wp-dot:nth-child(2) { animation-delay: -0.16s; }
+          .wp-dots-loader .wp-dot:nth-child(3) { animation-delay: -0.08s; }
+          .wp-dots-loader .wp-dot:nth-child(4) { animation-delay: 0s; }
+          .wp-dots-loader .wp-dot:nth-child(5) { animation-delay: 0.08s; }
+          @keyframes wp-dot-bounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+            40% { transform: scale(1.3); opacity: 1; }
+          }
+        ` }} />
+      </div>
+    );
+  }
+
+  // Windows 98 bios rendering path
   if (phase === 'bios') {
     return (
       <div 

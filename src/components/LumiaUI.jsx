@@ -1,26 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '../store';
-import { 
-  FolderIcon, 
-  ExecutableIcon, 
-  FileExplorerIcon, 
-  SettingsIcon, 
-  UserFolderIcon, 
-  ProjectsFolderIcon, 
-  SkillsIcon, 
-  HelpIconSvg, 
-  GitHubIcon 
+import {
+  FolderIcon,
+  ExecutableIcon,
+  FileExplorerIcon,
+  SettingsIcon,
+  UserFolderIcon,
+  ProjectsFolderIcon,
+  SkillsIcon,
+  HelpIconSvg,
+  GitHubIcon
 } from './Icons';
 
-export const LumiaUI = () => {
-  const { 
-    windows, 
-    focusedWindow, 
-    openWindow, 
-    closeWindow, 
-    wallpaperColor, 
-    setSystemMode 
+export const LumiaUI = ({ isMobile }) => {
+  const {
+    windows,
+    focusedWindow,
+    openWindow,
+    closeWindow,
+    setSystemMode,
+    lumiaAccent,
+    setActiveOS,
+    setBooting
   } = useStore();
 
   const [isLocked, setIsLocked] = useState(true);
@@ -29,7 +31,7 @@ export const LumiaUI = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [showIndexGrid, setShowIndexGrid] = useState(false);
   const [time, setTime] = useState(new Date());
-  
+
   // Custom Lumia App State
   const [activeApp, setActiveApp] = useState(null); // 'aboutMe' | 'projectShowcase' | 'skills' | 'fileExplorer' | 'help'
   const [pivotIndex, setPivotIndex] = useState(0);
@@ -55,6 +57,23 @@ export const LumiaUI = () => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  // Handle hardware bezel clicks from LumiaDeviceWrapper mockup
+  useEffect(() => {
+    const handleHardwareBack = () => handleBackPress();
+    const handleHardwareHome = () => handleHomePress();
+    const handleHardwareSearch = () => handleSearchPress();
+
+    window.addEventListener('lumia-hardware-back', handleHardwareBack);
+    window.addEventListener('lumia-hardware-home', handleHardwareHome);
+    window.addEventListener('lumia-hardware-search', handleHardwareSearch);
+
+    return () => {
+      window.removeEventListener('lumia-hardware-back', handleHardwareBack);
+      window.removeEventListener('lumia-hardware-home', handleHardwareHome);
+      window.removeEventListener('lumia-hardware-search', handleHardwareSearch);
+    };
+  }, [showIndexGrid, activeApp, currentScreen, windows]);
 
   // Back button handler
   const handleBackPress = () => {
@@ -257,13 +276,16 @@ export const LumiaUI = () => {
     { id: 'aboutMe', label: 'About Me', letter: 'A', icon: <UserFolderIcon size={24} /> },
     { id: 'fileExplorer', label: 'File Explorer', letter: 'F', icon: <FileExplorerIcon size={24} /> },
     { id: 'help', label: 'Help & Guide', letter: 'H', icon: <HelpIconSvg size={24} /> },
-    { id: 'msdos', label: 'MS-DOS Prompt', letter: 'M', icon: <ExecutableIcon size={24} />, isSystemMode: 'msdos' },
+    ...(!isMobile ? [
+      { id: 'msdos', label: 'MS-DOS Prompt', letter: 'M', icon: <ExecutableIcon size={24} />, isSystemMode: 'msdos' },
+      { id: 'win98', label: 'Windows 98 Classic', letter: 'W', icon: <span style={{ fontSize: '20px' }}>🖥️</span>, isSwitchOS: 'win98' }
+    ] : []),
     { id: 'projectShowcase', label: 'Projects Showcase', letter: 'P', icon: <ProjectsFolderIcon size={24} /> },
     { id: 'skills', label: 'Skills Properties', letter: 'S', icon: <SkillsIcon size={24} /> }
   ];
 
   // Filter apps by search query
-  const filteredApps = APPS.filter(app => 
+  const filteredApps = APPS.filter(app =>
     app.label.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -280,8 +302,8 @@ export const LumiaUI = () => {
     }
   };
 
-  // Custom live color derived from wallpaper color settings or defaulted to Cobalt Blue
-  const tileAccent = wallpaperColor || '#0050ef';
+  // Custom live color derived from store
+  const tileAccent = lumiaAccent || '#0050ef';
 
   return (
     <div className="lumia-device-container">
@@ -319,7 +341,7 @@ export const LumiaUI = () => {
             >
               {/* Abstract Lumia wallpaper */}
               <div className="lumia-lockscreen-wallpaper" />
-              
+
               {/* Stacked Time/Date */}
               <div className="lumia-lockscreen-time-container">
                 <div className="lumia-lockscreen-time">{formatClockTime(time)}</div>
@@ -353,18 +375,18 @@ export const LumiaUI = () => {
                     /* I. Start Tile Screen */
                     <div className="lumia-tile-grid-scroll">
                       <div className="lumia-tile-grid">
-                        
+
                         {/* Me Live Tile (2x2) */}
-                        <div 
+                        <div
                           className={`lumia-tile lumia-tile-2x2 ${flipState.me ? 'flipped' : ''}`}
                           onClick={() => openWindow('aboutMe')}
                           style={{ '--accent': tileAccent }}
                         >
                           <div className="lumia-tile-inner">
                             <div className="lumia-tile-front lumia-me-tile-front">
-                              <img 
-                                src="https://media.licdn.com/dms/image/v2/D5603AQEgxQwX4tWhvw/profile-displayphoto-shrink_400_400/B56ZbxSlyxHUAo-/0/1747804906002?e=1782950400&v=beta&t=hiaFQRAfCJ40I4EwJ0j3spYJefTBuZcegSaZ1QxfPpQ" 
-                                alt="Rishi" 
+                              <img
+                                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80"
+                                alt="Rishi"
                               />
                               <div className="lumia-tile-label">Me</div>
                             </div>
@@ -378,7 +400,7 @@ export const LumiaUI = () => {
                         </div>
 
                         {/* Notepad / About Me Tile (2x2) */}
-                        <div 
+                        <div
                           className={`lumia-tile lumia-tile-2x2 ${flipState.notepad ? 'flipped' : ''}`}
                           onClick={() => openWindow('aboutMe')}
                           style={{ '--accent': tileAccent }}
@@ -396,7 +418,7 @@ export const LumiaUI = () => {
                         </div>
 
                         {/* Projects Wide Tile (4x2) */}
-                        <div 
+                        <div
                           className={`lumia-tile lumia-tile-4x2 ${flipState.projects ? 'flipped' : ''}`}
                           onClick={() => openWindow('projectShowcase')}
                           style={{ '--accent': tileAccent }}
@@ -421,7 +443,7 @@ export const LumiaUI = () => {
                         </div>
 
                         {/* Skills Tile (2x2) */}
-                        <div 
+                        <div
                           className={`lumia-tile lumia-tile-2x2 ${flipState.skills ? 'flipped' : ''}`}
                           onClick={() => openWindow('skills')}
                           style={{ '--accent': tileAccent }}
@@ -440,7 +462,7 @@ export const LumiaUI = () => {
                                 <div style={{ width: '100%', height: '3px', backgroundColor: 'rgba(255,255,255,0.3)', marginBottom: '6px' }}>
                                   <div style={{ width: '95%', height: '100%', backgroundColor: '#fff' }} />
                                 </div>
-                                
+
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
                                   <span>Node/JS</span>
                                   <span>90%</span>
@@ -455,7 +477,7 @@ export const LumiaUI = () => {
                         </div>
 
                         {/* Photos Live Tile (2x2) */}
-                        <div 
+                        <div
                           className={`lumia-tile lumia-tile-2x2 ${flipState.photos ? 'flipped' : ''}`}
                           style={{ '--accent': tileAccent }}
                         >
@@ -471,51 +493,31 @@ export const LumiaUI = () => {
                           </div>
                         </div>
 
-                        {/* File Explorer (1x1) */}
-                        <div 
-                          className="lumia-tile lumia-tile-1x1 lumia-tile-accent-bg"
+                        {/* File Explorer (2x2) */}
+                        <div
+                          className="lumia-tile lumia-tile-2x2 lumia-tile-accent-bg"
                           onClick={() => openWindow('fileExplorer')}
                           style={{ '--accent': tileAccent }}
                         >
-                          <div style={{ fontSize: '20px' }}>📁</div>
+                          <div className="lumia-tile-large-icon">📁</div>
                           <div className="lumia-tile-label">Files</div>
                         </div>
 
-                        {/* Help (1x1) */}
-                        <div 
-                          className="lumia-tile lumia-tile-1x1 lumia-tile-accent-bg"
+                        {/* Help (2x2) */}
+                        <div
+                          className="lumia-tile lumia-tile-2x2 lumia-tile-accent-bg"
                           onClick={() => openWindow('help')}
                           style={{ '--accent': tileAccent }}
                         >
-                          <div style={{ fontSize: '20px' }}>❓</div>
+                          <div className="lumia-tile-large-icon">❓</div>
                           <div className="lumia-tile-label">Help</div>
-                        </div>
-
-                        {/* MS-DOS Prompt (1x1) */}
-                        <div 
-                          className="lumia-tile lumia-tile-1x1"
-                          onClick={() => setSystemMode('msdos')}
-                          style={{ backgroundColor: '#111', border: '1px solid #333' }}
-                        >
-                          <div style={{ fontSize: '16px', fontFamily: 'monospace', color: '#00ff00', fontWeight: 'bold' }}>C:\&gt;_</div>
-                          <div className="lumia-tile-label" style={{ color: '#00ff00' }}>DOS</div>
-                        </div>
-
-                        {/* Decorative Dialer (1x1) */}
-                        <div 
-                          className="lumia-tile lumia-tile-1x1 lumia-tile-accent-bg"
-                          onClick={() => alert("Dialer app: No cellular service in web simulator!")}
-                          style={{ '--accent': tileAccent }}
-                        >
-                          <div style={{ fontSize: '18px' }}>📞</div>
-                          <div className="lumia-tile-label">Phone</div>
                         </div>
 
                       </div>
 
                       {/* Go to App List Button */}
                       <div className="lumia-home-footer">
-                        <button 
+                        <button
                           className="lumia-circle-btn"
                           onClick={() => setCurrentScreen('apps')}
                         >
@@ -529,15 +531,15 @@ export const LumiaUI = () => {
                       <div className="lumia-applist-header">
                         {isSearching ? (
                           <div className="lumia-search-box-row">
-                            <input 
+                            <input
                               id="lumia-search-input"
-                              type="text" 
+                              type="text"
                               placeholder="search apps"
                               value={searchQuery}
                               onChange={(e) => setSearchQuery(e.target.value)}
                               className="lumia-search-input"
                             />
-                            <button 
+                            <button
                               className="lumia-search-close-btn"
                               onClick={() => {
                                 setIsSearching(false);
@@ -550,7 +552,7 @@ export const LumiaUI = () => {
                         ) : (
                           <div className="lumia-search-trigger-row">
                             <span className="lumia-applist-title">apps</span>
-                            <button 
+                            <button
                               className="lumia-applist-search-icon-btn"
                               onClick={() => {
                                 setIsSearching(true);
@@ -571,12 +573,15 @@ export const LumiaUI = () => {
                           /* Filtered list */
                           <div className="lumia-applist-items">
                             {filteredApps.map(app => (
-                              <div 
-                                key={app.id} 
+                              <div
+                                key={app.id}
                                 className="lumia-app-item"
                                 onClick={() => {
                                   if (app.isSystemMode) {
                                     setSystemMode(app.isSystemMode);
+                                  } else if (app.isSwitchOS === 'win98') {
+                                    setBooting(true);
+                                    setActiveOS('win98');
                                   } else {
                                     openWindow(app.id);
                                   }
@@ -595,13 +600,13 @@ export const LumiaUI = () => {
                         ) : (
                           /* Grouped list */
                           <div className="lumia-applist-groups">
-                            {['A', 'F', 'H', 'M', 'P', 'S'].map(letter => {
+                            {['A', 'F', 'H', 'M', 'P', 'S', 'W'].map(letter => {
                               const letterApps = APPS.filter(a => a.letter === letter);
                               if (letterApps.length === 0) return null;
                               return (
                                 <div key={letter} id={`app-group-${letter}`} className="lumia-app-group">
                                   {/* Letter Header Box */}
-                                  <div 
+                                  <div
                                     className="lumia-letter-header"
                                     onClick={() => setShowIndexGrid(true)}
                                     style={{ backgroundColor: tileAccent }}
@@ -610,12 +615,15 @@ export const LumiaUI = () => {
                                   </div>
                                   <div className="lumia-app-group-list">
                                     {letterApps.map(app => (
-                                      <div 
-                                        key={app.id} 
+                                      <div
+                                        key={app.id}
                                         className="lumia-app-item"
                                         onClick={() => {
                                           if (app.isSystemMode) {
                                             setSystemMode(app.isSystemMode);
+                                          } else if (app.isSwitchOS === 'win98') {
+                                            setBooting(true);
+                                            setActiveOS('win98');
                                           } else {
                                             openWindow(app.id);
                                           }
@@ -637,7 +645,7 @@ export const LumiaUI = () => {
 
                       {/* Go to Tiles Screen button */}
                       <div className="lumia-applist-footer">
-                        <button 
+                        <button
                           className="lumia-circle-btn left-arrow-btn"
                           onClick={() => setCurrentScreen('start')}
                         >
@@ -665,7 +673,7 @@ export const LumiaUI = () => {
             {/* Jump Index Grid overlay */}
             <AnimatePresence>
               {showIndexGrid && (
-                <motion.div 
+                <motion.div
                   className="lumia-index-grid-overlay"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -679,7 +687,7 @@ export const LumiaUI = () => {
                     {ALPHABET.map(letter => {
                       const isActive = activeLetters.includes(letter);
                       return (
-                        <div 
+                        <div
                           key={letter}
                           className={`lumia-index-letter ${isActive ? 'active' : 'disabled'}`}
                           style={{ backgroundColor: isActive ? tileAccent : undefined }}
@@ -699,21 +707,21 @@ export const LumiaUI = () => {
 
       {/* 3. Physical / Hardware capacitive navigation bar */}
       <div className="lumia-nav-bar">
-        <button 
+        <button
           className="lumia-nav-key back-key"
           onClick={handleBackPress}
           title="Back"
         >
           🠔
         </button>
-        <button 
+        <button
           className="lumia-nav-key start-key"
           onClick={handleHomePress}
           title="Start"
         >
           ⊞
         </button>
-        <button 
+        <button
           className="lumia-nav-key search-key"
           onClick={handleSearchPress}
           title="Search"
@@ -729,14 +737,14 @@ export const LumiaUI = () => {
 // Rendering Lumia Pivot-style apps
 // ----------------------------------------------------
 const renderLumiaPivotApp = (
-  appId, 
-  pivotIndex, 
-  setPivotIndex, 
-  PROJECTS, 
-  activeProjectIdx, 
-  setActiveProjectIdx, 
-  FRONTEND_SKILLS, 
-  BACKEND_SKILLS, 
+  appId,
+  pivotIndex,
+  setPivotIndex,
+  PROJECTS,
+  activeProjectIdx,
+  setActiveProjectIdx,
+  FRONTEND_SKILLS,
+  BACKEND_SKILLS,
   DEVOPS_SKILLS,
   ratingScore,
   ratingLabel,
@@ -760,7 +768,7 @@ const renderLumiaPivotApp = (
               <div className="lumia-notepad-app-pane">
                 <h1 className="lumia-title-large">rishi biswas</h1>
                 <h2 className="lumia-subtitle-accent" style={{ color: tileAccent }}>full-stack developer</h2>
-                
+
                 <p className="lumia-text-body" style={{ marginTop: '20px', lineHeight: '1.6' }}>
                   I build complete, production-ready web applications from the database layer right up to the user interface. Specializing in modern JavaScript frameworks and scalable backend architectures, I focus on performance, clean code, and creating unique user experiences that stand out.
                 </p>
@@ -820,7 +828,7 @@ const renderLumiaPivotApp = (
             {pivotIndex === 0 ? (
               <div className="lumia-list-pane">
                 {PROJECTS.map((proj, idx) => (
-                  <div 
+                  <div
                     key={proj.id}
                     className={`lumia-list-item ${activeProjectIdx === idx ? 'selected' : ''}`}
                     onClick={() => {
@@ -852,19 +860,19 @@ const renderLumiaPivotApp = (
                 </p>
 
                 <div className="lumia-details-actions" style={{ marginTop: '30px' }}>
-                  <a 
-                    href={selectedProj.live} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href={selectedProj.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="lumia-flat-button active"
                     style={{ backgroundColor: tileAccent }}
                   >
                     🌐 Live Demo
                   </a>
-                  <a 
-                    href={selectedProj.github} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href={selectedProj.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="lumia-flat-button"
                     style={{ border: `1px solid ${tileAccent}` }}
                   >
@@ -938,67 +946,67 @@ const renderLumiaPivotApp = (
             {pivotIndex === 3 && (
               <div className="lumia-rating-pane">
                 <h3 style={{ fontSize: '14px', marginBottom: '12px', fontWeight: 'bold' }}>Real-time Developer Assessment:</h3>
-                
+
                 <div className="lumia-checkbox-list">
                   <label className="lumia-checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={ratingChecklist.coffee} 
-                      onChange={() => handleRatingCheckbox('coffee')} 
+                    <input
+                      type="checkbox"
+                      checked={ratingChecklist.coffee}
+                      onChange={() => handleRatingCheckbox('coffee')}
                     />
                     <span className="lumia-checkbox-box" style={{ borderColor: tileAccent }} />
                     <span>Drinks sufficient coffee/tea (+10%)</span>
                   </label>
                   <label className="lumia-checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={ratingChecklist.commits} 
-                      onChange={() => handleRatingCheckbox('commits')} 
+                    <input
+                      type="checkbox"
+                      checked={ratingChecklist.commits}
+                      onChange={() => handleRatingCheckbox('commits')}
                     />
                     <span className="lumia-checkbox-box" style={{ borderColor: tileAccent }} />
                     <span>Uses descriptive git commits (+15%)</span>
                   </label>
                   <label className="lumia-checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={ratingChecklist.tests} 
-                      onChange={() => handleRatingCheckbox('tests')} 
+                    <input
+                      type="checkbox"
+                      checked={ratingChecklist.tests}
+                      onChange={() => handleRatingCheckbox('tests')}
                     />
                     <span className="lumia-checkbox-box" style={{ borderColor: tileAccent }} />
                     <span>Writes unit/integration tests (+20%)</span>
                   </label>
                   <label className="lumia-checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={ratingChecklist.deadCode} 
-                      onChange={() => handleRatingCheckbox('deadCode')} 
+                    <input
+                      type="checkbox"
+                      checked={ratingChecklist.deadCode}
+                      onChange={() => handleRatingCheckbox('deadCode')}
                     />
                     <span className="lumia-checkbox-box" style={{ borderColor: tileAccent }} />
                     <span>Deletes dead/unused code (+15%)</span>
                   </label>
                   <label className="lumia-checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={ratingChecklist.docs} 
-                      onChange={() => handleRatingCheckbox('docs')} 
+                    <input
+                      type="checkbox"
+                      checked={ratingChecklist.docs}
+                      onChange={() => handleRatingCheckbox('docs')}
                     />
                     <span className="lumia-checkbox-box" style={{ borderColor: tileAccent }} />
                     <span>Reads documentation first (+15%)</span>
                   </label>
                   <label className="lumia-checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={ratingChecklist.darkMode} 
-                      onChange={() => handleRatingCheckbox('darkMode')} 
+                    <input
+                      type="checkbox"
+                      checked={ratingChecklist.darkMode}
+                      onChange={() => handleRatingCheckbox('darkMode')}
                     />
                     <span className="lumia-checkbox-box" style={{ borderColor: tileAccent }} />
                     <span>Uses IDE Dark Mode (+10%)</span>
                   </label>
                   <label className="lumia-checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={ratingChecklist.refactor} 
-                      onChange={() => handleRatingCheckbox('refactor')} 
+                    <input
+                      type="checkbox"
+                      checked={ratingChecklist.refactor}
+                      onChange={() => handleRatingCheckbox('refactor')}
                     />
                     <span className="lumia-checkbox-box" style={{ borderColor: tileAccent }} />
                     <span>Refactors without breaking things (+15%)</span>

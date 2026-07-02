@@ -3,13 +3,13 @@ import { useStore } from '../store';
 import { FolderIcon, ExecutableIcon, StartLogo, FileExplorerIcon, SettingsIcon, UserFolderIcon, ProjectsFolderIcon, RetroGlobeIcon, ChevronUpIcon, SkillsIcon, ShutdownIcon, HelpIconSvg, UnpinIcon } from './Icons';
 
 export const Taskbar = () => {
-  const { 
-    windows, 
-    focusedWindow, 
-    focusWindow, 
-    minimizeWindow, 
+  const {
+    windows,
+    focusedWindow,
+    focusWindow,
+    minimizeWindow,
     openWindow,
-    startMenuOpen, 
+    startMenuOpen,
     toggleStartMenu,
     closeStartMenu,
     openShutdownDialog,
@@ -162,7 +162,7 @@ export const Taskbar = () => {
   return (
     <div className="retro-taskbar" style={{ cursor: 'default' }}>
       {/* Start Button */}
-      <button 
+      <button
         onClick={(e) => {
           e.stopPropagation();
           toggleStartMenu();
@@ -181,8 +181,8 @@ export const Taskbar = () => {
           {/* Profile Header */}
           <div className="start-menu-profile">
             <div className="profile-avatar" style={{ overflow: 'hidden' }}>
-              <img 
-                src="https://media.licdn.com/dms/image/v2/D5603AQEgxQwX4tWhvw/profile-displayphoto-shrink_400_400/B56ZbxSlyxHUAo-/0/1747804906002?e=1782950400&v=beta&t=hiaFQRAfCJ40I4EwJ0j3spYJefTBuZcegSaZ1QxfPpQ" 
+              <img
+                src="https://media.licdn.com/dms/image/v2/D5603AQEgxQwX4tWhvw/profile-displayphoto-shrink_400_400/B56ZbxSlyxHUAo-/0/1747804906002?e=1782950400&v=beta&t=hiaFQRAfCJ40I4EwJ0j3spYJefTBuZcegSaZ1QxfPpQ"
                 alt="Rishi Biswas"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
@@ -327,20 +327,20 @@ export const Taskbar = () => {
         <div className="tray-icon" title={isOnline ? 'Internet: Connected' : 'Internet: Disconnected / Offline'}>
           <RetroGlobeIcon size={16} online={isOnline} />
         </div>
-        
+
         {/* Battery Icon (Dynamic) */}
-        <div 
-          className="tray-icon" 
-          title={battery.supported 
-            ? `Battery: ${Math.round(battery.level * 100)}% (${battery.charging ? 'Charging' : 'Discharging'})` 
+        <div
+          className="tray-icon"
+          title={battery.supported
+            ? `Battery: ${Math.round(battery.level * 100)}% (${battery.charging ? 'Charging' : 'Discharging'})`
             : 'AC Power connected (100%)'}
         >
           {renderBatteryIcon()}
         </div>
-        
+
         {/* Clock (Dynamic) */}
-        <div 
-          className="tray-clock" 
+        <div
+          className="tray-clock"
           title={time.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         >
           <span className="tray-time">
@@ -354,7 +354,7 @@ export const Taskbar = () => {
 
       {/* Pinned App Context Menu */}
       {pinnedContextMenu.visible && (
-        <div 
+        <div
           className="win-border-outset desktop-context-menu"
           style={{
             position: 'fixed',
@@ -370,7 +370,7 @@ export const Taskbar = () => {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header option showing app icon and title */}
-          <div 
+          <div
             className="context-menu-item"
             onClick={() => {
               openWindow(pinnedContextMenu.appId);
@@ -384,7 +384,7 @@ export const Taskbar = () => {
             <span>{getAppTitle(pinnedContextMenu.appId)}</span>
           </div>
           <div className="context-menu-divider" />
-          <div 
+          <div
             className="context-menu-item"
             onClick={() => {
               unpinApp(pinnedContextMenu.appId);
