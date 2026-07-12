@@ -106,7 +106,7 @@ export const BootScreen = () => {
   // Lumia Rendering path
   if (effectiveOS === 'lumia') {
     if (lumiaPhase === 'nokia') {
-      const bootText = isMobileSize ? "Welcome to the Portfolio" : "Rishi's Portfolio";
+      const bootText = "Rishi's Portfolio";
       return (
         <div
           style={{
