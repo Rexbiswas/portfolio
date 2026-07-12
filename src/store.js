@@ -305,7 +305,7 @@ export const useStore = create((set) => ({
     set({ startMenuOpen: false }),
 
   // Nokia Lumia & OS Switcher State
-  activeOS: localStorage.getItem('portfolio_active_os') || 'lumia',
+  activeOS: localStorage.getItem('portfolio_active_os') || 'win98',
   setActiveOS: (os) => set(() => {
     localStorage.setItem('portfolio_active_os', os);
     return { activeOS: os };

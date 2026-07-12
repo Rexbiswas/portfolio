@@ -6,6 +6,9 @@ export const BootScreen = () => {
   const [phase, setPhase] = useState('bios'); // 'bios' | 'splash'
   const [progress, setProgress] = useState(0);
 
+  const isMobileSize = typeof window !== 'undefined' && window.innerWidth < 1024;
+  const effectiveOS = isMobileSize ? 'lumia' : activeOS;
+
   // Lumia boot phases
   const [lumiaPhase, setLumiaPhase] = useState('nokia'); // 'nokia' | 'splash'
 
@@ -27,7 +30,7 @@ export const BootScreen = () => {
 
   // Lumia Boot sequence
   useEffect(() => {
-    if (activeOS !== 'lumia') return;
+    if (effectiveOS !== 'lumia') return;
 
     // Phase 1: Nokia screen for 1.8 seconds
     const timer1 = setTimeout(() => {
@@ -43,10 +46,10 @@ export const BootScreen = () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, [activeOS, setBooting]);
+  }, [effectiveOS, setBooting]);
 
   useEffect(() => {
-    if (activeOS === 'lumia' || phase !== 'bios') return;
+    if (effectiveOS === 'lumia' || phase !== 'bios') return;
     
     let currentLine = 0;
     const interval = setInterval(() => {
@@ -59,11 +62,11 @@ export const BootScreen = () => {
     }, 150);
 
     return () => clearInterval(interval);
-  }, [phase, activeOS]);
+  }, [phase, effectiveOS]);
 
   // Click / Key listener to boot (win98 only)
   useEffect(() => {
-    if (activeOS === 'lumia' || phase !== 'bios') return;
+    if (effectiveOS === 'lumia' || phase !== 'bios') return;
 
     const triggerBoot = () => {
       setPhase('splash');
@@ -76,11 +79,11 @@ export const BootScreen = () => {
       window.removeEventListener('keydown', triggerBoot);
       window.removeEventListener('click', triggerBoot);
     };
-  }, [phase, activeOS]);
+  }, [phase, effectiveOS]);
 
   // Splash Screen progress bar (win98 only)
   useEffect(() => {
-    if (activeOS === 'lumia' || phase !== 'splash') return;
+    if (effectiveOS === 'lumia' || phase !== 'splash') return;
 
     const interval = setInterval(() => {
       setProgress(prev => {
@@ -98,11 +101,12 @@ export const BootScreen = () => {
     }, 200);
 
     return () => clearInterval(interval);
-  }, [phase, activeOS, setBooting]);
+  }, [phase, effectiveOS, setBooting]);
 
   // Lumia Rendering path
-  if (activeOS === 'lumia') {
+  if (effectiveOS === 'lumia') {
     if (lumiaPhase === 'nokia') {
+      const bootText = isMobileSize ? "Welcome to the Portfolio" : "Rishi's Portfolio";
       return (
         <div
           style={{
@@ -122,13 +126,16 @@ export const BootScreen = () => {
             style={{
               color: '#ffffff',
               fontFamily: '"Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif',
-              fontSize: '36px',
+              fontSize: isMobileSize ? '24px' : '36px',
               fontWeight: 'bold',
-              letterSpacing: '6px',
+              letterSpacing: isMobileSize ? '3px' : '6px',
               textTransform: 'uppercase',
+              textAlign: 'center',
+              padding: '0 24px',
+              lineHeight: '1.4',
             }}
           >
-            NOKIA
+            {bootText}
           </span>
         </div>
       );

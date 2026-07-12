@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1024);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -70,7 +70,7 @@ function App() {
     <div className="os-viewport">
       {activeOS === 'lumia' || isMobile ? (
         <LumiaDeviceWrapper>
-          <LumiaUI />
+          <LumiaUI isMobile={isMobile} />
         </LumiaDeviceWrapper>
       ) : (
         <>
