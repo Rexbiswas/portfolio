@@ -168,7 +168,7 @@ export const BootScreen = () => {
             <div style={{ backgroundColor: '#ffffff' }} />
             <div style={{ backgroundColor: '#ffffff' }} />
           </div>
-          <span style={{ fontSize: '32px', fontWeight: '300' }}>windows phone</span>
+          <span style={{ fontSize: '32px', fontWeight: '300' }}>Welcome to Portfolio</span>
         </div>
 
         {/* Windows Phone rolling dots loader */}
