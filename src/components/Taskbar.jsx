@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../store';
-import { FolderIcon, ExecutableIcon, StartLogo, FileExplorerIcon, SettingsIcon, UserFolderIcon, ProjectsFolderIcon, RetroGlobeIcon, ChevronUpIcon, SkillsIcon, ShutdownIcon, HelpIconSvg, UnpinIcon } from './Icons';
+import { FolderIcon, ExecutableIcon, StartLogo, FileExplorerIcon, SettingsIcon, UserFolderIcon, ProjectsFolderIcon, RetroGlobeIcon, ChevronUpIcon, SkillsIcon, ShutdownIcon, HelpIconSvg, UnpinIcon, BriefcaseIcon } from './Icons';
 
 export const Taskbar = () => {
   const {
@@ -27,6 +27,7 @@ export const Taskbar = () => {
       case 'fileExplorer': return <FileExplorerIcon size={16} />;
       case 'projectShowcase': return <ProjectsFolderIcon size={16} />;
       case 'skills': return <SkillsIcon size={16} />;
+      case 'experience': return <BriefcaseIcon size={16} />;
       case 'aboutMe': return <UserFolderIcon size={16} />;
       case 'help': return <HelpIconSvg size={16} />;
       default: return <FolderIcon size={16} />;
@@ -38,6 +39,7 @@ export const Taskbar = () => {
       case 'fileExplorer': return 'File Explorer';
       case 'projectShowcase': return 'Projects';
       case 'skills': return 'Skills';
+      case 'experience': return 'Work Experience';
       case 'aboutMe': return 'About Me';
       case 'help': return 'Help';
       default: return 'App';
@@ -182,7 +184,7 @@ export const Taskbar = () => {
           <div className="start-menu-profile">
             <div className="profile-avatar" style={{ overflow: 'hidden' }}>
               <img
-                src="https://media.licdn.com/dms/image/v2/D5603AQEgxQwX4tWhvw/profile-displayphoto-shrink_400_400/B56ZbxSlyxHUAo-/0/1747804906002?e=1782950400&v=beta&t=hiaFQRAfCJ40I4EwJ0j3spYJefTBuZcegSaZ1QxfPpQ"
+                src="https://media.licdn.com/dms/image/v2/D5603AQEgxQwX4tWhvw/profile-displayphoto-shrink_400_400/B56ZbxSlyxHUAo-/0/1747804906002?e=1786579200&v=beta&t=xkiG9qFojxe8yvkzzIJCJMxuQSk9wwhJugO5J7fNgMU"
                 alt="Rishi Biswas"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
@@ -201,6 +203,10 @@ export const Taskbar = () => {
             <div className="start-menu-item" onClick={() => handleStartMenuItemClick('skills')}>
               <span className="start-menu-item-icon"><SkillsIcon size={16} /></span>
               <span>Skills</span>
+            </div>
+            <div className="start-menu-item" onClick={() => handleStartMenuItemClick('experience')}>
+              <span className="start-menu-item-icon"><BriefcaseIcon size={16} /></span>
+              <span>Work Experience</span>
             </div>
             <div className="start-menu-item" onClick={() => handleStartMenuItemClick('aboutMe')}>
               <span className="start-menu-item-icon"><UserFolderIcon size={16} /></span>
@@ -300,6 +306,18 @@ export const Taskbar = () => {
               <SkillsIcon size={14} />
             </span>
             <span>Skills Properties</span>
+          </button>
+        )}
+
+        {windows.experience.isOpen && (
+          <button
+            onClick={() => handleTabClick('experience')}
+            className={`taskbar-tab ${focusedWindow === 'experience' && !windows.experience.isMinimized ? 'active' : 'inactive'}`}
+          >
+            <span className="taskbar-tab-icon">
+              <BriefcaseIcon size={14} />
+            </span>
+            <span>Work Experience</span>
           </button>
         )}
 

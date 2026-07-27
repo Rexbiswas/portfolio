@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '../store';
 
 export const BootScreen = () => {
@@ -11,6 +12,31 @@ export const BootScreen = () => {
 
   // Lumia boot phases
   const [lumiaPhase, setLumiaPhase] = useState('nokia'); // 'nokia' | 'splash'
+  const [welcomeIndex, setWelcomeIndex] = useState(0);
+  const welcomeTranslations = ['Welcome', 'स्वागत', 'स्वागतम्', 'Willkommen', 'Bienvenue'];
+  const [widths, setWidths] = useState({});
+  const fontSize = isMobileSize ? '24px' : '32px';
+  const fontFamily = '"Segoe UI Light", "Segoe UI", sans-serif';
+
+  useEffect(() => {
+    const fontSpec = `300 ${fontSize} ${fontFamily}`;
+    const newWidths = {};
+    welcomeTranslations.forEach(word => {
+      try {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        if (context) {
+          context.font = fontSpec;
+          newWidths[word] = Math.ceil(context.measureText(word).width) + 8;
+        } else {
+          newWidths[word] = isMobileSize ? 110 : 150;
+        }
+      } catch (e) {
+        newWidths[word] = isMobileSize ? 110 : 150;
+      }
+    });
+    setWidths(newWidths);
+  }, [fontSize]);
 
   // BIOS screen line reveal
   const [biosLines, setBiosLines] = useState([]);
@@ -37,16 +63,26 @@ export const BootScreen = () => {
       setLumiaPhase('splash');
     }, 1800);
 
-    // Phase 2: WP Splash for 2.2 seconds (total 4 seconds)
+    // Phase 2: WP Splash for 3.2 seconds (total 5 seconds)
     const timer2 = setTimeout(() => {
       setBooting(false);
-    }, 4000);
+    }, 5000);
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
   }, [effectiveOS, setBooting]);
+
+  useEffect(() => {
+    if (effectiveOS !== 'lumia' || lumiaPhase !== 'splash') return;
+
+    const interval = setInterval(() => {
+      setWelcomeIndex(prev => (prev + 1) % welcomeTranslations.length);
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [effectiveOS, lumiaPhase]);
 
   useEffect(() => {
     if (effectiveOS === 'lumia' || phase !== 'bios') return;
@@ -162,13 +198,54 @@ export const BootScreen = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           {/* Windows Phone Logo */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', width: '48px', height: '48px', transform: 'skewY(-6deg)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', width: isMobileSize ? '36px' : '48px', height: isMobileSize ? '36px' : '48px', transform: 'skewY(-6deg)' }}>
             <div style={{ backgroundColor: '#ffffff' }} />
             <div style={{ backgroundColor: '#ffffff' }} />
             <div style={{ backgroundColor: '#ffffff' }} />
-            <div style={{ backgroundColor: '#ffffff' }} />
+            <div style={{ backgroundColor: '#ffff' }} />
           </div>
-          <span style={{ fontSize: '32px', fontWeight: '300' }}>Welcome to Portfolio</span>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            fontSize: isMobileSize ? '24px' : '32px', 
+            fontWeight: '300', 
+            height: isMobileSize ? '36px' : '48px' 
+          }}>
+            <motion.div 
+              animate={{ 
+                width: widths[welcomeTranslations[welcomeIndex]] || (isMobileSize ? 100 : 140) 
+              }}
+              transition={{ duration: 0.35, ease: [0.77, 0, 0.175, 1] }}
+              style={{ 
+                position: 'relative', 
+                height: isMobileSize ? '36px' : '48px', 
+                overflow: 'hidden', 
+                marginRight: isMobileSize ? '6px' : '8px' 
+              }}
+            >
+              <AnimatePresence>
+                <motion.span
+                  key={welcomeIndex}
+                  initial={{ y: '100%', opacity: 0 }}
+                  animate={{ y: '0%', opacity: 1 }}
+                  exit={{ y: '-100%', opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.77, 0, 0.175, 1] }}
+                  style={{ 
+                    position: 'absolute', 
+                    left: 0, 
+                    top: 0, 
+                    whiteSpace: 'nowrap',
+                    height: '100%', 
+                    display: 'flex', 
+                    alignItems: 'center' 
+                  }}
+                >
+                  {welcomeTranslations[welcomeIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </motion.div>
+            {/* <span>to Portfolio</span> */}
+          </div>
         </div>
 
         {/* Windows Phone rolling dots loader */}

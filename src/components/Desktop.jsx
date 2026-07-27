@@ -4,11 +4,12 @@ import { useStore } from '../store';
 import { RetroWindow } from './RetroWindow';
 import { FileExplorer } from './FileExplorer';
 import { ProjectShowcase } from './ProjectShowcase';
-import { FolderIcon, ExecutableIcon, SettingsIcon, ContactBotIcon, HelpIconSvg, UserFolderIcon, FileExplorerIcon, FileTextIcon, ProjectsFolderIcon, RetroGlobeIcon, SkillsIcon, PinIcon, UnpinIcon } from './Icons';
+import { FolderIcon, ExecutableIcon, SettingsIcon, ContactBotIcon, HelpIconSvg, UserFolderIcon, FileExplorerIcon, FileTextIcon, ProjectsFolderIcon, RetroGlobeIcon, SkillsIcon, PinIcon, UnpinIcon, BriefcaseIcon } from './Icons';
 import { AboutMe } from './AboutMe';
 import { DisplayProperties } from './DisplayProperties';
 import { Skills } from './Skills';
 import { Help } from './Help';
+import { Experience } from './Experience';
 
 const DesktopIcon = ({
   icon,
@@ -165,6 +166,12 @@ export const Desktop = () => {
       action: () => openWindow('skills'),
     },
     {
+      id: 'experience',
+      label: 'Work Experience',
+      icon: <BriefcaseIcon size={32} />,
+      action: () => openWindow('experience'),
+    },
+    {
       id: 'aboutMe',
       label: 'About Me',
       icon: <UserFolderIcon size={32} />,
@@ -313,7 +320,7 @@ export const Desktop = () => {
 
   const handleSortByType = () => {
     setContextMenu({ visible: false, x: 0, y: 0 });
-    const priority = { fileExplorer: 1, aboutMe: 2, projectShowcase: 3, skills: 4, help: 5 };
+    const priority = { fileExplorer: 1, aboutMe: 2, projectShowcase: 3, experience: 4, skills: 5, help: 6 };
     setIcons(prev => [...prev].sort((a, b) => (priority[a.id] || 99) - (priority[b.id] || 99)));
     setIconPositions({});
     localStorage.removeItem('portfolio_desktop_icon_positions');
@@ -499,6 +506,22 @@ export const Desktop = () => {
         icon={<HelpIconSvg size={14} />}
       >
         <Help />
+      </RetroWindow>
+
+      {/* Experience Window */}
+      <RetroWindow
+        id="experience"
+        title={windows.experience.title}
+        isOpen={windows.experience.isOpen}
+        isMinimized={windows.experience.isMinimized}
+        isMaximized={windows.experience.isMaximized}
+        defaultX={windows.experience.x}
+        defaultY={windows.experience.y}
+        width={windows.experience.width}
+        height={windows.experience.height}
+        icon={<BriefcaseIcon size={14} />}
+      >
+        <Experience />
       </RetroWindow>
 
       {/* Right-click Context Menu */}

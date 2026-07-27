@@ -10,8 +10,53 @@ import {
   ProjectsFolderIcon,
   SkillsIcon,
   HelpIconSvg,
-  GitHubIcon
+  GitHubIcon,
+  BriefcaseIcon
 } from './Icons';
+
+const EXPERIENCES = [
+  {
+    id: 'pixelcraft',
+    role: 'Lead Full-Stack Developer',
+    company: 'PixelCraft Studio',
+    period: 'Jan 2024 - Present',
+    location: 'Remote',
+    tech: 'React, Next.js, Node.js, Express, PostgreSQL, Redis, Docker',
+    points: [
+      'Architected and deployed high-performance full-stack web applications, serving over 50,000 active monthly users.',
+      'Reduced API latency by 45% by introducing Redis caching layers, query index optimization, and database connection pooling.',
+      'Led a cross-functional team of 4 developers to build an internal dashboard, streamlining company operations and reducing support ticket response times by 30%.',
+      'Established CI/CD pipelines using GitHub Actions, reducing deployment errors and rollbacks by 80%.'
+    ]
+  },
+  {
+    id: 'retroweb',
+    role: 'Software Engineer',
+    company: 'RetroWeb Technologies',
+    period: 'Jun 2022 - Dec 2023',
+    location: 'Bangalore, India',
+    tech: 'JavaScript, TypeScript, React, Express, MongoDB, AWS, Git',
+    points: [
+      'Developed and integrated secure payment processing modules using Stripe API, handling $10k+ weekly transactions.',
+      'Refactored legacy React components to TypeScript and modern hooks, resulting in a 25% decrease in bundle size and improved developer velocity.',
+      'Built serverless microservices on AWS Lambda for real-time image processing and S3 storage, saving 35% in monthly hosting costs.',
+      'Collaborated closely with UX designers to implement pixel-perfect, responsive interfaces using clean CSS and animations.'
+    ]
+  },
+  {
+    id: 'freelance',
+    role: 'Freelance Developer',
+    company: 'Self-Employed',
+    period: 'Mar 2020 - May 2022',
+    location: 'Remote',
+    tech: 'HTML5, CSS3, JavaScript, React, GSAP, TailwindCSS, Figma',
+    points: [
+      'Designed and coded bespoke marketing websites and portfolios for 15+ global clients, achieving high Google Lighthouse performance scores (95+).',
+      'Developed interactive dashboards and dynamic features with smooth user experiences utilizing GSAP and Framer Motion.',
+      'Managed end-to-end client relationships, scoping requirements, designing mockups, coding, and deploying final applications.'
+    ]
+  }
+];
 
 export const LumiaUI = ({ isMobile }) => {
   const {
@@ -25,15 +70,22 @@ export const LumiaUI = ({ isMobile }) => {
     setBooting
   } = useStore();
 
-  const [isLocked, setIsLocked] = useState(true);
+  const [isLocked, setIsLocked] = useState(!isMobile);
   const [currentScreen, setCurrentScreen] = useState('start'); // 'start' | 'apps'
+
+  // Unlock automatically if mobile view is active
+  useEffect(() => {
+    if (isMobile) {
+      setIsLocked(false);
+    }
+  }, [isMobile]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [showIndexGrid, setShowIndexGrid] = useState(false);
   const [time, setTime] = useState(new Date());
 
   // Custom Lumia App State
-  const [activeApp, setActiveApp] = useState(null); // 'aboutMe' | 'projectShowcase' | 'skills' | 'fileExplorer' | 'help'
+  const [activeApp, setActiveApp] = useState(null); // 'aboutMe' | 'projectShowcase' | 'skills' | 'fileExplorer' | 'help' | 'experience'
   const [pivotIndex, setPivotIndex] = useState(0);
 
   // Sync with store window changes (e.g. if a file explorer opens notepad, or when an app opens)
@@ -138,13 +190,14 @@ export const LumiaUI = ({ isMobile }) => {
     projects: false,
     skills: false,
     photos: false,
+    experience: false,
   });
 
   // Cycle tiles randomly
   useEffect(() => {
     if (isLocked) return;
 
-    const tileKeys = ['me', 'notepad', 'projects', 'skills', 'photos'];
+    const tileKeys = ['me', 'notepad', 'projects', 'skills', 'photos', 'experience'];
     const interval = setInterval(() => {
       // Pick a random tile to flip
       const randomKey = tileKeys[Math.floor(Math.random() * tileKeys.length)];
@@ -203,6 +256,7 @@ export const LumiaUI = ({ isMobile }) => {
 
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
   const [liveProjectIndex, setLiveProjectIndex] = useState(0);
+  const [activeExperienceIdx, setActiveExperienceIdx] = useState(0);
 
   // Cycle project titles in the live tile
   useEffect(() => {
@@ -274,6 +328,7 @@ export const LumiaUI = ({ isMobile }) => {
   // App List Configuration
   const APPS = [
     { id: 'aboutMe', label: 'About Me', letter: 'A', icon: <UserFolderIcon size={24} /> },
+    { id: 'experience', label: 'Work Experience', letter: 'E', icon: <BriefcaseIcon size={24} /> },
     { id: 'fileExplorer', label: 'File Explorer', letter: 'F', icon: <FileExplorerIcon size={24} /> },
     { id: 'help', label: 'Help & Guide', letter: 'H', icon: <HelpIconSvg size={24} /> },
     ...(!isMobile ? [
@@ -385,7 +440,7 @@ export const LumiaUI = ({ isMobile }) => {
                           <div className="lumia-tile-inner">
                             <div className="lumia-tile-front lumia-me-tile-front">
                               <img
-                                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80"
+                                src="https://media.licdn.com/dms/image/v2/D5603AQEgxQwX4tWhvw/profile-displayphoto-shrink_400_400/B56ZbxSlyxHUAo-/0/1747804906002?e=1786579200&v=beta&t=xkiG9qFojxe8yvkzzIJCJMxuQSk9wwhJugO5J7fNgMU"
                                 alt="Rishi"
                               />
                               <div className="lumia-tile-label">Me</div>
@@ -472,6 +527,24 @@ export const LumiaUI = ({ isMobile }) => {
                                 </div>
                               </div>
                               <div className="lumia-tile-label" style={{ position: 'relative', margin: 0, padding: 0 }}>Core Specs</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Experience Tile (2x2) */}
+                        <div
+                          className={`lumia-tile lumia-tile-2x2 ${flipState.experience ? 'flipped' : ''}`}
+                          onClick={() => openWindow('experience')}
+                          style={{ '--accent': tileAccent }}
+                        >
+                          <div className="lumia-tile-inner">
+                            <div className="lumia-tile-front lumia-tile-accent-bg">
+                              <div className="lumia-tile-large-icon">💼</div>
+                              <div className="lumia-tile-label">Experience</div>
+                            </div>
+                            <div className="lumia-tile-back lumia-tile-accent-bg" style={{ padding: '10px', fontSize: '11px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                              <strong>Work Experience:</strong>
+                              <p style={{ marginTop: '4px', opacity: 0.9 }}>{EXPERIENCES[0].role}</p>
                             </div>
                           </div>
                         </div>
@@ -600,7 +673,7 @@ export const LumiaUI = ({ isMobile }) => {
                         ) : (
                           /* Grouped list */
                           <div className="lumia-applist-groups">
-                            {['A', 'F', 'H', 'M', 'P', 'S', 'W'].map(letter => {
+                            {['A', 'E', 'F', 'H', 'M', 'P', 'S', 'W'].map(letter => {
                               const letterApps = APPS.filter(a => a.letter === letter);
                               if (letterApps.length === 0) return null;
                               return (
@@ -665,7 +738,7 @@ export const LumiaUI = ({ isMobile }) => {
                   transition={{ duration: 0.2 }}
                   className="lumia-app-page"
                 >
-                  {renderLumiaPivotApp(activeApp, pivotIndex, setPivotIndex, PROJECTS, activeProjectIdx, setActiveProjectIdx, FRONTEND_SKILLS, BACKEND_SKILLS, DEVOPS_SKILLS, ratingScore, getRatingLabel(ratingScore), ratingChecklist, handleRatingCheckbox, tileAccent, isMobile, handleBackPress)}
+                  {renderLumiaPivotApp(activeApp, pivotIndex, setPivotIndex, PROJECTS, activeProjectIdx, setActiveProjectIdx, FRONTEND_SKILLS, BACKEND_SKILLS, DEVOPS_SKILLS, ratingScore, getRatingLabel(ratingScore), ratingChecklist, handleRatingCheckbox, tileAccent, isMobile, handleBackPress, EXPERIENCES, activeExperienceIdx, setActiveExperienceIdx)}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -785,7 +858,10 @@ const renderLumiaPivotApp = (
   handleRatingCheckbox,
   tileAccent,
   isMobile,
-  handleBackPress
+  handleBackPress,
+  EXPERIENCES,
+  activeExperienceIdx,
+  setActiveExperienceIdx
 ) => {
   switch (appId) {
     case 'aboutMe':
@@ -914,6 +990,59 @@ const renderLumiaPivotApp = (
                     <GitHubIcon size={16} color="#fff" /> GitHub Repo
                   </a>
                 </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+
+    case 'experience':
+      const selectedExp = EXPERIENCES[activeExperienceIdx];
+      return (
+        <div className="lumia-pivot-container">
+          <div className="lumia-pivot-header">
+            {renderSuperTitle('BRIEFCASE', isMobile, handleBackPress)}
+            <div className="lumia-pivot-tabs">
+              <span className={`lumia-pivot-tab ${pivotIndex === 0 ? 'active' : ''}`} onClick={() => setPivotIndex(0)}>roles</span>
+              <span className={`lumia-pivot-tab ${pivotIndex === 1 ? 'active' : ''}`} onClick={() => setPivotIndex(1)}>details</span>
+            </div>
+          </div>
+          <div className="lumia-pivot-content">
+            {pivotIndex === 0 ? (
+              <div className="lumia-list-pane">
+                {EXPERIENCES.map((exp, idx) => (
+                  <div
+                    key={exp.id}
+                    className={`lumia-list-item ${activeExperienceIdx === idx ? 'selected' : ''}`}
+                    onClick={() => {
+                      setActiveExperienceIdx(idx);
+                      setPivotIndex(1);
+                    }}
+                    style={{ borderLeft: activeExperienceIdx === idx ? `4px solid ${tileAccent}` : undefined }}
+                  >
+                    <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{exp.role}</div>
+                    <div style={{ fontSize: '12px', opacity: 0.6, marginTop: '2px' }}>{exp.company} • {exp.period}</div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="lumia-details-pane">
+                <h1 className="lumia-title-medium" style={{ color: tileAccent }}>{selectedExp.role}</h1>
+                <h2 style={{ fontSize: '14px', fontWeight: 'bold', marginTop: '2px', color: '#fff' }}>
+                  🏛️ {selectedExp.company}
+                </h2>
+                <div style={{ fontSize: '12px', opacity: 0.6, marginTop: '2px' }}>
+                  📅 {selectedExp.period} | 📍 {selectedExp.location}
+                </div>
+
+                <div style={{ fontSize: '11px', opacity: 0.6, marginTop: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  key achievements
+                </div>
+                <ul style={{ fontSize: '14px', lineHeight: '1.6', marginTop: '6px', opacity: 0.9, paddingLeft: '20px' }}>
+                  {selectedExp.points.map((pt, i) => (
+                    <li key={i} style={{ marginBottom: '6px', listStyleType: 'square' }}>{pt}</li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>

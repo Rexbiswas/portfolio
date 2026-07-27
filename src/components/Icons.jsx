@@ -346,4 +346,47 @@ export const GitHubIcon = ({ size = 16, color = 'currentColor' }) => (
   </svg>
 );
 
+export const BriefcaseIcon = ({ size = 32 }) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Handle shadow */}
+    <rect x="13" y="4" width="6" height="2" fill="#403010" />
+    {/* Handle */}
+    <path d="M12 5H20V8H18V6H14V8H12V5Z" fill="#805a2b" stroke="#000000" strokeWidth="1" />
+    
+    {/* Main Briefcase Body */}
+    <rect x="4" y="8" width="24" height="18" fill="#8b5a2b" stroke="#000000" strokeWidth="1.5" />
+    
+    {/* Bevel highlights */}
+    <line x1="5" y1="9" x2="27" y2="9" stroke="#d2b48c" strokeWidth="1" />
+    <line x1="5" y1="9" x2="5" y2="25" stroke="#d2b48c" strokeWidth="1" />
+    
+    {/* Bevel shadows */}
+    <line x1="27" y1="9" x2="27" y2="25" stroke="#4a2700" strokeWidth="1" />
+    <line x1="5" y1="25" x2="27" y2="25" stroke="#4a2700" strokeWidth="1" />
+    
+    {/* Leather straps */}
+    <rect x="8" y="8" width="3" height="18" fill="#5c3a21" stroke="#000000" strokeWidth="1" />
+    <rect x="21" y="8" width="3" height="18" fill="#5c3a21" stroke="#000000" strokeWidth="1" />
+    
+    {/* Gold Buckles/Locks */}
+    <rect x="8" y="15" width="3" height="4" fill="#ffd700" stroke="#808000" strokeWidth="1" />
+    <rect x="21" y="15" width="3" height="4" fill="#ffd700" stroke="#808000" strokeWidth="1" />
+    <circle cx="9.5" cy="17" r="0.5" fill="#000000" />
+    <circle cx="22.5" cy="17" r="0.5" fill="#000000" />
+    
+    {/* Center handle lock */}
+    <rect x="14" y="8" width="4" height="4" fill="#c0c0c0" stroke="#000000" strokeWidth="1" />
+    <circle cx="16" cy="10" r="1" fill="#000" />
+  </svg>
+);
+
+export const DownloadIcon = ({ size = 14, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 2V10M8 10L5 7M8 10L11 7" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <line x1="3" y1="13" x2="13" y2="13" stroke={color} strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+
+
 

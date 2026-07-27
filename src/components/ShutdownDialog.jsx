@@ -146,17 +146,6 @@ export const ShutdownDialog = () => {
                 />
                 <span>Restart the computer in <u>M</u>S-DOS mode?</span>
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'default' }}>
-                <input 
-                  type="radio" 
-                  name="shutdown-opt" 
-                  value="lumia"
-                  checked={selectedOption === 'lumia'}
-                  onChange={() => setSelectedOption('lumia')}
-                  style={{ margin: 0 }}
-                />
-                <span>Restart the computer in Nokia <u>L</u>umia mode?</span>
-              </label>
             </div>
           </div>
         </div>
