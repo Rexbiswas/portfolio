@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Outer Bevel Base -->
+  <rect x="2" y="2" width="28" height="22" fill="#c0c0c0" stroke="#000000" stroke-width="1"/>
+  <!-- Bevel Highlights -->
+  <line x1="3" y1="3" x2="29" y2="3" stroke="#ffffff" stroke-width="1"/>
+  <line x1="3" y1="3" x2="3" y2="23" stroke="#ffffff" stroke-width="1"/>
+  <line x1="29" y1="3" x2="29" y2="23" stroke="#808080" stroke-width="1"/>
+  <line x1="3" y1="23" x2="29" y2="23" stroke="#808080" stroke-width="1"/>
+  
+  <!-- CRT Screen (Navy Blue) -->
+  <rect x="5" y="5" width="22" height="16" fill="#000080"/>
+  <!-- Inner CRT Highlight -->
+  <rect x="6" y="6" width="20" height="1" fill="#4682b4"/>
+  
+  <!-- Windows 98 4-color logo on screen -->
+  <rect x="9" y="8" width="6" height="5" fill="#ff3333"/>
+  <rect x="16" y="8" width="6" height="5" fill="#33cc33"/>
+  <rect x="9" y="14" width="6" height="5" fill="#0066ff"/>
+  <rect x="16" y="14" width="6" height="5" fill="#ffcc00"/>
+  
+  <!-- Stand & Base -->
+  <path d="M12 24 L10 28 L22 28 L20 24 Z" fill="#c0c0c0" stroke="#000000" stroke-width="1"/>
+  <rect x="8" y="28" width="16" height="2" fill="#808080"/>
+  <rect x="8" y="28" width="16" height="1" fill="#ffffff"/>
+  <!-- Power LED -->
+  <circle cx="24" cy="21" r="1" fill="#00ff00"/>
+</svg>
