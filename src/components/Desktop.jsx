@@ -177,12 +177,6 @@ export const Desktop = () => {
       icon: <UserFolderIcon size={32} />,
       action: () => openWindow('aboutMe'),
     },
-    {
-      id: 'help',
-      label: 'Help',
-      icon: <HelpIconSvg size={32} />,
-      action: () => openWindow('help'),
-    },
   ]);
 
 
@@ -320,7 +314,7 @@ export const Desktop = () => {
 
   const handleSortByType = () => {
     setContextMenu({ visible: false, x: 0, y: 0 });
-    const priority = { fileExplorer: 1, aboutMe: 2, projectShowcase: 3, experience: 4, skills: 5, help: 6 };
+    const priority = { fileExplorer: 1, aboutMe: 2, projectShowcase: 3, experience: 4, skills: 5 };
     setIcons(prev => [...prev].sort((a, b) => (priority[a.id] || 99) - (priority[b.id] || 99)));
     setIconPositions({});
     localStorage.removeItem('portfolio_desktop_icon_positions');
@@ -348,7 +342,7 @@ export const Desktop = () => {
         className="os-wallpaper"
         style={{
           backgroundColor: wallpaperType === 'color' ? wallpaperColor : undefined,
-          backgroundImage: wallpaperType === 'image' && wallpaperImage ? `url(${wallpaperImage})` : undefined,
+          backgroundImage: wallpaperType === 'image' ? `url(${wallpaperImage || '/wallpaper.jpg'})` : undefined,
           backgroundSize: wallpaperType === 'image' ? (
             wallpaperImageMode === 'stretch' ? 'cover' : 
             wallpaperImageMode === 'center' ? 'auto' : 

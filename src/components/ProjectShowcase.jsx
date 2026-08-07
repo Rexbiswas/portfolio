@@ -4,7 +4,7 @@ import { GitHubIcon } from './Icons';
 
 const PROJECTS = [
   {
-    id: 'ecommerce',
+    id: 'rockerz',
     title: 'Rockerz Headphones',
     tech: 'React, Node.js, MongoDB, framer motion, tailwindcss, Gsap',
     github: 'https://github.com/Rexbiswas/rockerz',
@@ -12,41 +12,33 @@ const PROJECTS = [
     desc: 'A full-stack e-commerce platform for headphones. Features user authentication, a shopping cart, order management, and an admin dashboard. Built with React, Node.js, MongoDB, framer motion, tailwindcss, and Gsap.'
   },
   {
-    id: 'chat',
-    title: 'Real-time Chat App',
-    tech: 'Socket.io, Express, React, TailwindCSS',
-    github: 'https://github.com/rishi-biswas/retro-chat',
-    live: 'https://retro-chat-demo.herokuapp.com',
-    desc: 'Instant messaging web application enabling seamless communication across custom chat rooms. Includes persistent message history via MongoDB, real-time typing indicators, active user lists, and desktop notification alerts.'
+    id: 'sneakerhead',
+    title: 'Sneakerhead',
+    tech: 'React, Node.js, MongoDB, framer motion, tailwindcss, Gsap',
+    github: 'https://github.com/Rexbiswas/sneakerhead.git',
+    live: 'https://sneakerhead-khaki.vercel.app/',
+    desc: 'A modern full-stack e-commerce platform designed for sneaker enthusiasts. Features interactive product showcases, seamless shopping cart & checkout flow, user authentication, and fluid micro-interactions powered by GSAP and Framer Motion.'
   },
   {
-    id: 'ai_art',
-    title: 'AI Art Generator',
-    tech: 'Next.js, OpenAI DALL-E, Prisma, PostgreSQL',
-    github: 'https://github.com/rishi-biswas/ai-canvas',
-    live: 'https://ai-canvas-gen.vercel.app',
-    desc: 'An AI-powered creative canvas application. Users input text prompts to generate high-resolution AI artwork using OpenAI\'s API, share creations to a public gallery feed, and bookmark favorite generated images.'
+    id: 'concept',
+    title: 'Concept Website',
+    tech: 'React, TailwindCSS, framer motion, GSAP',
+    github: 'https://github.com/Rexbiswas/visual_concept.git',
+    live: 'https://visual-concept.vercel.app/',
+    desc: 'This website is for a conceptual project called Concept Website. It is a work in progress.'
   },
   {
-    id: 'crypto',
-    title: 'Crypto Dashboard',
-    tech: 'Vue.js, Chart.js, CoinGecko API',
-    github: 'https://github.com/rishi-biswas/coin-tracker',
-    live: 'https://coin-tracker-dash.netlify.app',
-    desc: 'A comprehensive financial dashboard tracking real-time cryptocurrency metrics. Fetches market capitalization, volume, and prices from the CoinGecko API, visualizes historical price trends with interactive charts, and manages virtual user portfolios.'
-  },
-  {
-    id: 'emulator',
-    title: 'Retro Web Emulator',
-    tech: 'HTML5 Canvas, Vanilla JS, Web Audio API',
-    github: 'https://github.com/rishi-biswas/web-arcade',
-    live: 'https://web-arcade-emulator.vercel.app',
-    desc: 'A high-performance browser-based emulator for classic 8-bit arcade games. Utilizes HTML5 Canvas for pixel-perfect rendering, Web Audio API to reproduce retro synthesizers and sound effects, and keyboard/gamepad controller mapping.'
+    id: 'coralcookies',
+    title: 'Coralcookies',
+    tech: 'React, tailwindcss, Gsap',
+    github: 'https://github.com/Rexbiswas/coralcookies.git',
+    live: 'https://coralcookies.vercel.app/',
+    desc: 'A modern full-stack e-commerce platform designed for cookie enthusiasts. Features interactive product showcases, seamless shopping cart & checkout flow, user authentication, and fluid micro-interactions powered by GSAP and Framer Motion.'
   }
 ];
 
 export const ProjectShowcase = () => {
-  const [selectedProjectId, setSelectedProjectId] = useState('ecommerce');
+  const [selectedProjectId, setSelectedProjectId] = useState('rockerz');
 
   const selectedProject = PROJECTS.find(p => p.id === selectedProjectId) || PROJECTS[0];
 

@@ -188,71 +188,178 @@ export const UserFolderIcon = ({ size = 32 }) => (
 export const FileExplorerIcon = ({ size = 32 }) => (
   <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g transform="translate(-3.375, -4.625) scale(1.25)">
-      {/* Folder Shadow / Base */}
+      {/* Folder Base Shadow (Olive Green / Gold) */}
       <rect x="4" y="8" width="8" height="4" fill="#808000" />
       <rect x="4" y="10" width="24" height="16" fill="#808000" />
-      {/* Folder Back */}
-      <rect x="3" y="9" width="8" height="4" fill="#ffff00" />
-      <rect x="3" y="11" width="25" height="14" fill="#ffff00" />
-      {/* Bevel highlights */}
-      <rect x="3" y="11" width="25" height="1" fill="#ffffff" />
-      <rect x="3" y="11" width="1" height="14" fill="#ffffff" />
+
+      {/* Win98 Yellow Folder Body */}
+      <rect x="3" y="9" width="8" height="4" fill="#FFFF00" />
+      <rect x="3" y="11" width="25" height="14" fill="#FFFF00" />
+
+      {/* 3D Bevel Highlights (White top/left outsets) */}
+      <rect x="3" y="11" width="25" height="1" fill="#FFFFFF" />
+      <rect x="3" y="11" width="1" height="14" fill="#FFFFFF" />
       <rect x="27" y="11" width="1" height="14" fill="#808000" />
       <rect x="3" y="24" width="25" height="1" fill="#808000" />
-      {/* Tab line */}
       <path d="M3 11L11 11L13 13L27 13" stroke="#808080" strokeWidth="1" fill="none" />
 
-      {/* Blue Arch/U-shape overlay */}
-      <rect x="9" y="16" width="14" height="9" fill="#3b9df8" stroke="#1c5ca3" strokeWidth="1" />
-      <rect x="13" y="20" width="6" height="5" fill="#ffff00" />
+      {/* Windows 98 Retro Blue File Explorer Stand / Arch Clip */}
+      {/* Outer Blue Arch Body */}
+      <rect x="8" y="14" width="15" height="11" fill="#000080" />
+      <rect x="9" y="15" width="13" height="9" fill="#0066FF" />
+
+      {/* Center cutout showing yellow folder */}
+      <rect x="12" y="18" width="7" height="7" fill="#FFFF00" />
+
+      {/* Retro 3D Bevel Highlights on Blue Stand */}
+      <rect x="8" y="14" width="15" height="1" fill="#66CCFF" />
+      <rect x="8" y="14" width="1" height="11" fill="#66CCFF" />
+      <rect x="22" y="14" width="1" height="11" fill="#000040" />
+      <rect x="8" y="24" width="15" height="1" fill="#000040" />
+
+      {/* Inner Hole Bevel Shadows */}
+      <rect x="12" y="18" width="7" height="1" fill="#000040" />
+      <rect x="12" y="18" width="1" height="7" fill="#000040" />
+      <rect x="18" y="18" width="1" height="7" fill="#66CCFF" />
     </g>
   </svg>
 );
 
 export const ProjectsFolderIcon = ({ size = 32 }) => (
   <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Folder Tab (Back) */}
+    <defs>
+      {/* Folder Back Tab Gradient */}
+      <linearGradient id="projFolderBackGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FFE066" />
+        <stop offset="100%" stopColor="#DCA000" />
+      </linearGradient>
+      {/* Folder Front Body Gradient */}
+      <linearGradient id="projFolderFrontGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FFF2A3" />
+        <stop offset="30%" stopColor="#FFE052" />
+        <stop offset="100%" stopColor="#D99B00" />
+      </linearGradient>
+      {/* Titlebar Gradient */}
+      <linearGradient id="projWinTitleGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stopColor="#0B55D6" />
+        <stop offset="60%" stopColor="#1E88E5" />
+        <stop offset="100%" stopColor="#0055EA" />
+      </linearGradient>
+      {/* Shadow filter */}
+      <filter id="projWinShadow" x="-10%" y="-10%" width="130%" height="130%">
+        <feDropShadow dx="0.5" dy="1" stdDeviation="0.8" floodColor="#000000" floodOpacity="0.35" />
+      </filter>
+    </defs>
+
+    {/* Folder Back Tab */}
     <path
-      d="M 6.5 11 L 6.5 7.5 C 6.5 6.1 7.6 5 9 5 L 14.5 5 C 15.9 5 17 6.1 17 7.5 L 17 11 Z"
-      fill="#3b6ebb"
-      stroke="#0a1835"
-      strokeWidth="1.8"
-      strokeLinejoin="round"
+      d="M 3 6 C 3 4.5 4 3.5 5.5 3.5 H 12 C 13.5 3.5 14.5 4.5 15.5 6 L 16.5 7.5 H 27.5 C 28.8 7.5 29.5 8.3 29.5 9.5 V 13 H 3 V 6 Z"
+      fill="url(#projFolderBackGrad)"
+      stroke="#805C00"
+      strokeWidth="0.8"
     />
-    {/* Folder Body (Front) */}
-    <rect
-      x="5"
-      y="9.5"
-      width="22"
-      height="17"
-      rx="3.5"
-      fill="#6292e9"
-      stroke="#0a1835"
-      strokeWidth="1.8"
-      strokeLinejoin="round"
-    />
-    {/* Highlights and Shadows to give the 3D retro-modern premium feel */}
-    {/* Top inner highlight of the body */}
+
+    {/* Dark interior folder gap shadow */}
     <path
-      d="M 8.5 11.3 H 23.5"
-      stroke="#b2caff"
+      d="M 3.5 7.5 H 28.5 V 10.5 H 3.5 Z"
+      fill="#A67800"
+      opacity="0.6"
+    />
+
+    {/* Folder Main Front Body (yellow 3D folder) */}
+    <path
+      d="M 2 8.5 C 2 7.4 2.8 6.5 4 6.5 H 28 C 29.2 6.5 30 7.4 30 8.5 V 27.5 C 30 28.6 29.2 29.5 28 29.5 H 4 C 2.8 29.5 2 28.6 2 27.5 Z"
+      fill="url(#projFolderFrontGrad)"
+      stroke="#7A5600"
       strokeWidth="1"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
-    {/* Left inner highlight of the body */}
+
+    {/* Folder Top Edge White Highlight */}
     <path
-      d="M 6.8 12.5 V 23"
-      stroke="#b2caff"
-      strokeWidth="0.8"
+      d="M 3.5 7.5 H 28.5"
+      stroke="#FFFFFF"
+      strokeWidth="0.9"
       strokeLinecap="round"
+      opacity="0.9"
     />
-    {/* Tab top inner highlight */}
+
+    {/* Left Edge Inner Highlight */}
     <path
-      d="M 8.5 6.8 H 14.5"
-      stroke="#80a5f5"
-      strokeWidth="0.8"
-      strokeLinecap="round"
+      d="M 3 8.5 V 27"
+      stroke="#FFFDD0"
+      strokeWidth="0.7"
+      opacity="0.7"
     />
+
+    {/* Overlaid Mini Window (Bottom-Right) */}
+    <g filter="url(#projWinShadow)">
+      {/* Window Outer Container & Border */}
+      <rect
+        x="9"
+        y="11.5"
+        width="21"
+        height="18"
+        rx="1"
+        fill="#FFFFFF"
+        stroke="#002D88"
+        strokeWidth="1"
+      />
+
+      {/* Blue XP Titlebar */}
+      <path
+        d="M 9.5 12 H 29.5 V 16.5 H 9.5 Z"
+        fill="url(#projWinTitleGrad)"
+      />
+
+      {/* Titlebar Window Controls */}
+      {/* Close button (Red square with white cross) */}
+      <rect x="27.2" y="13" width="1.8" height="1.8" fill="#E53935" rx="0.3" />
+      <path d="M 27.6 13.4 L 28.6 14.4 M 28.6 13.4 L 27.6 14.4" stroke="#FFFFFF" strokeWidth="0.4" />
+
+      {/* Maximize button */}
+      <rect x="25" y="13" width="1.8" height="1.8" fill="#1565C0" rx="0.3" stroke="#FFFFFF" strokeWidth="0.3" />
+
+      {/* Minimize button */}
+      <rect x="22.8" y="13" width="1.8" height="1.8" fill="#1565C0" rx="0.3" />
+      <line x1="23.2" y1="14.3" x2="24.2" y2="14.3" stroke="#FFFFFF" strokeWidth="0.4" />
+
+      {/* Window Inner Viewport Divider Line */}
+      <line x1="9.5" y1="16.5" x2="29.5" y2="16.5" stroke="#002D88" strokeWidth="0.5" />
+
+      {/* 2x3 Grid of Miniature Thumbnails inside window */}
+      {/* --- Row 1 --- */}
+      {/* Green Thumbnail (top-left) */}
+      <rect x="11" y="18" width="4.5" height="4.5" fill="#E8F5E9" stroke="#4CAF50" strokeWidth="0.5" rx="0.5" />
+      <rect x="11.8" y="18.8" width="2.9" height="1.8" fill="#4CAF50" />
+      <rect x="11.8" y="21" width="2.9" height="0.8" fill="#81C784" />
+
+      {/* Orange/Red Thumbnail (top-center) */}
+      <rect x="17.2" y="18" width="4.5" height="4.5" fill="#FBE9E7" stroke="#FF5722" strokeWidth="0.5" rx="0.5" />
+      <rect x="18" y="18.8" width="2.9" height="1.8" fill="#FF5722" />
+      <rect x="18" y="21" width="2.9" height="0.8" fill="#FF8A65" />
+
+      {/* Blue Thumbnail (top-right) */}
+      <rect x="23.5" y="18" width="4.5" height="4.5" fill="#E3F2FD" stroke="#1E88E5" strokeWidth="0.5" rx="0.5" />
+      <rect x="24.3" y="18.8" width="2.9" height="1.8" fill="#1E88E5" />
+      <rect x="24.3" y="21" width="2.9" height="0.8" fill="#64B5F6" />
+
+      {/* --- Row 2 --- */}
+      {/* Yellow Thumbnail (bottom-left) */}
+      <rect x="11" y="23.8" width="4.5" height="4.5" fill="#FFFDE7" stroke="#FBC02D" strokeWidth="0.5" rx="0.5" />
+      <rect x="11.8" y="24.6" width="2.9" height="1.8" fill="#FBC02D" />
+      <rect x="11.8" y="26.8" width="2.9" height="0.8" fill="#FFF176" />
+
+      {/* Teal Thumbnail (bottom-center) */}
+      <rect x="17.2" y="23.8" width="4.5" height="4.5" fill="#E0F7FA" stroke="#00ACC1" strokeWidth="0.5" rx="0.5" />
+      <rect x="18" y="24.6" width="2.9" height="1.8" fill="#00ACC1" />
+      <rect x="18" y="26.8" width="2.9" height="0.8" fill="#4DD0E1" />
+
+      {/* Purple/Red Thumbnail (bottom-right) */}
+      <rect x="23.5" y="23.8" width="4.5" height="4.5" fill="#FCE4EC" stroke="#D81B60" strokeWidth="0.5" rx="0.5" />
+      <rect x="24.3" y="24.6" width="2.9" height="1.8" fill="#D81B60" />
+      <rect x="24.3" y="26.8" width="2.9" height="0.8" fill="#F06292" />
+    </g>
   </svg>
 );
 

@@ -93,11 +93,18 @@ export const useStore = create((set) => ({
     experience: 16,
   },
   startMenuOpen: false,
-  wallpaperType: localStorage.getItem('portfolio_wallpaper_type') || 'color',
+  wallpaperType: (() => {
+    if (!localStorage.getItem('portfolio_wallpaper_customized')) return 'image';
+    return localStorage.getItem('portfolio_wallpaper_type') || 'image';
+  })(),
   wallpaperColor: localStorage.getItem('portfolio_wallpaper_color') || '#008080',
-  wallpaperImage: localStorage.getItem('portfolio_wallpaper_image') || '',
+  wallpaperImage: (() => {
+    const saved = localStorage.getItem('portfolio_wallpaper_image');
+    return (saved && saved.trim() !== '') ? saved : '/wallpaper.jpg';
+  })(),
   wallpaperImageMode: localStorage.getItem('portfolio_wallpaper_image_mode') || 'stretch',
   setWallpaperSettings: (settings) => set((state) => {
+    localStorage.setItem('portfolio_wallpaper_customized', 'true');
     const newState = {};
     if (settings.wallpaperType !== undefined) {
       localStorage.setItem('portfolio_wallpaper_type', settings.wallpaperType);

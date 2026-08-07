@@ -14,6 +14,117 @@ import {
   BriefcaseIcon
 } from './Icons';
 
+const MobileBatteryIcon = ({ level = 0.87, charging = false }) => {
+  const pct = Math.max(0, Math.min(100, Math.round(level * 100)));
+  const fillColor = charging ? '#4CAF50' : pct <= 20 ? '#FF4D4D' : pct <= 35 ? '#FF9800' : '#FFFFFF';
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', fontFamily: '"Segoe UI", sans-serif', fontWeight: '500' }}>
+      <span>{pct}%</span>
+
+      {/* Mobile Battery Shell Bar */}
+      <div
+        style={{
+          width: '21px',
+          height: '11px',
+          border: '1.2px solid #FFFFFF',
+          borderRadius: '2px',
+          padding: '1px',
+          boxSizing: 'border-box',
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.3)'
+        }}
+      >
+        {/* Dynamic Battery Fill Bar */}
+        <div
+          style={{
+            width: `${Math.max(8, pct)}%`,
+            height: '100%',
+            backgroundColor: fillColor,
+            borderRadius: '0.8px',
+            transition: 'width 0.3s ease, background-color 0.3s ease'
+          }}
+        />
+
+        {/* Battery Right Tip Cap */}
+        <div
+          style={{
+            position: 'absolute',
+            right: '-3px',
+            top: '2px',
+            width: '1.8px',
+            height: '4.5px',
+            backgroundColor: '#FFFFFF',
+            borderRadius: '0 1px 1px 0'
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+// --- Dedicated Mobile Vector Icons for Lumia Mobile View ---
+export const MobileUserIcon = ({ size = 24, color = '#FFFFFF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" fill={color} />
+    <path d="M12 14C7.58172 14 4 16.6863 4 20C4 20.5523 4.44772 21 5 21H19C19.5523 21 20 20.5523 20 20C20 16.6863 16.4183 14 12 14Z" fill={color} />
+  </svg>
+);
+
+export const MobileBriefcaseIcon = ({ size = 24, color = '#FFFFFF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V6H9V4Z" fill={color} />
+    <path fillRule="evenodd" clipRule="evenodd" d="M3 8C3 6.89543 3.89543 6 5 6H19C20.1046 6 21 6.89543 21 8V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V8ZM5 8H19V11H14V10C14 9.44772 13.5523 9 13 9H11C10.4477 9 10 9.44772 10 10V11H5V8ZM19 13H14V14C14 14.5523 13.5523 15 13 15H11C10.4477 15 10 14.5523 10 14V13H5V19H19V13Z" fill={color} />
+  </svg>
+);
+
+export const MobileProjectsIcon = ({ size = 24, color = '#FFFFFF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M3 5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5ZM5 5H19V8H5V5ZM5 10H11V19H5V10ZM13 10H19V19H13V10Z" fill={color} />
+  </svg>
+);
+
+export const MobileSkillsIcon = ({ size = 24, color = '#FFFFFF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 19V13H7V19H4Z" fill={color} />
+    <path d="M10 19V9H13V19H10Z" fill={color} />
+    <path d="M16 19V5H19V19H16Z" fill={color} />
+  </svg>
+);
+
+export const MobileFolderIcon = ({ size = 24, color = '#FFFFFF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 6C3 4.89543 3.89543 4 5 4H10C10.5304 4 11.0391 4.21071 11.4142 4.58579L12.8284 6H19C20.1046 6 21 6.89543 21 8V18C21 19.1046 20.1046 20 19 20H5C3.89543 20 3 19.1046 3 18V6Z" fill={color} />
+  </svg>
+);
+
+export const MobileSettingsIcon = ({ size = 24, color = '#FFFFFF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 17Z" fill={color} />
+    <path fillRule="evenodd" clipRule="evenodd" d="M9.8 3H14.2L14.7 5.2C15.3 5.4 15.9 5.8 16.4 6.2L18.6 5.4L20.8 9.2L19.1 10.7C19.2 11.1 19.2 11.5 19.2 12C19.2 12.5 19.2 12.9 19.1 13.3L20.8 14.8L18.6 18.6L16.4 17.8C15.9 18.2 15.3 18.6 14.7 18.8L14.2 21H9.8L9.3 18.8C8.7 18.6 8.1 18.2 7.6 17.8L5.4 18.6L3.2 14.8L4.9 13.3C4.8 12.9 4.8 12.5 4.8 12C4.8 11.5 4.8 11.1 4.9 10.7L3.2 9.2L5.4 5.4L7.6 6.2C8.1 5.8 8.7 5.4 9.3 5.2L9.8 3Z" fill={color} />
+  </svg>
+);
+
+export const MobileHelpIcon = ({ size = 24, color = '#FFFFFF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15ZM12 7C9.79086 7 8 8.79086 8 11H10C10 9.89543 10.8954 9 12 9C13.1046 9 14 9.89543 14 11C14 12 13 12.5 12.5 13C12.05 13.45 11.75 14.1 11.75 14.75V15H13.25V14.75C13.25 14.35 13.45 14.05 13.8 13.7C14.5 13.05 15.5 12.3 15.5 11C15.5 8.79086 13.7091 7 12 7Z" fill={color} />
+  </svg>
+);
+
+export const MobileTerminalIcon = ({ size = 24, color = '#FFFFFF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M3 4C3 2.89543 3.89543 2 5 2H19C20.1046 2 21 2.89543 21 4V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V4ZM5 4H19V20H5V4ZM7 8L11 11L7 14V12.2L9.6 11L7 9.8V8ZM12 13H16V14.5H12V13Z" fill={color} />
+  </svg>
+);
+
+export const MobileMonitorIcon = ({ size = 24, color = '#FFFFFF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M3 4C3 2.89543 3.89543 2 5 2H19C20.1046 2 21 2.89543 21 4V15C21 16.1046 20.1046 17 19 17H13V19H16V21H8V19H11V17H5C3.89543 17 3 16.1046 3 15V4ZM5 4H19V15H5V4Z" fill={color} />
+  </svg>
+);
+
 const EXPERIENCES = [
   {
     id: 'pixelcraft',
@@ -66,6 +177,7 @@ export const LumiaUI = ({ isMobile }) => {
     closeWindow,
     setSystemMode,
     lumiaAccent,
+    setLumiaAccent,
     setActiveOS,
     setBooting
   } = useStore();
@@ -108,6 +220,40 @@ export const LumiaUI = ({ isMobile }) => {
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  const [battery, setBattery] = useState({ level: 0.87, charging: false, supported: false });
+
+  // Dynamic device battery tracking
+  useEffect(() => {
+    if (typeof navigator === 'undefined' || !navigator.getBattery) return;
+
+    let batteryRef = null;
+    const updateBattery = () => {
+      if (batteryRef) {
+        setBattery({
+          level: batteryRef.level,
+          charging: batteryRef.charging,
+          supported: true
+        });
+      }
+    };
+
+    navigator.getBattery().then((batt) => {
+      batteryRef = batt;
+      updateBattery();
+      batt.addEventListener('levelchange', updateBattery);
+      batt.addEventListener('chargingchange', updateBattery);
+    }).catch((err) => {
+      console.warn('Battery Status API error:', err);
+    });
+
+    return () => {
+      if (batteryRef) {
+        batteryRef.removeEventListener('levelchange', updateBattery);
+        batteryRef.removeEventListener('chargingchange', updateBattery);
+      }
+    };
   }, []);
 
   // Handle hardware bezel clicks from LumiaDeviceWrapper mockup
@@ -325,18 +471,34 @@ export const LumiaUI = ({ isMobile }) => {
 
   const ratingScore = calculateRatingScore();
 
+  // Accent color presets for Personalise app
+  const ACCENT_COLORS = [
+    { name: 'Cobalt', hex: '#0050ef' },
+    { name: 'Crimson', hex: '#e51400' },
+    { name: 'Emerald', hex: '#00a300' },
+    { name: 'Magenta', hex: '#d80073' },
+    { name: 'Amber', hex: '#f0a30a' },
+    { name: 'Purple', hex: '#76608a' },
+    { name: 'Cyan', hex: '#1ba1e2' },
+    { name: 'Teal', hex: '#00aba9' },
+    { name: 'Violet', hex: '#aa00ff' },
+    { name: 'Lime', hex: '#a4c400' },
+    { name: 'Orange', hex: '#fa6800' },
+    { name: 'Pink', hex: '#f472d0' }
+  ];
+
   // App List Configuration
   const APPS = [
-    { id: 'aboutMe', label: 'About Me', letter: 'A', icon: <UserFolderIcon size={24} /> },
-    { id: 'experience', label: 'Work Experience', letter: 'E', icon: <BriefcaseIcon size={24} /> },
-    { id: 'fileExplorer', label: 'File Explorer', letter: 'F', icon: <FileExplorerIcon size={24} /> },
-    { id: 'help', label: 'Help & Guide', letter: 'H', icon: <HelpIconSvg size={24} /> },
+    { id: 'aboutMe', label: 'About Me', letter: 'A', icon: <MobileUserIcon size={26} /> },
+    { id: 'experience', label: 'Work Experience', letter: 'E', icon: <MobileBriefcaseIcon size={26} /> },
+    { id: 'fileExplorer', label: 'File Explorer', letter: 'F', icon: <MobileFolderIcon size={26} /> },
     ...(!isMobile ? [
-      { id: 'msdos', label: 'MS-DOS Prompt', letter: 'M', icon: <ExecutableIcon size={24} />, isSystemMode: 'msdos' },
-      { id: 'win98', label: 'Windows 98 Classic', letter: 'W', icon: <span style={{ fontSize: '20px' }}>🖥️</span>, isSwitchOS: 'win98' }
+      { id: 'msdos', label: 'MS-DOS Prompt', letter: 'M', icon: <MobileTerminalIcon size={26} />, isSystemMode: 'msdos' },
+      { id: 'win98', label: 'Windows 98 Classic', letter: 'W', icon: <MobileMonitorIcon size={26} />, isSwitchOS: 'win98' }
     ] : []),
-    { id: 'projectShowcase', label: 'Projects Showcase', letter: 'P', icon: <ProjectsFolderIcon size={24} /> },
-    { id: 'skills', label: 'Skills Properties', letter: 'S', icon: <SkillsIcon size={24} /> }
+    { id: 'displayProperties', label: 'Personalise Theme', letter: 'P', icon: <MobileSettingsIcon size={26} /> },
+    { id: 'projectShowcase', label: 'Projects Showcase', letter: 'P', icon: <MobileProjectsIcon size={26} /> },
+    { id: 'skills', label: 'Skills Properties', letter: 'S', icon: <MobileSkillsIcon size={26} /> }
   ];
 
   // Filter apps by search query
@@ -365,11 +527,9 @@ export const LumiaUI = ({ isMobile }) => {
       {/* 1. Status Bar */}
       <div className="lumia-status-bar">
         <div className="lumia-status-left">
-          <span>ıılıl</span>
-          <span>🛜</span>
         </div>
         <div className="lumia-status-right">
-          <span>87% [▮]</span>
+          <MobileBatteryIcon level={battery.level} charging={battery.charging} />
           <span>{formatClockTime(time)}</span>
         </div>
       </div>
@@ -462,7 +622,7 @@ export const LumiaUI = ({ isMobile }) => {
                         >
                           <div className="lumia-tile-inner">
                             <div className="lumia-tile-front lumia-tile-accent-bg">
-                              <div className="lumia-tile-large-icon">📄</div>
+                              <div className="lumia-tile-large-icon"><MobileUserIcon size={52} /></div>
                               <div className="lumia-tile-label">Notepad</div>
                             </div>
                             <div className="lumia-tile-back lumia-tile-accent-bg" style={{ padding: '10px', fontSize: '11px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -479,13 +639,12 @@ export const LumiaUI = ({ isMobile }) => {
                           style={{ '--accent': tileAccent }}
                         >
                           <div className="lumia-tile-inner">
-                            <div className="lumia-tile-front lumia-tile-accent-bg" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px' }}>
+                            <div className="lumia-tile-front lumia-tile-accent-bg" style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '14px 18px' }}>
+                              <MobileProjectsIcon size={44} />
                               <div>
-                                <h2 style={{ fontSize: '18px', fontWeight: 'bold' }}>Projects</h2>
-                                <p style={{ fontSize: '11px', opacity: 0.8 }}>Live Apps Showcase</p>
+                                <h2 style={{ fontSize: '18px', fontWeight: 'bold', margin: 0 }}>Projects</h2>
+                                <p style={{ fontSize: '11px', opacity: 0.85, margin: '2px 0 0 0' }}>Live Apps Showcase</p>
                               </div>
-                              <span style={{ fontSize: '28px' }}>📂</span>
-                              <div className="lumia-tile-label">Showcase</div>
                             </div>
                             <div className="lumia-tile-back lumia-tile-accent-bg" style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                               <strong style={{ fontSize: '12px', color: '#fff' }}>Featured Project:</strong>
@@ -505,7 +664,7 @@ export const LumiaUI = ({ isMobile }) => {
                         >
                           <div className="lumia-tile-inner">
                             <div className="lumia-tile-front lumia-tile-accent-bg">
-                              <div className="lumia-tile-large-icon">📊</div>
+                              <div className="lumia-tile-large-icon"><MobileSkillsIcon size={52} /></div>
                               <div className="lumia-tile-label">Skills</div>
                             </div>
                             <div className="lumia-tile-back lumia-tile-accent-bg" style={{ padding: '8px', fontSize: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -539,7 +698,7 @@ export const LumiaUI = ({ isMobile }) => {
                         >
                           <div className="lumia-tile-inner">
                             <div className="lumia-tile-front lumia-tile-accent-bg">
-                              <div className="lumia-tile-large-icon">💼</div>
+                              <div className="lumia-tile-large-icon"><MobileBriefcaseIcon size={52} /></div>
                               <div className="lumia-tile-label">Experience</div>
                             </div>
                             <div className="lumia-tile-back lumia-tile-accent-bg" style={{ padding: '10px', fontSize: '11px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -572,18 +731,18 @@ export const LumiaUI = ({ isMobile }) => {
                           onClick={() => openWindow('fileExplorer')}
                           style={{ '--accent': tileAccent }}
                         >
-                          <div className="lumia-tile-large-icon">📁</div>
+                          <div className="lumia-tile-large-icon"><MobileFolderIcon size={52} /></div>
                           <div className="lumia-tile-label">Files</div>
                         </div>
 
-                        {/* Help (2x2) */}
+                        {/* Personalise (2x2) */}
                         <div
                           className="lumia-tile lumia-tile-2x2 lumia-tile-accent-bg"
-                          onClick={() => openWindow('help')}
+                          onClick={() => openWindow('displayProperties')}
                           style={{ '--accent': tileAccent }}
                         >
-                          <div className="lumia-tile-large-icon">❓</div>
-                          <div className="lumia-tile-label">Help</div>
+                          <div className="lumia-tile-large-icon"><MobileSettingsIcon size={52} /></div>
+                          <div className="lumia-tile-label">Personalise</div>
                         </div>
 
                       </div>
@@ -673,7 +832,7 @@ export const LumiaUI = ({ isMobile }) => {
                         ) : (
                           /* Grouped list */
                           <div className="lumia-applist-groups">
-                            {['A', 'E', 'F', 'H', 'M', 'P', 'S', 'W'].map(letter => {
+                            {['A', 'E', 'F', 'M', 'P', 'S', 'W'].map(letter => {
                               const letterApps = APPS.filter(a => a.letter === letter);
                               if (letterApps.length === 0) return null;
                               return (
@@ -738,7 +897,7 @@ export const LumiaUI = ({ isMobile }) => {
                   transition={{ duration: 0.2 }}
                   className="lumia-app-page"
                 >
-                  {renderLumiaPivotApp(activeApp, pivotIndex, setPivotIndex, PROJECTS, activeProjectIdx, setActiveProjectIdx, FRONTEND_SKILLS, BACKEND_SKILLS, DEVOPS_SKILLS, ratingScore, getRatingLabel(ratingScore), ratingChecklist, handleRatingCheckbox, tileAccent, isMobile, handleBackPress, EXPERIENCES, activeExperienceIdx, setActiveExperienceIdx)}
+                  {renderLumiaPivotApp(activeApp, pivotIndex, setPivotIndex, PROJECTS, activeProjectIdx, setActiveProjectIdx, FRONTEND_SKILLS, BACKEND_SKILLS, DEVOPS_SKILLS, ratingScore, getRatingLabel(ratingScore), ratingChecklist, handleRatingCheckbox, tileAccent, isMobile, handleBackPress, EXPERIENCES, activeExperienceIdx, setActiveExperienceIdx, ACCENT_COLORS, setLumiaAccent, lumiaAccent)}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -861,7 +1020,10 @@ const renderLumiaPivotApp = (
   handleBackPress,
   EXPERIENCES,
   activeExperienceIdx,
-  setActiveExperienceIdx
+  setActiveExperienceIdx,
+  ACCENT_COLORS,
+  setLumiaAccent,
+  lumiaAccent
 ) => {
   switch (appId) {
     case 'aboutMe':
@@ -1259,6 +1421,68 @@ const renderLumiaPivotApp = (
         </div>
       );
 
+    case 'displayProperties':
+      return (
+        <div className="lumia-pivot-container">
+          <div className="lumia-pivot-header">
+            {renderSuperTitle('PERSONALISE', isMobile, handleBackPress)}
+            <div className="lumia-pivot-tabs">
+              <span className={`lumia-pivot-tab ${pivotIndex === 0 ? 'active' : ''}`} onClick={() => setPivotIndex(0)}>accent color</span>
+              <span className={`lumia-pivot-tab ${pivotIndex === 1 ? 'active' : ''}`} onClick={() => setPivotIndex(1)}>theme info</span>
+            </div>
+          </div>
+          <div className="lumia-pivot-content">
+            {pivotIndex === 0 ? (
+              <div className="lumia-notepad-app-pane">
+                <h3 style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '8px' }}>Choose Theme Accent Color:</h3>
+                <p style={{ fontSize: '12px', opacity: 0.8, marginBottom: '16px' }}>
+                  Tap any color below to customize your phone tiles and app headers.
+                </p>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', maxWidth: '340px' }}>
+                  {(ACCENT_COLORS || []).map(c => {
+                    const isSelected = (lumiaAccent || '#0050ef').toLowerCase() === c.hex.toLowerCase();
+                    return (
+                      <div
+                        key={c.hex}
+                        onClick={() => setLumiaAccent(c.hex)}
+                        style={{
+                          aspectRatio: '1',
+                          backgroundColor: c.hex,
+                          borderRadius: '4px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          border: isSelected ? '3px solid #FFFFFF' : '1px solid rgba(255,255,255,0.2)',
+                          boxShadow: isSelected ? '0 0 10px rgba(255,255,255,0.5)' : 'none',
+                          transition: 'transform 0.15s'
+                        }}
+                      >
+                        {isSelected && <span style={{ fontSize: '18px', color: '#fff', fontWeight: 'bold' }}>✓</span>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div className="lumia-notepad-app-pane">
+                <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '8px' }}>Active Accent Color</h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '12px' }}>
+                  <div style={{ width: '36px', height: '36px', backgroundColor: tileAccent, borderRadius: '4px', border: '2px solid #fff' }} />
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                      {(ACCENT_COLORS || []).find(c => c.hex.toLowerCase() === tileAccent.toLowerCase())?.name || 'Custom Accent'}
+                    </div>
+                    <div style={{ fontSize: '12px', opacity: 0.6 }}>{tileAccent}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+
     case 'help':
       return (
         <div className="lumia-pivot-container">
@@ -1280,7 +1504,7 @@ const renderLumiaPivotApp = (
                   <li><strong>Live Tiles</strong>: The boxes on the home screen flip dynamically to show real-time stats and content snippets.</li>
                   <li><strong>App List</strong>: Click the arrow at the bottom or swipe left to access the list of installed apps.</li>
                   <li><strong>Jump Alphabet</strong>: Tap on the letter box (e.g. "a") in the app list to open the quick letter jump index.</li>
-                  <li><strong>Accent Colors</strong>: The tiles inherit their accent color from your Windows 98 wallpaper settings!</li>
+                  <li><strong>Accent Colors</strong>: Customize tile accent colors in the Personalise app!</li>
                 </ul>
               </div>
             ) : (

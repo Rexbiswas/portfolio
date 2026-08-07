@@ -97,7 +97,7 @@ export const DisplayProperties = () => {
               width: '100%',
               height: '100%',
               backgroundColor: selectedType === 'color' ? selectedColor : undefined,
-              backgroundImage: selectedType === 'image' && selectedImage ? `url(${selectedImage})` : undefined,
+              backgroundImage: selectedType === 'image' ? `url(${selectedImage || '/wallpaper.jpg'})` : undefined,
               backgroundSize: selectedType === 'image' ? (
                 selectedImageMode === 'stretch' ? 'cover' : 
                 selectedImageMode === 'center' ? 'auto' : 
