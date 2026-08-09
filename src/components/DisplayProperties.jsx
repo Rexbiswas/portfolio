@@ -14,6 +14,7 @@ export const DisplayProperties = () => {
     wallpaperImage, 
     wallpaperImageMode, 
     setWallpaperSettings, 
+    resetWallpaperSettings,
     closeWindow 
   } = useStore();
 
@@ -41,6 +42,14 @@ export const DisplayProperties = () => {
       wallpaperImageMode: selectedImageMode
     });
     closeWindow('displayProperties');
+  };
+
+  const handleReset = () => {
+    resetWallpaperSettings();
+    setSelectedType('image');
+    setSelectedColor('#008080');
+    setSelectedImage('/wallpaper.jpg');
+    setSelectedImageMode('stretch');
   };
 
   const handleFileChange = (e) => {
@@ -149,7 +158,7 @@ export const DisplayProperties = () => {
                   onChange={() => setSelectedType('image')} 
                   style={{ cursor: 'pointer' }}
                 />
-                Custom Image
+                Wallpaper Image
               </label>
             </div>
           </fieldset>
@@ -189,25 +198,36 @@ export const DisplayProperties = () => {
               <legend style={{ fontSize: '11px', padding: '0 4px', color: '#000', fontWeight: 'bold' }}>Image Settings</legend>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 
-                {/* Local file upload */}
+                {/* Image Selection Buttons */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
                   <span style={{ fontSize: '11px', color: '#000' }}>
-                    {selectedImage ? '✓ Custom image loaded' : 'Select a local image file:'}
+                    {selectedImage === '/wallpaper.jpg' || !selectedImage 
+                      ? '✓ Default Wallpaper' 
+                      : '✓ Custom Image Loaded'}
                   </span>
-                  <input 
-                    type="file" 
-                    ref={fileInputRef} 
-                    accept="image/*" 
-                    onChange={handleFileChange} 
-                    style={{ display: 'none' }}
-                  />
-                  <button 
-                    className="win-control-btn" 
-                    onClick={() => fileInputRef.current?.click()} 
-                    style={{ height: '22px', minWidth: '80px', fontSize: '11px' }}
-                  >
-                    Browse...
-                  </button>
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <button 
+                      className="win-control-btn" 
+                      onClick={() => setSelectedImage('/wallpaper.jpg')} 
+                      style={{ height: '22px', padding: '0 8px', fontSize: '11px' }}
+                    >
+                      Default
+                    </button>
+                    <input 
+                      type="file" 
+                      ref={fileInputRef} 
+                      accept="image/*" 
+                      onChange={handleFileChange} 
+                      style={{ display: 'none' }}
+                    />
+                    <button 
+                      className="win-control-btn" 
+                      onClick={() => fileInputRef.current?.click()} 
+                      style={{ height: '22px', padding: '0 8px', fontSize: '11px' }}
+                    >
+                      Browse...
+                    </button>
+                  </div>
                 </div>
 
                 {/* Display Mode */}
@@ -241,10 +261,20 @@ export const DisplayProperties = () => {
       </div>
 
       {/* Footer Buttons */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '6px', marginTop: '16px' }}>
-        <button className="win-control-btn" onClick={handleOk} style={{ width: '60px', height: '22px' }}>OK</button>
-        <button className="win-control-btn" onClick={() => closeWindow('displayProperties')} style={{ width: '60px', height: '22px' }}>Cancel</button>
-        <button className="win-control-btn" onClick={handleApply} disabled={!isChanged} style={{ width: '60px', height: '22px', opacity: !isChanged ? 0.6 : 1 }}>Apply</button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
+        <button 
+          className="win-control-btn" 
+          onClick={handleReset} 
+          style={{ height: '22px', fontSize: '11px', padding: '0 8px' }}
+          title="Reset to default wallpaper"
+        >
+          Reset Default
+        </button>
+        <div style={{ display: 'flex', gap: '6px' }}>
+          <button className="win-control-btn" onClick={handleOk} style={{ width: '60px', height: '22px' }}>OK</button>
+          <button className="win-control-btn" onClick={() => closeWindow('displayProperties')} style={{ width: '60px', height: '22px' }}>Cancel</button>
+          <button className="win-control-btn" onClick={handleApply} disabled={!isChanged} style={{ width: '60px', height: '22px', opacity: !isChanged ? 0.6 : 1 }}>Apply</button>
+        </div>
       </div>
 
     </div>

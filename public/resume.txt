@@ -1,0 +1,88 @@
+====================================================================
+                         RISHI BISWAS
+                    Frontend & Web Developer
+====================================================================
+Phone: +91 - 9625065557
+Email: rexbiswas1@gmail.com
+Location: Karol Bagh, Delhi, India
+LinkedIn: linkedin.com/in/RishiBiswas
+Portfolio: portfolio/Rishi Biswas
+
+--------------------------------------------------------------------
+ABOUT ME
+--------------------------------------------------------------------
+I am a frontend developer experienced in building responsive, visually 
+engaging, and efficient web interfaces using HTML, CSS, JavaScript, and 
+modern frameworks, focused on delivering smooth user experiences and clean, 
+optimized designs.
+
+--------------------------------------------------------------------
+PROFESSIONAL EXPERIENCE
+--------------------------------------------------------------------
+Freelance Web Developer & Designer | Self-Employed | INSD
+Feb 2026 – Present
+Key Project: Responsive Web Architecture & Branding
+Live Preview: https://insd-project.vercel.app/
+Onsite Live: https://insd.edu.in/
+
+• Engineered and deployed high-performance web applications using modern 
+  JavaScript libraries including GSAP, Lenis Scroll, and Three.js to create 
+  immersive, interactive user experiences.
+• Architected robust front-end interfaces, managing hosting and seamless 
+  continuous integration via Vercel.
+• Collaborated closely with corporate stakeholders to draft Memorandums of 
+  Understanding (MoUs), gather technical requirements, and translate brand 
+  identities into polished digital solutions.
+• Optimised website performance and asset loading, achieving faster render 
+  times and superior cross-device responsiveness.
+
+--------------------------------------------------------------------
+PROJECTS
+--------------------------------------------------------------------
+1. Sneaker Website
+   Github: https://github.com/Rexbiswas/sneakerhead
+   Live Preview: https://sneakerhead-khaki.vercel.app/
+   • Built a modern e-commerce platform using React, APIs, Framer Motion, 
+     Lenis, and GSAP for smooth animations and fluid scrolling.
+   • Applied basic WebGL and Three.js concepts to create interactive 3D 
+     elements, enhancing visual engagement and overall user experience.
+
+2. Cookies Website
+   Github: https://github.com/Rexbiswas/coralcookies
+   Live Preview: https://coralcookies.vercel.app/
+   • Engineered a high-performance React webapp integrating Matter.js 
+     for 2D rigid-body physics, utilizing GSAP for complex visual timelines 
+     and Lenis for smooth-scroll synchronization.
+
+--------------------------------------------------------------------
+TECHNICAL SKILLS
+--------------------------------------------------------------------
+• Programming Languages: JavaScript, Python, R Programming, Core C++
+• Frontend Styling & UI: CSS, Responsive Design, Tailwind CSS, Bootstrap
+• JS Libraries & Frameworks: React.js, GSAP, Lenis.js, Locomotive.js
+• Backend & Server Technologies: Node.js, PHP
+• Development Tools / IDEs: VS Code, Sublime Text, Atom, PyCharm, Cursor AI
+• Database Technologies: MySQL, MongoDB
+
+--------------------------------------------------------------------
+EDUCATION
+--------------------------------------------------------------------
+• Indira Gandhi National Open University (IGNOU) | 2023-2025
+  Economics Honours (Graduate)
+  Graduate in Economics (Hons) with a strong foundation in economic 
+  principles, data analysis, and research.
+
+• CBSE | 2021-2022
+  Higher Secondary (12th)
+
+• CBSE | 2018-2021
+  Secondary (10th)
+
+--------------------------------------------------------------------
+PERSONAL INFORMATION
+--------------------------------------------------------------------
+Date of Birth: 22-11-2003
+Nationality: Indian
+Marital Status: Bachelor
+Hobbies: Cricket and Listening to music
+====================================================================

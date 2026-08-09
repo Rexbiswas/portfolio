@@ -94,17 +94,26 @@ export const useStore = create((set) => ({
   },
   startMenuOpen: false,
   wallpaperType: (() => {
-    if (!localStorage.getItem('portfolio_wallpaper_customized')) return 'image';
+    if (!localStorage.getItem('portfolio_wallpaper_customized_v2')) {
+      try {
+        localStorage.removeItem('portfolio_wallpaper_image');
+        localStorage.removeItem('portfolio_wallpaper_type');
+        localStorage.removeItem('portfolio_wallpaper_color');
+        localStorage.removeItem('portfolio_wallpaper_customized');
+      } catch (e) {}
+      return 'image';
+    }
     return localStorage.getItem('portfolio_wallpaper_type') || 'image';
   })(),
   wallpaperColor: localStorage.getItem('portfolio_wallpaper_color') || '#008080',
   wallpaperImage: (() => {
+    if (!localStorage.getItem('portfolio_wallpaper_customized_v2')) return '/wallpaper.jpg';
     const saved = localStorage.getItem('portfolio_wallpaper_image');
     return (saved && saved.trim() !== '') ? saved : '/wallpaper.jpg';
   })(),
   wallpaperImageMode: localStorage.getItem('portfolio_wallpaper_image_mode') || 'stretch',
   setWallpaperSettings: (settings) => set((state) => {
-    localStorage.setItem('portfolio_wallpaper_customized', 'true');
+    localStorage.setItem('portfolio_wallpaper_customized_v2', 'true');
     const newState = {};
     if (settings.wallpaperType !== undefined) {
       localStorage.setItem('portfolio_wallpaper_type', settings.wallpaperType);
@@ -127,6 +136,22 @@ export const useStore = create((set) => ({
       newState.wallpaperImageMode = settings.wallpaperImageMode;
     }
     return newState;
+  }),
+  resetWallpaperSettings: () => set(() => {
+    try {
+      localStorage.removeItem('portfolio_wallpaper_customized');
+      localStorage.removeItem('portfolio_wallpaper_customized_v2');
+      localStorage.removeItem('portfolio_wallpaper_type');
+      localStorage.removeItem('portfolio_wallpaper_color');
+      localStorage.removeItem('portfolio_wallpaper_image');
+      localStorage.removeItem('portfolio_wallpaper_image_mode');
+    } catch (e) {}
+    return {
+      wallpaperType: 'image',
+      wallpaperColor: '#008080',
+      wallpaperImage: '/wallpaper.jpg',
+      wallpaperImageMode: 'stretch'
+    };
   }),
   systemMode: 'normal',
   isShutdownDialogOpen: false,
@@ -152,7 +177,7 @@ export const useStore = create((set) => ({
     set((state) => {
       const newOrder = state.windowOrder.filter(wId => wId !== id);
       newOrder.push(id);
-      
+
       const newZIndices = {};
       newOrder.forEach((wId, index) => {
         newZIndices[wId] = 10 + index;
@@ -175,7 +200,7 @@ export const useStore = create((set) => ({
       const id = 'aboutMe';
       const newOrder = state.windowOrder.filter(wId => wId !== id);
       newOrder.push(id);
-      
+
       const newZIndices = {};
       newOrder.forEach((wId, index) => {
         newZIndices[wId] = 10 + index;
@@ -299,7 +324,7 @@ export const useStore = create((set) => ({
     set((state) => {
       const newOrder = state.windowOrder.filter(wId => wId !== id);
       newOrder.push(id);
-      
+
       const newZIndices = {};
       newOrder.forEach((wId, index) => {
         newZIndices[wId] = 10 + index;
@@ -319,7 +344,7 @@ export const useStore = create((set) => ({
 
   toggleStartMenu: () =>
     set((state) => ({ startMenuOpen: !state.startMenuOpen })),
-    
+
   closeStartMenu: () =>
     set({ startMenuOpen: false }),
 

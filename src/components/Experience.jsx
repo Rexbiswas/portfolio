@@ -4,44 +4,62 @@ import { DownloadIcon } from './Icons';
 
 const EXPERIENCES = [
   {
-    id: 'pixelcraft',
-    role: 'Lead Full-Stack Developer',
-    company: 'PixelCraft Studio',
-    period: 'Jan 2024 - Present',
-    location: 'Remote',
-    tech: 'React, Next.js, Node.js, Express, PostgreSQL, Redis, Docker',
+    id: 'freelance-insd',
+    role: 'Freelance Web Developer & Designer',
+    company: 'Self-Employed | INSD',
+    period: 'Feb 2026 – Present',
+    location: 'Karol Bagh, Delhi, India',
+    tech: 'JavaScript, GSAP, Lenis Scroll, Three.js, React, Vercel',
+    livePreview: 'https://insd-project.vercel.app/',
+    onsiteLive: 'https://insd.edu.in/',
     points: [
-      'Architected and deployed high-performance full-stack web applications, serving over 50,000 active monthly users.',
-      'Reduced API latency by 45% by introducing Redis caching layers, query index optimization, and database connection pooling.',
-      'Led a cross-functional team of 4 developers to build an internal dashboard, streamlining company operations and reducing support ticket response times by 30%.',
-      'Established CI/CD pipelines using GitHub Actions, reducing deployment errors and rollbacks by 80%.'
+      'Engineered and deployed high-performance web applications using modern JavaScript libraries including GSAP, Lenis Scroll, and Three.js to create immersive, interactive user experiences.',
+      'Architected robust front-end interfaces, managing hosting and seamless continuous integration via Vercel.',
+      'Collaborated closely with corporate stakeholders to draft Memorandums of Understanding (MoUs), gather technical requirements, and translate brand identities into polished digital solutions.',
+      'Optimised website performance and asset loading, achieving faster render times and superior cross-device responsiveness.'
     ]
   },
   {
-    id: 'retroweb',
-    role: 'Software Engineer',
-    company: 'RetroWeb Technologies',
-    period: 'Jun 2022 - Dec 2023',
-    location: 'Bangalore, India',
-    tech: 'JavaScript, TypeScript, React, Express, MongoDB, AWS, Git',
+    id: 'sneakerhead-proj',
+    role: 'Web Developer — Sneakerhead',
+    company: 'Personal Project',
+    period: '2024 – 2025',
+    location: 'Remote',
+    tech: 'React, REST APIs, Framer Motion, Lenis, GSAP, WebGL, Three.js',
+    github: 'https://github.com/Rexbiswas/sneakerhead',
+    livePreview: 'https://sneakerhead-khaki.vercel.app/',
     points: [
-      'Developed and integrated secure payment processing modules using Stripe API, handling $10k+ weekly transactions.',
-      'Refactored legacy React components to TypeScript and modern hooks, resulting in a 25% decrease in bundle size and improved developer velocity.',
-      'Built serverless microservices on AWS Lambda for real-time image processing and S3 storage, saving 35% in monthly hosting costs.',
-      'Collaborated closely with UX designers to implement pixel-perfect, responsive interfaces using clean CSS and animations.'
+      'Built a modern e-commerce platform using React, APIs, Framer Motion, Lenis, and GSAP for smooth animations and fluid scrolling.',
+      'Applied basic WebGL and Three.js concepts to create interactive 3D elements, enhancing visual engagement and overall user experience.',
+      'Implemented responsive catalog browsing, product details, and dynamic cart interaction flows.'
     ]
   },
   {
-    id: 'freelance',
-    role: 'Freelance Developer',
-    company: 'Self-Employed',
-    period: 'Mar 2020 - May 2022',
+    id: 'coralcookies-proj',
+    role: 'Web Developer — Coralcookies',
+    company: 'Personal Project',
+    period: '2024 – 2025',
     location: 'Remote',
-    tech: 'HTML5, CSS3, JavaScript, React, GSAP, TailwindCSS, Figma',
+    tech: 'React, Matter.js, GSAP, Lenis.js, Tailwind CSS',
+    github: 'https://github.com/Rexbiswas/coralcookies',
+    livePreview: 'https://coralcookies.vercel.app/',
     points: [
-      'Designed and coded bespoke marketing websites and portfolios for 15+ global clients, achieving high Google Lighthouse performance scores (95+).',
-      'Developed interactive dashboards and dynamic features with smooth user experiences utilizing GSAP and Framer Motion.',
-      'Managed end-to-end client relationships, scoping requirements, designing mockups, coding, and deploying final applications.'
+      'Engineered a high-performance React webapp integrating Matter.js for 2D rigid-body physics simulation.',
+      'Utilized GSAP for complex visual timelines and Lenis for smooth-scroll synchronization to deliver a seamless, interactive user experience.',
+      'Architected custom UI components and interactive canvas animations.'
+    ]
+  },
+  {
+    id: 'education-ignou',
+    role: 'Economics Honours (Graduate)',
+    company: 'Indira Gandhi National Open University (IGNOU)',
+    period: '2023 – 2025',
+    location: 'Delhi, India',
+    tech: 'Economics, Data Analysis, Analytical Thinking, Quantitative Research',
+    points: [
+      'Graduate in Economics (Hons) with a strong foundation in economic principles, data analysis, and research, capable of applying analytical thinking to real-world financial and market challenges.',
+      'CBSE Higher Secondary (12th) | 2021-2022: Completed Higher Secondary (12th) under CBSE board with a strong academic foundation.',
+      'CBSE Secondary (10th) | 2018-2021: Completed Secondary (10th) under CBSE board, building a solid foundation in core subjects.'
     ]
   }
 ];
@@ -58,7 +76,7 @@ export const Experience = () => {
         if (res.ok) {
           const a = document.createElement('a');
           a.href = '/resume.pdf';
-          a.download = 'Resume.pdf';
+          a.download = 'Rishi_Biswas_Resume.pdf';
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
@@ -73,42 +91,98 @@ export const Experience = () => {
 
   const generateFallbackResumeDownload = () => {
     const content = `====================================================================
-                       CAREER TIMELINE & RESUME
+                         RISHI BISWAS
+                    Frontend & Web Developer
 ====================================================================
-
-LEAD FULL-STACK DEVELOPER
-Portfolio Resume
+Phone: +91 - 9625065557
+Email: rexbiswas1@gmail.com
+Location: Karol Bagh, Delhi, India
+LinkedIn: linkedin.com/in/RishiBiswas
+Portfolio: portfolio/Rishi Biswas
 
 --------------------------------------------------------------------
-WORK EXPERIENCE
+ABOUT ME
 --------------------------------------------------------------------
-1. Lead Full-Stack Developer | PixelCraft Studio
-   Period: Jan 2024 - Present | Location: Remote
-   Tech Stack: React, Next.js, Node.js, Express, PostgreSQL, Redis, Docker
-   - Architected & deployed high-performance full-stack web applications for 50k+ active users.
-   - Reduced API latency by 45% using Redis caching and query index optimization.
-   - Led a cross-functional team of 4 developers to build internal operational dashboards.
-   - Established automated CI/CD pipelines via GitHub Actions.
+I am a frontend developer experienced in building responsive, visually 
+engaging, and efficient web interfaces using HTML, CSS, JavaScript, and 
+modern frameworks, focused on delivering smooth user experiences and clean, 
+optimized designs.
 
-2. Software Engineer | RetroWeb Technologies
-   Period: Jun 2022 - Dec 2023 | Location: Bangalore, India
-   Tech Stack: JavaScript, TypeScript, React, Express, MongoDB, AWS, Git
-   - Integrated Stripe API payment modules handling $10k+ weekly transactions.
-   - Refactored legacy React components to TypeScript, reducing bundle size by 25%.
-   - Built serverless microservices on AWS Lambda saving 35% in monthly hosting costs.
+--------------------------------------------------------------------
+PROFESSIONAL EXPERIENCE
+--------------------------------------------------------------------
+Freelance Web Developer & Designer | Self-Employed | INSD
+Feb 2026 – Present
+Key Project: Responsive Web Architecture & Branding
+Live Preview: https://insd-project.vercel.app/
+Onsite Live: https://insd.edu.in/
 
-3. Freelance Developer | Self-Employed
-   Period: Mar 2020 - May 2022 | Location: Remote
-   Tech Stack: HTML5, CSS3, JavaScript, React, GSAP, TailwindCSS, Figma
-   - Designed and coded bespoke marketing websites for 15+ global clients.
-   - Built interactive web tools & dynamic dashboards using GSAP and Framer Motion.
+• Engineered and deployed high-performance web applications using modern 
+  JavaScript libraries including GSAP, Lenis Scroll, and Three.js to create 
+  immersive, interactive user experiences.
+• Architected robust front-end interfaces, managing hosting and seamless 
+  continuous integration via Vercel.
+• Collaborated closely with corporate stakeholders to draft Memorandums of 
+  Understanding (MoUs), gather technical requirements, and translate brand 
+  identities into polished digital solutions.
+• Optimised website performance and asset loading, achieving faster render 
+  times and superior cross-device responsiveness.
 
+--------------------------------------------------------------------
+PROJECTS
+--------------------------------------------------------------------
+1. Sneaker Website
+   Github: https://github.com/Rexbiswas/sneakerhead
+   Live Preview: https://sneakerhead-khaki.vercel.app/
+   • Built a modern e-commerce platform using React, APIs, Framer Motion, 
+     Lenis, and GSAP for smooth animations and fluid scrolling.
+   • Applied basic WebGL and Three.js concepts to create interactive 3D 
+     elements, enhancing visual engagement and overall user experience.
+
+2. Cookies Website
+   Github: https://github.com/Rexbiswas/coralcookies
+   Live Preview: https://coralcookies.vercel.app/
+   • Engineered a high-performance React webapp integrating Matter.js 
+     for 2D rigid-body physics, utilizing GSAP for complex visual timelines 
+     and Lenis for smooth-scroll synchronization.
+
+--------------------------------------------------------------------
+TECHNICAL SKILLS
+--------------------------------------------------------------------
+• Programming Languages: JavaScript, Python, R Programming, Core C++
+• Frontend Styling & UI: CSS, Responsive Design, Tailwind CSS, Bootstrap
+• JS Libraries & Frameworks: React.js, GSAP, Lenis.js, Locomotive.js
+• Backend & Server Technologies: Node.js, PHP
+• Development Tools / IDEs: VS Code, Sublime Text, Atom, PyCharm, Cursor AI
+• Database Technologies: MySQL, MongoDB
+
+--------------------------------------------------------------------
+EDUCATION
+--------------------------------------------------------------------
+• Indira Gandhi National Open University (IGNOU) | 2023-2025
+  Economics Honours (Graduate)
+  Graduate in Economics (Hons) with a strong foundation in economic 
+  principles, data analysis, and research.
+
+• CBSE | 2021-2022
+  Higher Secondary (12th)
+
+• CBSE | 2018-2021
+  Secondary (10th)
+
+--------------------------------------------------------------------
+PERSONAL INFORMATION
+--------------------------------------------------------------------
+Date of Birth: 22-11-2003
+Nationality: Indian
+Marital Status: Bachelor
+Hobbies: Cricket and Listening to music
 ====================================================================`;
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Resume.txt';
+    a.download = 'Rishi_Biswas_Resume.txt';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -171,8 +245,23 @@ WORK EXPERIENCE
               <span>🏛️ {selectedExp.company}</span>
               <span>📅 {selectedExp.period}</span>
             </div>
-            <div style={{ fontSize: '10px', color: '#666', marginTop: '2px' }}>
-              📍 Location: {selectedExp.location}
+            <div style={{ fontSize: '10px', color: '#666', marginTop: '4px', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+              <span>📍 Location: {selectedExp.location}</span>
+              {selectedExp.livePreview && (
+                <span>
+                  🌐 Live: <a href={selectedExp.livePreview} target="_blank" rel="noopener noreferrer" style={{ color: '#0000ff' }}>{selectedExp.livePreview}</a>
+                </span>
+              )}
+              {selectedExp.onsiteLive && (
+                <span>
+                  🏢 Onsite: <a href={selectedExp.onsiteLive} target="_blank" rel="noopener noreferrer" style={{ color: '#0000ff' }}>{selectedExp.onsiteLive}</a>
+                </span>
+              )}
+              {selectedExp.github && (
+                <span>
+                  💻 GitHub: <a href={selectedExp.github} target="_blank" rel="noopener noreferrer" style={{ color: '#0000ff' }}>{selectedExp.github}</a>
+                </span>
+              )}
             </div>
           </div>
 
@@ -180,7 +269,7 @@ WORK EXPERIENCE
           <div style={{ flexGrow: 1 }}>
             {/* Tech Stack Badge Row */}
             <div style={{ marginBottom: '12px' }}>
-              <div style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#808080', marginBottom: '4px' }}>Technologies Used:</div>
+              <div style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#808080', marginBottom: '4px' }}>Technologies / Skills:</div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                 {selectedExp.tech.split(', ').map((t, idx) => (
                   <span 
@@ -202,7 +291,7 @@ WORK EXPERIENCE
 
             {/* Bullet points */}
             <div style={{ fontSize: '11px', lineHeight: '1.5' }}>
-              <div style={{ fontWeight: 'bold', marginBottom: '6px', color: '#000080' }}>Key Responsibilities & Achievements:</div>
+              <div style={{ fontWeight: 'bold', marginBottom: '6px', color: '#000080' }}>Key Highlights & Achievements:</div>
               <ul style={{ paddingLeft: '16px', margin: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {selectedExp.points.map((pt, idx) => (
                   <li key={idx} style={{ listStyleType: 'square' }}>{pt}</li>
@@ -226,3 +315,4 @@ WORK EXPERIENCE
     </div>
   );
 };
+
