@@ -173,7 +173,7 @@ export const Skills = () => {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#fff', alignItems: 'center', paddingTop: '60px', fontFamily: 'MS Sans Serif, Tahoma, sans-serif' }}>
       <img src="/firefox.svg" width={120} height={120} alt="Firefox Logo" style={{ marginBottom: '30px' }} />
       
-      <div style={{ display: 'flex', width: '500px', height: '32px', backgroundColor: '#fff', boxShadow: 'inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px #808080' }}>
+      <div style={{ display: 'flex', width: '500px', height: '34px', backgroundColor: '#fff', border: '2px solid', borderTopColor: '#808080', borderLeftColor: '#808080', borderBottomColor: '#fff', borderRightColor: '#fff' }}>
         <div style={{ padding: '0 8px', display: 'flex', alignItems: 'center' }}>
           <FxSearchIcon size={16} color="#000" />
         </div>
@@ -197,7 +197,7 @@ export const Skills = () => {
 
       <div style={{ marginTop: '30px', display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div style={{ width: '32px', height: '32px', backgroundColor: '#000080', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid', borderTopColor: '#808080', borderLeftColor: '#808080', borderBottomColor: '#fff', borderRightColor: '#fff' }}>
-          <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '16px', fontFamily: 'Arial, sans-serif' }}>M</span>
+          <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '16px', fontFamily: 'Arial, sans-serif' }}>R</span>
         </div>
         <span style={{ fontSize: '13px', color: '#000' }}>
           Welcome to my portfolio. <span onClick={() => navigate('https://portfolio.os98/skills/frontend')} style={{ color: '#0000ff', textDecoration: 'underline', cursor: 'pointer' }}>Click here to view my Frontend Skills</span> and explore!
