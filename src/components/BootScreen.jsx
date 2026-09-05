@@ -177,9 +177,7 @@ export const BootScreen = () => {
     if (effectiveOS === 'lumia') return;
 
     const handleKeyDown = (e) => {
-      if (phase === 'loader') {
-        setPhase('welcome');
-      } else if (phase === 'welcome') {
+      if (phase === 'welcome') {
         handleLogin();
       }
     };
@@ -279,7 +277,6 @@ export const BootScreen = () => {
   if (phase === 'loader') {
     return (
       <div
-        onClick={() => setPhase('welcome')}
         style={{
           width: '100vw',
           height: '100vh',
@@ -292,7 +289,6 @@ export const BootScreen = () => {
           top: 0,
           left: 0,
           zIndex: 30000,
-          cursor: 'pointer',
           userSelect: 'none',
         }}
       >

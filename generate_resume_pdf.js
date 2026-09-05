@@ -59,17 +59,24 @@ async function generatePDF() {
       const words = text.split(' ');
       let line1 = '';
       let line2 = '';
+      let line3 = '';
       for (const w of words) {
         if ((line1 + ' ' + w).length <= maxChars) {
           line1 += (line1 ? ' ' : '') + w;
-        } else {
+        } else if ((line2 + ' ' + w).length <= maxChars) {
           line2 += (line2 ? ' ' : '') + w;
+        } else {
+          line3 += (line3 ? ' ' : '') + w;
         }
       }
       page.drawText(line1, { x: margin + 20, y, size: 9, font: fontRegular, color: rgb(0.2, 0.2, 0.2) });
       y -= 12;
       if (line2) {
         page.drawText(line2, { x: margin + 20, y, size: 9, font: fontRegular, color: rgb(0.2, 0.2, 0.2) });
+        y -= 12;
+      }
+      if (line3) {
+        page.drawText(line3, { x: margin + 20, y, size: 9, font: fontRegular, color: rgb(0.2, 0.2, 0.2) });
         y -= 12;
       }
     } else {
@@ -80,15 +87,16 @@ async function generatePDF() {
 
   // Header
   addTitle('RISHI BISWAS');
-  addSubtitle('Web Developer');
+  addSubtitle('Full Stack Developer');
   addText('Phone: +91 - 9625065557  |  Email: rexbiswas1@gmail.com  |  Location: Karol Bagh, Delhi, India', 9, false, rgb(0.3, 0.3, 0.3));
-  addText('LinkedIn: linkedin.com/in/RishiBiswas  |  Portfolio: portfolio/Rishi Biswas', 9, false, rgb(0.3, 0.3, 0.3));
+  addText('LinkedIn: linkedin.com/Rishi Biswas  |  Portfolio: portfolio/Rishi Biswas', 9, false, rgb(0.3, 0.3, 0.3));
 
   // About Me
   addSectionHeader('About Me');
-  addText('I am a frontend developer experienced in building responsive, visually engaging, and efficient', 9.5);
-  addText('web interfaces using HTML, CSS, JavaScript, and modern frameworks, focused on delivering', 9.5);
-  addText('smooth user experiences and clean, optimized designs.', 9.5);
+  addText('Skilled Full-Stack Developer experienced in building responsive, high-performance web', 9.5);
+  addText('applications using React, JavaScript, Node.js, Express.js, PHP, and modern UI technologies.', 9.5);
+  addText('Proficient in MongoDB, MySQL, and SQLite, with a strong focus on scalable architecture,', 9.5);
+  addText('optimized performance, clean design, and seamless user experiences.', 9.5);
 
   // Experience
   addSectionHeader('Professional Experience');
@@ -114,30 +122,41 @@ async function generatePDF() {
   addText('Github: https://github.com/Rexbiswas/coralcookies  |  Live: https://coralcookies.vercel.app/', 8.5, false, rgb(0, 0.4, 0.8));
   addText('Engineered a high-performance React webapp integrating Matter.js for 2D rigid-body physics, utilizing GSAP', 9);
   addText('for complex visual timelines and Lenis for smooth-scroll synchronization to deliver a seamless, interactive user experience.', 9);
+  y -= 4;
+
+  addText('E-Books Library', 10, true);
+  addText('Github: https://github.com/Rexbiswas/lumora-books-library  |  Live: https://github.com/Rexbiswas/lumora-books-library', 8.5, false, rgb(0, 0.4, 0.8));
+  addText('Developed an immersive animated eBook library using Next.js, React, Tailwind CSS, GSAP, Framer Motion,', 9);
+  addText('and Three.js with interactive 3D experiences and smooth scrolling. Integrated MongoDB/Mongoose with', 9);
+  addText('Google Books and Open Library APIs for dynamic book discovery and data management.', 9);
 
   // Technical Skills
   addSectionHeader('Technical Skills');
-  addText('• Programming Languages: JavaScript, Python, R Programming, Core C++', 9);
-  addText('• Frontend Styling & UI Development: CSS, Responsive Design, Tailwind CSS, Bootstrap', 9);
-  addText('• JavaScript Libraries & Frameworks: React.js, GSAP, Lenis.js, Locomotive.js', 9);
-  addText('• Backend & Server Technologies: Node.js, PHP', 9);
+  addText('• Programming Languages: JavaScript, Python, R Programming, Core C++, HTML5, CSS3, C Programming', 9);
+  addText('• Frontend Styling & UI Development: CSS, Responsive Design, Tailwind CSS, Bootstrap, Daisy UI', 9);
+  addText('• JavaScript Libraries & Frameworks: React.js, GSAP, Lenis, Locomotive, Next.js, Howler.js, Lynx.js', 9);
+  addText('• Backend, Server Technologies & API: Node.js, PHP, Express.js, Angular.js', 9);
   addText('• Development Tools / IDEs: Visual Studio Code, Sublime Text, Atom, PyCharm, Cursor AI', 9);
-  addText('• Database Technologies: Relational databases (MySQL), NoSQL databases (MongoDB)', 9);
+  addText('• Database Technologies: Relational databases (MySQL), NoSQL databases (MongoDB, SQLite)', 9);
 
   // Education
   addSectionHeader('Education');
   addText('Indira Gandhi National Open University (IGNOU) | 2023-2025', 10, true);
-  addText('Economics Honours (Graduate)', 9, true, rgb(0.3, 0.3, 0.3));
+  addText('Economics Honours', 9, true, rgb(0.3, 0.3, 0.3));
   addText('Graduate in Economics (Hons) with a strong foundation in economic principles, data analysis, and research,', 8.5);
   addText('capable of applying analytical thinking to real-world financial and market challenges.', 8.5);
   y -= 4;
 
   addText('CBSE | 2021-2022', 10, true);
-  addText('Higher Secondary (12th) - Completed under CBSE board with strong academic foundation.', 8.5);
+  addText('Higher Secondary (12th)', 9, true, rgb(0.3, 0.3, 0.3));
+  addText('Completed Higher Secondary (12th) under the CBSE board with a strong academic', 8.5);
+  addText('foundation and developed analytical, communication, and problem-solving skills.', 8.5);
   y -= 4;
 
   addText('CBSE | 2018-2021', 10, true);
-  addText('Secondary (10th) - Completed under CBSE board building solid foundation in core subjects.', 8.5);
+  addText('Secondary (10th)', 9, true, rgb(0.3, 0.3, 0.3));
+  addText('Completed Secondary (10th) under the CBSE board, building a solid foundation in', 8.5);
+  addText('core subjects and essential academic skills.', 8.5);
 
   // Personal Info
   addSectionHeader('Personal Information');
