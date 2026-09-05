@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../store';
-import { FolderIcon, ExecutableIcon, StartLogo, FileExplorerIcon, SettingsIcon, UserFolderIcon, ProjectsFolderIcon, RetroGlobeIcon, ChevronUpIcon, SkillsIcon, ShutdownIcon, HelpIconSvg, UnpinIcon, BriefcaseIcon } from './Icons';
+import { StartLogo, ProjectsFolderIcon, SkillsIcon, BriefcaseIcon, UserFolderIcon, HelpIconSvg, ShutdownIcon, ChevronUpIcon, RetroGlobeIcon, UnpinIcon, FileExplorerIcon } from './Icons';
+import { LinkedInIcon, GmailIcon, WhatsAppIcon } from './SocialIcons';
 
 export const Taskbar = () => {
   const {
@@ -21,6 +22,7 @@ export const Taskbar = () => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [battery, setBattery] = useState({ level: 1.0, charging: true, supported: false });
   const [pinnedContextMenu, setPinnedContextMenu] = useState({ visible: false, x: 0, y: 0, appId: null });
+  const [hiddenIconsVisible, setHiddenIconsVisible] = useState(false);
 
   const getAppIcon = (id) => {
     switch (id) {
@@ -60,6 +62,7 @@ export const Taskbar = () => {
   useEffect(() => {
     const handleCloseMenu = () => {
       setPinnedContextMenu({ visible: false, x: 0, y: 0, appId: null });
+      setHiddenIconsVisible(false);
     };
     window.addEventListener('click', handleCloseMenu);
     return () => window.removeEventListener('click', handleCloseMenu);
@@ -335,11 +338,51 @@ export const Taskbar = () => {
       </div>
 
       {/* System Tray */}
-      <div className="system-tray win-border-inset">
+      <div className="system-tray win-border-inset" style={{ position: 'relative' }}>
         {/* Chevron Show Hidden Icons */}
-        <div className="tray-icon" title="Show hidden icons" style={{ opacity: 0.8 }}>
+        <div 
+          className="tray-icon" 
+          title="Show hidden icons" 
+          style={{ opacity: 0.8, cursor: 'pointer', backgroundColor: hiddenIconsVisible ? '#a0a0a0' : 'transparent' }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setHiddenIconsVisible(!hiddenIconsVisible);
+          }}
+        >
           <ChevronUpIcon size={12} />
         </div>
+
+        {/* Hidden Icons Flyout */}
+        {hiddenIconsVisible && (
+          <div 
+            className="win-border-outset"
+            style={{
+              position: 'absolute',
+              bottom: '30px',
+              left: 0,
+              backgroundColor: '#c0c0c0',
+              padding: '2px',
+              display: 'flex',
+              flexDirection: 'column',
+              zIndex: 10000,
+              boxShadow: '2px 2px 5px rgba(0,0,0,0.3)'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <a href="https://linkedin.com/in/Rishi Biswas" target="_blank" rel="noreferrer" className="start-menu-item" style={{ textDecoration: 'none', color: '#000' }}>
+              <span className="start-menu-item-icon"><LinkedInIcon size={16} /></span>
+              <span>LinkedIn</span>
+            </a>
+            <a href="mailto:rexbiswas1@gmail.com" className="start-menu-item" style={{ textDecoration: 'none', color: '#000' }}>
+              <span className="start-menu-item-icon"><GmailIcon size={16} /></span>
+              <span>Email</span>
+            </a>
+            <a href="https://wa.me/919625065557" target="_blank" rel="noreferrer" className="start-menu-item" style={{ textDecoration: 'none', color: '#000' }}>
+              <span className="start-menu-item-icon"><WhatsAppIcon size={16} /></span>
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        )}
 
         {/* Internet Connection Globe Icon (Dynamic) */}
         <div className="tray-icon" title={isOnline ? 'Internet: Connected' : 'Internet: Disconnected / Offline'}>
