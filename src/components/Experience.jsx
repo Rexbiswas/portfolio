@@ -194,15 +194,7 @@ Hobbies: Cricket and Listening to music
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
         <div style={{ fontSize: '11px', fontWeight: 'bold' }}>Career Timeline & History:</div>
-        <button 
-          className="win-control-btn"
-          onClick={handleDownloadResume}
-          title="Download Resume"
-          style={{ fontSize: '11px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}
-        >
-          <DownloadIcon size={14} color="#000" />
-          <span>Download Resume</span>
-        </button>
+
       </div>
 
       {/* Main Split Content */}

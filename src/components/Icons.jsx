@@ -389,24 +389,13 @@ export const ChevronUpIcon = ({ size = 16, color = '#111111' }) => (
 );
 
 export const SkillsIcon = ({ size = 32 }) => (
-  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Document Base (White sheet with dark border) */}
-    <rect x="5.5" y="4.5" width="21" height="23" fill="#ffffff" stroke="#000000" strokeWidth="1.5" strokeLinejoin="round" />
-    {/* Blue inner certificate border */}
-    <rect x="8" y="7" width="16" height="18" fill="none" stroke="#0a246a" strokeWidth="1.2" />
-    
-    {/* Lines representing written text/credentials */}
-    <line x1="11" y1="11" x2="21" y2="11" stroke="#808080" strokeWidth="1.5" />
-    <line x1="11" y1="15" x2="19" y2="15" stroke="#808080" strokeWidth="1.5" />
-    <line x1="11" y1="19" x2="16" y2="19" stroke="#808080" strokeWidth="1.5" />
-
-    {/* Red hanging ribbon seals */}
-    <polygon points="17,20 15,26 17,24 19,26 18,20" fill="#d41a1a" />
-    <polygon points="20,20 19,26 21,24 23,26 22,20" fill="#d41a1a" />
-
-    {/* Gold Seal of excellence */}
-    <circle cx="19" cy="19.5" r="3.5" fill="#ffcc00" stroke="#808000" strokeWidth="1" />
-  </svg>
+  <img 
+    src="/firefox.svg" 
+    alt="Browser" 
+    width={size} 
+    height={size} 
+    style={{ userSelect: 'none', pointerEvents: 'none' }} 
+  />
 );
 
 export const ShutdownIcon = ({ size = 32 }) => (
@@ -494,6 +483,84 @@ export const DownloadIcon = ({ size = 14, color = 'currentColor' }) => (
   </svg>
 );
 
+export const FxMenuIcon = ({ size = 20, color = '#666' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="6" width="18" height="2" rx="1"/>
+    <rect x="3" y="11" width="18" height="2" rx="1"/>
+    <rect x="3" y="16" width="18" height="2" rx="1"/>
+  </svg>
+);
 
+export const FxHomeIcon = ({ size = 20, color = '#666' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/>
+  </svg>
+);
+
+export const FxDownloadsIcon = ({ size = 24, color = '#737f8d' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2v2h14v-2H5z"/>
+  </svg>
+);
+
+export const FxBookmarksIcon = ({ size = 24, color = '#737f8d' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+  </svg>
+);
+
+export const FxHistoryIcon = ({ size = 24, color = '#737f8d' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14H11V7h2v9z"/>
+  </svg>
+);
+
+export const FxAddonsIcon = ({ size = 24, color = '#737f8d' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 13c-1.1 0-2-.9-2-2s.9-2 2-2V5c0-1.1-.9-2-2-2h-4c0 1.1-.9 2-2 2s-2-.9-2-2H6C4.9 3 4 3.9 4 5v4c1.1 0 2 .9 2 2s-.9 2-2 2v4c0 1.1.9 2 2 2h4c0-1.1.9-2 2-2s2 .9 2 2h4c1.1 0 2-.9 2-2v-4z"/>
+  </svg>
+);
+
+export const FxSyncIcon = ({ size = 24, color = '#737f8d' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+  </svg>
+);
+
+export const FxOptionsIcon = ({ size = 24, color = '#737f8d' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+  </svg>
+);
+
+export const FxRestoreIcon = ({ size = 24, color = '#737f8d' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+  </svg>
+);
+
+export const FxSearchIcon = ({ size = 16, color = '#666' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+  </svg>
+);
+
+export const FxForwardIcon = ({ size = 20, color = '#666' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+  </svg>
+);
+
+export const FxBackIcon = ({ size = 20, color = '#666' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+  </svg>
+);
+
+export const FxReloadIcon = ({ size = 18, color = '#666' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+  </svg>
+);
 
 

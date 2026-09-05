@@ -1,88 +1,55 @@
 ====================================================================
-                         RISHI BISWAS
-                     Full Stack Developer
+RISHI BISWAS Full Stack Developer
 ====================================================================
 Phone: +91 - 9625065557
 Email: rexbiswas1@gmail.com
 Location: Karol Bagh, Delhi, India
 LinkedIn: linkedin.com/Rishi Biswas
-Portfolio: portfolio/Rishi Biswas
 
 --------------------------------------------------------------------
 ABOUT ME
 --------------------------------------------------------------------
-Skilled Full-Stack Developer experienced in building responsive, 
-high-performance web applications using React, JavaScript, Node.js, 
-Express.js, PHP, and modern UI technologies. Proficient in MongoDB, 
-MySQL, and SQLite, with a strong focus on scalable architecture, 
-optimized performance, clean design, and seamless user experiences.
+Skilled Full-Stack Developer experienced in building responsive, high-performance web applications using React, JavaScript, Node.js, Express.js, PHP, and modern UI technologies. Proficient in MongoDB, MySQL, and SQLite, with a strong focus on scalable architecture, optimized performance, clean design, and seamless user experiences.
 
 --------------------------------------------------------------------
 EDUCATION
 --------------------------------------------------------------------
 • Indira Gandhi National Open University | 2023-2025
-  Economics Honours
-  Graduate in Economics (Hons) with a strong foundation in economic 
-  principles, data analysis, and research, capable of applying 
-  analytical thinking to real-world financial and market challenges.
+Economics Honours Graduate in Economics (Hons) with a strong foundation in economic principles, data analysis, and research, capable of applying analytical thinking to real-world financial and market challenges.
 
 • CBSE | 2021-2022
-  Higher Secondary (12th)
-  Completed Higher Secondary (12th) under the CBSE board with a strong 
-  academic foundation and developed analytical, communication, and 
-  problem-solving skills.
+Higher Secondary (12th) Completed Higher Secondary (12th) under the CBSE board with a strong academic foundation and developed analytical, communication, and problem-solving skills.
 
 • CBSE | 2018-2021
-  Secondary (10th)
-  Completed Secondary (10th) under the CBSE board, building a solid 
-  foundation in core subjects and essential academic skills.
+Secondary (10th) Completed Secondary (10th) under the CBSE board, building a solid foundation in core subjects and essential academic skills.
 
 --------------------------------------------------------------------
 PROFESSIONAL EXPERIENCE
 --------------------------------------------------------------------
-Freelance Web Developer & Designer | Self-Employed | INSD
-Key Project: Responsive Web Architecture & Branding | Feb 2026 – Present
+Freelance Web Developer & Designer | Self-Employed | INSD Key Project: Responsive Web Architecture & Branding | Feb 2026 – Present
 Live Preview: https://insd-project.vercel.app/
 Onsite Live: https://insd.edu.in/
 
-• Engineered and deployed high-performance web applications using modern 
-  JavaScript libraries including GSAP, Lenis Scroll, and Three.js to 
-  create immersive, interactive user experiences.
-• Architected robust front-end interfaces, managing hosting and seamless 
-  continuous integration via Vercel.
-• Collaborated closely with corporate stakeholders to draft Memorandums 
-  of Understanding (MoUs), gather technical requirements, and translate 
-  brand identities into polished digital solutions.
-• Optimised website performance and asset loading, achieving faster 
-  render times and superior cross-device responsiveness.
+• Engineered and deployed high-performance web applications using modern
+JavaScript libraries including GSAP, Lenis Scroll, and Three.js to create immersive, interactive user experiences.
+• Architected robust front-end interfaces, managing hosting and seamless
+continuous integration via Vercel.
+• Collaborated closely with corporate stakeholders to draft Memorandums
+of Understanding (MoUs), gather technical requirements, and translate brand identities into polished digital solutions.
+• Optimised website performance and asset loading, achieving faster
+render times and superior cross-device responsiveness.
 
 --------------------------------------------------------------------
 PROJECTS
 --------------------------------------------------------------------
 1. Sneaker Website
-   Github: https://github.com/Rexbiswas/sneakerhead
-   Live Preview: https://sneakerhead-khaki.vercel.app/
-   • Built a modern e-commerce platform using React, APIs, Framer Motion, 
-     Lenis, and GSAP for smooth animations and fluid scrolling.
-   • Applied basic WebGL and Three.js concepts to create interactive 3D 
-     elements, enhancing visual engagement and overall user experience.
+Github: https://github.com/Rexbiswas/sneakerhead Live Preview: https://sneakerhead-khaki.vercel.app/ • Built a modern e-commerce platform using React, APIs, Framer Motion, Lenis, and GSAP for smooth animations and fluid scrolling. • Applied basic WebGL and Three.js concepts to create interactive 3D elements, enhancing visual engagement and overall user experience.
 
 2. Cookies Website
-   Github: https://github.com/Rexbiswas/coralcookies
-   Live Preview: https://coralcookies.vercel.app/
-   • Engineered a high-performance React webapp integrating Matter.js for 
-     2D rigid-body physics, utilizing GSAP for complex visual timelines 
-     and Lenis for smooth-scroll synchronization to deliver a seamless, 
-     interactive user experience.
+Github: https://github.com/Rexbiswas/coralcookies Live Preview: https://coralcookies.vercel.app/ • Engineered a high-performance React webapp integrating Matter.js for 2D rigid-body physics, utilizing GSAP for complex visual timelines and Lenis for smooth-scroll synchronization to deliver a seamless, interactive user experience.
 
 3. E-Books Library
-   Github: https://github.com/Rexbiswas/lumora-books-library
-   Live Preview: https://github.com/Rexbiswas/lumora-books-library
-   • Developed an immersive animated eBook library using Next.js, React, 
-     Tailwind CSS, GSAP, Framer Motion, and Three.js with interactive 3D 
-     experiences and smooth scrolling.
-   • Integrated MongoDB/Mongoose with Google Books and Open Library APIs 
-     for dynamic book discovery and data management.
+Github: https://github.com/Rexbiswas/lumora-books-library Live Preview: https://github.com/Rexbiswas/lumora-books-library • Developed an immersive animated eBook library using Next.js, React, Tailwind CSS, GSAP, Framer Motion, and Three.js with interactive 3D experiences and smooth scrolling. • Integrated MongoDB/Mongoose with Google Books and Open Library APIs for dynamic book discovery and data management.
 
 --------------------------------------------------------------------
 TECHNICAL SKILLS

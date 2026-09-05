@@ -10,6 +10,7 @@ import { DisplayProperties } from './DisplayProperties';
 import { Skills } from './Skills';
 import { Help } from './Help';
 import { Experience } from './Experience';
+import { ResumeViewer } from './ResumeViewer';
 
 const DesktopIcon = ({
   icon,
@@ -40,6 +41,9 @@ const DesktopIcon = ({
       dragMomentum={false}
       dragElastic={0.05}
       style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
         x,
         y,
         width: iconSize === 64 ? '110px' : iconSize === 32 ? '76px' : '92px',
@@ -98,12 +102,22 @@ export const Desktop = () => {
   const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, type: 'desktop', targetId: null });
   const [draggedIcon, setDraggedIcon] = useState(null);
 
+  const defaultPositions = {
+    fileExplorer: { x: 0, y: 0 },
+    resume: { x: 100, y: 0 },
+    projectShowcase: { x: 0, y: 100 },
+    skills: { x: 0, y: 200 },
+    experience: { x: 0, y: 300 },
+    aboutMe: { x: 0, y: 400 },
+  };
+
   const [iconPositions, setIconPositions] = useState(() => {
     try {
       const saved = localStorage.getItem('portfolio_desktop_icon_positions');
-      return saved ? JSON.parse(saved) : {};
+      const parsed = saved ? JSON.parse(saved) : {};
+      return { ...defaultPositions, ...parsed };
     } catch (e) {
-      return {};
+      return defaultPositions;
     }
   });
 
@@ -152,6 +166,12 @@ export const Desktop = () => {
       label: 'File Explorer',
       icon: <FileExplorerIcon size={32} />,
       action: () => openWindow('fileExplorer'),
+    },
+    {
+      id: 'resume',
+      label: 'Resume',
+      icon: <img src="/resume-icon.png" style={{ width: '100%', height: '100%', objectFit: 'contain', mixBlendMode: 'multiply' }} alt="Resume" />,
+      action: () => openWindow('resume'),
     },
     {
       id: 'projectShowcase',
@@ -452,6 +472,22 @@ export const Desktop = () => {
         }
       >
         <AboutMe />
+      </RetroWindow>
+
+      {/* Resume Window */}
+      <RetroWindow
+        id="resume"
+        title={windows.resume.title}
+        isOpen={windows.resume.isOpen}
+        isMinimized={windows.resume.isMinimized}
+        isMaximized={windows.resume.isMaximized}
+        defaultX={windows.resume.x}
+        defaultY={windows.resume.y}
+        width={windows.resume.width}
+        height={windows.resume.height}
+        icon={<FileTextIcon size={14} />}
+      >
+        <ResumeViewer />
       </RetroWindow>
 
       {/* Display Properties Window */}
