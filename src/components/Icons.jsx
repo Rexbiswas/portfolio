@@ -102,6 +102,306 @@ export const FileTextIcon = ({ size = 32 }) => (
   </svg>
 );
 
+export const NotepadIcon = ({ size = 32, className = '', ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    style={{ overflow: 'visible' }}
+    {...props}
+  >
+    <defs>
+      {/* 3D Drop Shadow */}
+      <filter id="npShadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0.6" dy="1.4" stdDeviation="0.9" floodColor="#000000" floodOpacity="0.38" />
+      </filter>
+
+      {/* Cyan/Blue Front Cover Gradient */}
+      <linearGradient id="npCoverGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#C8F1FE" />
+        <stop offset="22%" stopColor="#87DBFA" />
+        <stop offset="65%" stopColor="#38A9E8" />
+        <stop offset="100%" stopColor="#1B77BC" />
+      </linearGradient>
+
+      {/* Cover Glossy Sheen Highlight */}
+      <linearGradient id="npCoverSheen" x1="0" y1="0" x2="0.85" y2="1">
+        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.75" />
+        <stop offset="35%" stopColor="#FFFFFF" stopOpacity="0.2" />
+        <stop offset="70%" stopColor="#FFFFFF" stopOpacity="0" />
+      </linearGradient>
+
+      {/* Paper Pages Stack Face */}
+      <linearGradient id="npPagesGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FFFFFF" />
+        <stop offset="100%" stopColor="#EDF2F7" />
+      </linearGradient>
+
+      {/* Paper Bottom Edge 3D Thickness */}
+      <linearGradient id="npPageEdgeBottom" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#E2E8F0" />
+        <stop offset="50%" stopColor="#CBD5E1" />
+        <stop offset="100%" stopColor="#8896A8" />
+      </linearGradient>
+
+      {/* Paper Right Edge 3D Thickness */}
+      <linearGradient id="npPageEdgeRight" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stopColor="#CBD5E1" />
+        <stop offset="100%" stopColor="#94A3B8" />
+      </linearGradient>
+
+      {/* Pencil Golden Body */}
+      <linearGradient id="npPencilWood" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stopColor="#FFE082" />
+        <stop offset="35%" stopColor="#FFB300" />
+        <stop offset="75%" stopColor="#FFA000" />
+        <stop offset="100%" stopColor="#D97706" />
+      </linearGradient>
+
+      {/* Pencil Metal Ferrule */}
+      <linearGradient id="npFerruleGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stopColor="#FFFFFF" />
+        <stop offset="30%" stopColor="#E0E0E0" />
+        <stop offset="70%" stopColor="#BDBDBD" />
+        <stop offset="100%" stopColor="#757575" />
+      </linearGradient>
+
+      {/* Pencil Pink Eraser */}
+      <linearGradient id="npEraserGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stopColor="#FF85A2" />
+        <stop offset="40%" stopColor="#F06292" />
+        <stop offset="100%" stopColor="#C2185B" />
+      </linearGradient>
+
+      {/* Spiral Wire Metallic Gradient */}
+      <linearGradient id="npWireGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FFFFFF" />
+        <stop offset="50%" stopColor="#CBD5E1" />
+        <stop offset="100%" stopColor="#475569" />
+      </linearGradient>
+    </defs>
+
+    <g filter="url(#npShadow)">
+      {/* 1. PAPER STACK 3D EDGES (Bottom and Right Depth) */}
+      {/* Bottom paper stack depth face */}
+      <polygon
+        points="3.2,23.8 3.2,25.8 22.2,29.4 22.2,27.4"
+        fill="url(#npPageEdgeBottom)"
+        stroke="#8896A8"
+        strokeWidth="0.4"
+        strokeLinejoin="round"
+      />
+      {/* Right paper stack depth face */}
+      <polygon
+        points="22.2,27.4 22.2,29.4 24.8,8.2 24.0,7.0"
+        fill="url(#npPageEdgeRight)"
+        stroke="#8896A8"
+        strokeWidth="0.4"
+        strokeLinejoin="round"
+      />
+      {/* Stack sheet lines (striations indicating multiple paper pages) */}
+      <line x1="3.5" y1="24.8" x2="22.0" y2="28.4" stroke="#FFFFFF" strokeWidth="0.35" opacity="0.8" />
+      <line x1="3.5" y1="25.3" x2="22.0" y2="28.9" stroke="#94A3B8" strokeWidth="0.35" />
+      <line x1="22.6" y1="28.8" x2="24.4" y2="8.8" stroke="#FFFFFF" strokeWidth="0.35" opacity="0.7" />
+
+      {/* 2. MAIN WHITE NOTEPAD PAPER PAD (Full sheet visible beneath cover) */}
+      <path
+        d="M 6.8 4.8 
+           L 23.8 6.8 
+           L 22.2 27.4 
+           L 3.2 23.8 
+           Z"
+        fill="url(#npPagesGrad)"
+        stroke="#CBD5E1"
+        strokeWidth="0.5"
+      />
+
+      {/* Perforated / Serrated Bottom Tear Edge of Paper */}
+      <path
+        d="M 3.2 23.8 
+           L 4.5 24.1 L 5.0 23.7 L 6.5 24.2 L 7.0 23.8 
+           L 8.5 24.3 L 9.0 23.9 L 10.5 24.4 L 11.0 24.0 
+           L 12.5 24.5 L 13.0 24.1 L 14.5 24.6 L 15.0 24.2 
+           L 16.5 24.7 L 17.0 24.3 L 18.5 24.8 L 19.0 24.4 
+           L 20.5 24.9 L 21.0 24.5 L 22.2 27.4"
+        stroke="#94A3B8"
+        strokeWidth="0.4"
+        fill="none"
+      />
+
+      {/* Faint blue ruled lines on notepad paper (visible at bottom peek) */}
+      <line x1="4.2" y1="21.5" x2="21.0" y2="24.8" stroke="#BFDBFE" strokeWidth="0.5" opacity="0.85" />
+      <line x1="4.8" y1="23.0" x2="21.5" y2="26.3" stroke="#BFDBFE" strokeWidth="0.5" opacity="0.85" />
+
+      {/* 3. VIBRANT BLUE NOTEPAD COVER */}
+      {/* Main Cover Body */}
+      <path
+        d="M 6.5 4.8 
+           L 22.5 6.6 
+           L 20.2 22.8 
+           L 3.8 19.8 
+           Z"
+        fill="url(#npCoverGrad)"
+        stroke="#1565C0"
+        strokeWidth="0.6"
+        strokeLinejoin="round"
+      />
+
+      {/* Cover Bottom Serration/Perforated edge */}
+      <path
+        d="M 3.8 19.8 
+           L 5.0 20.1 L 5.5 19.7 L 7.0 20.2 L 7.5 19.8 
+           L 9.0 20.3 L 9.5 19.9 L 11.0 20.4 L 11.5 20.0 
+           L 13.0 20.5 L 13.5 20.1 L 15.0 20.6 L 15.5 20.2 
+           L 17.0 20.7 L 17.5 20.3 L 19.0 20.8 L 19.5 20.4 
+           L 20.2 22.8"
+        stroke="#0D47A1"
+        strokeWidth="0.4"
+        fill="none"
+      />
+
+      {/* Cover Left & Top Crisp Bevel Highlights */}
+      <path
+        d="M 3.9 19.7 L 6.6 4.9 L 22.3 6.7"
+        stroke="#FFFFFF"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.9"
+      />
+
+      {/* Diagonal Sleek Glassy Sheen / Reflection on Cover */}
+      <path
+        d="M 6.6 5.0 
+           L 15.5 6.0 
+           L 10.5 20.5 
+           L 4.2 19.5 
+           Z"
+        fill="url(#npCoverSheen)"
+      />
+
+      {/* Cover Punch Holes along top edge */}
+      <ellipse cx="8.5" cy="5.2" rx="0.85" ry="0.55" fill="#0D3554" />
+      <ellipse cx="11.2" cy="5.5" rx="0.85" ry="0.55" fill="#0D3554" />
+      <ellipse cx="13.9" cy="5.8" rx="0.85" ry="0.55" fill="#0D3554" />
+      <ellipse cx="16.6" cy="6.1" rx="0.85" ry="0.55" fill="#0D3554" />
+      <ellipse cx="19.3" cy="6.4" rx="0.85" ry="0.55" fill="#0D3554" />
+      <ellipse cx="21.8" cy="6.7" rx="0.85" ry="0.55" fill="#0D3554" />
+
+      {/* 4. SPIRAL WIRE RINGS (Coils) */}
+      {[
+        { x: 8.5, y: 5.2 },
+        { x: 11.2, y: 5.5 },
+        { x: 13.9, y: 5.8 },
+        { x: 16.6, y: 6.1 },
+        { x: 19.3, y: 6.4 },
+        { x: 21.8, y: 6.7 }
+      ].map((coil, idx) => (
+        <g key={idx}>
+          {/* Dark wire base / shadow */}
+          <path
+            d={`M ${coil.x - 0.7} ${coil.y - 0.8} 
+               C ${coil.x - 0.7} ${coil.y - 2.8} ${coil.x + 0.7} ${coil.y - 2.8} ${coil.x + 0.7} ${coil.y - 0.6}
+               L ${coil.x + 0.2} ${coil.y + 0.2}`}
+            stroke="#1E293B"
+            strokeWidth="1.1"
+            strokeLinecap="round"
+            fill="none"
+          />
+          {/* Metallic wire highlight */}
+          <path
+            d={`M ${coil.x - 0.6} ${coil.y - 0.9} 
+               C ${coil.x - 0.6} ${coil.y - 2.6} ${coil.x + 0.6} ${coil.y - 2.6} ${coil.x + 0.6} ${coil.y - 0.7}
+               L ${coil.x + 0.2} ${coil.y}`}
+            stroke="url(#npWireGrad)"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            fill="none"
+          />
+          {/* Tiny wire reflection glint */}
+          <circle cx={coil.x} cy={coil.y - 2.2} r="0.3" fill="#FFFFFF" />
+        </g>
+      ))}
+
+      {/* 5. THE CLASSIC RETRO PENCIL (Standing along right edge) */}
+      {/* Pencil Drop Shadow onto notepad */}
+      <path
+        d="M 23.6 7.5 L 23.6 26.5 L 24.4 26.5 L 24.4 7.5 Z"
+        fill="#000000"
+        opacity="0.3"
+      />
+
+      {/* Pink Eraser */}
+      <path
+        d="M 24.2 7.0 
+           L 24.2 4.8 
+           C 24.2 4.2 26.4 4.2 26.4 4.8 
+           L 26.4 7.0 
+           Z"
+        fill="url(#npEraserGrad)"
+        stroke="#880E4F"
+        strokeWidth="0.4"
+      />
+      {/* Eraser highlight glint */}
+      <line x1="24.6" y1="4.9" x2="24.6" y2="6.6" stroke="#FFFFFF" strokeWidth="0.35" opacity="0.8" />
+
+      {/* Metal Ferrule (Collar) */}
+      <rect
+        x="24.1"
+        y="7.0"
+        width="2.4"
+        height="2.3"
+        fill="url(#npFerruleGrad)"
+        stroke="#455A64"
+        strokeWidth="0.4"
+      />
+      {/* Ferrule engraved crimp lines */}
+      <line x1="24.2" y1="7.7" x2="26.4" y2="7.7" stroke="#37474F" strokeWidth="0.3" />
+      <line x1="24.2" y1="8.4" x2="26.4" y2="8.4" stroke="#37474F" strokeWidth="0.3" />
+      {/* Ferrule light reflection */}
+      <line x1="24.5" y1="7.1" x2="24.5" y2="9.2" stroke="#FFFFFF" strokeWidth="0.35" opacity="0.9" />
+
+      {/* Hexagonal Yellow Wood Pencil Shaft */}
+      <rect
+        x="24.1"
+        y="9.3"
+        width="2.4"
+        height="14.2"
+        fill="url(#npPencilWood)"
+        stroke="#78350F"
+        strokeWidth="0.4"
+      />
+      {/* Pencil Shaft Facet Dividers */}
+      <line x1="24.9" y1="9.3" x2="24.9" y2="23.5" stroke="#FFFFFF" strokeWidth="0.35" opacity="0.65" />
+      <line x1="25.7" y1="9.3" x2="25.7" y2="23.5" stroke="#78350F" strokeWidth="0.3" opacity="0.6" />
+
+      {/* Sharpened Cedar Wood Cone Tip */}
+      <polygon
+        points="24.1,23.5 26.5,23.5 25.3,26.6"
+        fill="#FFE0B2"
+        stroke="#8D6E63"
+        strokeWidth="0.35"
+      />
+      {/* Cedar wood scalloped collar */}
+      <path
+        d="M 24.1 23.5 C 24.5 23.8 24.9 23.8 25.3 23.5 C 25.7 23.8 26.1 23.8 26.5 23.5"
+        stroke="#D7CCC8"
+        strokeWidth="0.3"
+        fill="none"
+      />
+
+      {/* Graphite Lead Point */}
+      <polygon
+        points="24.9,25.6 25.7,25.6 25.3,27.2"
+        fill="#1E293B"
+      />
+    </g>
+  </svg>
+);
+
 export const ContactBotIcon = ({ size = 32 }) => (
   <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
     {/* Robot / Agent head */}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../store';
-import { StartLogo, ProjectsFolderIcon, SkillsIcon, BriefcaseIcon, UserFolderIcon, HelpIconSvg, ShutdownIcon, ChevronUpIcon, RetroGlobeIcon, UnpinIcon, FileExplorerIcon } from './Icons';
+import { StartLogo, ProjectsFolderIcon, SkillsIcon, BriefcaseIcon, UserFolderIcon, HelpIconSvg, ShutdownIcon, ChevronUpIcon, RetroGlobeIcon, UnpinIcon, FileExplorerIcon, NotepadIcon, FolderIcon } from './Icons';
 import { LinkedInIcon, GmailIcon, WhatsAppIcon } from './SocialIcons';
 
 export const Taskbar = () => {
@@ -32,6 +32,7 @@ export const Taskbar = () => {
       case 'experience': return <BriefcaseIcon size={16} />;
       case 'aboutMe': return <UserFolderIcon size={16} />;
       case 'help': return <HelpIconSvg size={16} />;
+      case 'resume': return <NotepadIcon size={16} />;
       default: return <FolderIcon size={16} />;
     }
   };
@@ -44,6 +45,7 @@ export const Taskbar = () => {
       case 'experience': return 'Work Experience';
       case 'aboutMe': return 'About Me';
       case 'help': return 'Help';
+      case 'resume': return 'Resume.txt - Notepad';
       default: return 'App';
     }
   };
@@ -187,14 +189,14 @@ export const Taskbar = () => {
           <div className="start-menu-profile">
             <div className="profile-avatar" style={{ overflow: 'hidden' }}>
               <img
-                src="https://media.licdn.com/dms/image/v2/D5603AQEgxQwX4tWhvw/profile-displayphoto-shrink_400_400/B56ZbxSlyxHUAo-/0/1747804906002?e=1786579200&v=beta&t=xkiG9qFojxe8yvkzzIJCJMxuQSk9wwhJugO5J7fNgMU"
+                src="https://ik.imagekit.io/c4aufc4vx/rishi_biswas_full_stack.jpg"
                 alt="Rishi Biswas"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
             <div className="profile-info">
-              <div className="profile-name">rishi biswas</div>
-              <div className="profile-title">fullstack developer</div>
+              <div className="profile-name">Rishi Biswas</div>
+              <div className="profile-title">Fullstack Developer</div>
             </div>
           </div>
           <div className="start-menu-items">

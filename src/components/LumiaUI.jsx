@@ -600,7 +600,7 @@ export const LumiaUI = ({ isMobile }) => {
                           <div className="lumia-tile-inner">
                             <div className="lumia-tile-front lumia-me-tile-front">
                               <img
-                                src="https://media.licdn.com/dms/image/v2/D5603AQEgxQwX4tWhvw/profile-displayphoto-shrink_400_400/B56ZbxSlyxHUAo-/0/1747804906002?e=1786579200&v=beta&t=xkiG9qFojxe8yvkzzIJCJMxuQSk9wwhJugO5J7fNgMU"
+                                src="https://ik.imagekit.io/c4aufc4vx/rishi_biswas_full_stack.jpg"
                                 alt="Rishi"
                               />
                               <div className="lumia-tile-label">Me</div>

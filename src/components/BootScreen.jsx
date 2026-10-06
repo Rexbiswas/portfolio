@@ -304,8 +304,8 @@ export const BootScreen = () => {
                 <span style={{ fontSize: '42px', fontWeight: 'bold', fontFamily: 'Arial, sans-serif', lineHeight: '1', letterSpacing: '-0.5px' }}>
                   Portfolio
                 </span>
-                <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#FF6A00', fontFamily: 'Arial, sans-serif', marginLeft: '3px' }}>
-                  98
+                <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#FF6A00', fontFamily: 'Arial, sans-serif', marginLeft: '6px' }}>
+                  retro
                 </span>
               </div>
             </div>
@@ -324,7 +324,7 @@ export const BootScreen = () => {
 
         {/* Bottom Right Text */}
         <div style={{ position: 'absolute', bottom: '24px', right: '32px', color: '#ffffff', fontFamily: 'Arial, sans-serif', fontSize: '14px', fontWeight: 'bold', letterSpacing: '0.5px' }}>
-          Portfolio OS 98
+          Portfolio retro
         </div>
       </div>
     );
@@ -397,8 +397,8 @@ export const BootScreen = () => {
                   <span style={{ fontSize: '38px', fontWeight: 'bold', fontFamily: 'Arial, sans-serif', lineHeight: '1' }}>
                     Portfolio
                   </span>
-                  <span style={{ fontSize: '22px', fontWeight: 'bold', color: '#FF6A00', marginLeft: '2px' }}>
-                    98
+                  <span style={{ fontSize: '22px', fontWeight: 'bold', color: '#FF6A00', marginLeft: '5px' }}>
+                    retro
                   </span>
                 </div>
               </div>
@@ -454,7 +454,7 @@ export const BootScreen = () => {
                 }}
               >
                 <img
-                  src="https://media.licdn.com/dms/image/v2/D5603AQEgxQwX4tWhvw/profile-displayphoto-shrink_400_400/B56ZbxSlyxHUAo-/0/1747804906002?e=1786579200&v=beta&t=xkiG9qFojxe8yvkzzIJCJMxuQSk9wwhJugO5J7fNgMU"
+                  src="https://ik.imagekit.io/c4aufc4vx/rishi_biswas_full_stack.jpg"
                   alt="Rishi Biswas"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   onError={(e) => {
@@ -496,7 +496,7 @@ export const BootScreen = () => {
         {/* Bottom Left: OS System Tag */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#4CAF50', display: 'inline-block' }} />
-          <span style={{ fontWeight: 'bold', opacity: 0.9 }}>Portfolio OS 98 Ready</span>
+          <span style={{ fontWeight: 'bold', opacity: 0.9 }}>Portfolio retro Ready</span>
         </div>
 
         {/* Bottom Right: Tagline */}

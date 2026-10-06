@@ -4,7 +4,7 @@ import { useStore } from '../store';
 import { RetroWindow } from './RetroWindow';
 import { FileExplorer } from './FileExplorer';
 import { ProjectShowcase } from './ProjectShowcase';
-import { FolderIcon, ExecutableIcon, SettingsIcon, ContactBotIcon, HelpIconSvg, UserFolderIcon, FileExplorerIcon, FileTextIcon, ProjectsFolderIcon, RetroGlobeIcon, SkillsIcon, PinIcon, UnpinIcon, BriefcaseIcon } from './Icons';
+import { FolderIcon, ExecutableIcon, SettingsIcon, ContactBotIcon, HelpIconSvg, UserFolderIcon, FileExplorerIcon, FileTextIcon, ProjectsFolderIcon, RetroGlobeIcon, SkillsIcon, PinIcon, UnpinIcon, BriefcaseIcon, NotepadIcon } from './Icons';
 import { AboutMe } from './AboutMe';
 import { DisplayProperties } from './DisplayProperties';
 import { Skills } from './Skills';
@@ -83,7 +83,9 @@ const DesktopIcon = ({
           height: `${iconSize}px`,
         }}
       >
-        {icon.icon}
+        {React.isValidElement(icon.icon)
+          ? React.cloneElement(icon.icon, { size: iconSize })
+          : icon.icon}
       </div>
       <div
         className="desktop-icon-text"
@@ -170,7 +172,7 @@ export const Desktop = () => {
     {
       id: 'resume',
       label: 'Resume',
-      icon: <img src="/resume-icon.png" style={{ width: '100%', height: '100%', objectFit: 'contain', mixBlendMode: 'multiply' }} alt="Resume" />,
+      icon: <NotepadIcon size={32} />,
       action: () => openWindow('resume'),
     },
     {
@@ -485,7 +487,7 @@ export const Desktop = () => {
         defaultY={windows.resume.y}
         width={windows.resume.width}
         height={windows.resume.height}
-        icon={<FileTextIcon size={14} />}
+        icon={<NotepadIcon size={14} />}
       >
         <ResumeViewer />
       </RetroWindow>

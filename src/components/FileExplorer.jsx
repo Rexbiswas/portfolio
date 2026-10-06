@@ -25,7 +25,17 @@ const INITIAL_FS = {
             children: {
               'Desktop': { type: 'dir', label: 'Desktop', children: {} },
               'Downloads': { type: 'dir', label: 'Downloads', children: {} },
-              'Pictures': { type: 'dir', label: 'Pictures', children: {} },
+              'Pictures': {
+                type: 'dir',
+                label: 'Pictures',
+                children: {
+                  'rishi_biswas_full_stack.jpg': {
+                    type: 'file',
+                    isImage: true,
+                    content: 'https://ik.imagekit.io/c4aufc4vx/rishi_biswas_full_stack.jpg'
+                  }
+                }
+              },
               'Skills': {
                 type: 'dir',
                 label: 'Skills',
